@@ -7,8 +7,8 @@ LifeOS relies on an early enumeration phase to learn what hardware is present. T
    - Query the processor for feature flags, supported instruction sets, and core counts.
    - Measure available physical memory using firmware-provided tables or probing techniques.
 2. **Bus scanning**
-   - Enumerate devices on common buses such as PCI or platform-specific interconnects.
-   - Record how many PCI devices respond to aid later driver loading.
+  - Enumerate devices on common buses such as PCI or platform-specific interconnects.
+  - Record how many PCI devices respond and capture their class codes to aid later driver loading.
 3. **Storage and peripheral cataloging**
    - Detect block devices, input peripherals, and communication interfaces.
    - Record device capacities and any unique attributes required by the driver model.

@@ -17,6 +17,15 @@ static inline uint32_t pci_config_read(uint8_t bus, uint8_t dev,
 }
 
 /*
+ * Return the class code for a device on the given bus/device/function.
+ */
+static inline uint8_t hal_pci_class_code(uint8_t bus, uint8_t dev,
+                                         uint8_t func) {
+    uint32_t data = pci_config_read(bus, dev, func, 8);
+    return (data >> 24) & 0xFF;
+}
+
+/*
  * hal_pci_device_count enumerates bus 0 using the standard I/O ports
  * and returns the number of functions that respond with a valid
  * vendor ID.

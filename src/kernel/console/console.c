@@ -81,6 +81,12 @@ void console_write_dec(unsigned long value) {
         console_putc(buf[i]);
 }
 
+void console_write_hex8(uint8_t value) {
+    static const char hex[] = "0123456789ABCDEF";
+    console_putc(hex[(value >> 4) & 0xF]);
+    console_putc(hex[value & 0xF]);
+}
+
 void console_init(void) {
     console_clear();
 }

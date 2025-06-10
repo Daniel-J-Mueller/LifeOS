@@ -13,7 +13,18 @@ static struct compute_inventory system_inventory;
 void inventory_gather(void) {
     system_inventory.cpu_cores = hal_cpu_core_count();
     system_inventory.memory_bytes = hal_memory_size();
-    system_inventory.pci_devices = hal_pci_device_count();
+    system_inventory.pci_devices = 0;
+    for (uint8_t dev = 0; dev < 32; dev++) {
+        for (uint8_t func = 0; func < 8; func++) {
+            uint32_t data = pci_config_read(0, dev, func, 0);
+            if ((data & 0xFFFF) != 0xFFFF) {
+                uint8_t class = hal_pci_class_code(0, dev, func);
+                if (system_inventory.pci_devices < MAX_INVENTORY_PCI)
+                    system_inventory.pci_class[system_inventory.pci_devices] = class;
+                system_inventory.pci_devices++;
+            }
+        }
+    }
 }
 
 struct compute_inventory *inventory_get(void) {

@@ -1,6 +1,7 @@
-- [ ] Add support for enumerating PCI device class codes
 - [ ] Detect and iterate multiple PCI buses
 - [ ] Create unit test to verify compute inventory output
+- [ ] Store subclass codes for each PCI device
+- [ ] Map PCI class codes to human-readable names in info output
 - [ ] Create ACPI table parser stub for power management
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks

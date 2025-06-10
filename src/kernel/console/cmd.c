@@ -21,6 +21,11 @@ static void show_info(void) {
     console_write_dec(inv->memory_bytes);
     console_write("\nPCI devices: ");
     console_write_dec(inv->pci_devices);
+    console_write("\nClass codes:");
+    for (unsigned int i = 0; i < inv->pci_devices && i < MAX_INVENTORY_PCI; ++i) {
+        console_write(" 0x");
+        console_write_hex8(inv->pci_class[i]);
+    }
     console_write("\n");
 }
 
