@@ -1,9 +1,9 @@
 LifeOS x86_64 Transition
 =======================
 
-LifeOS currently boots a 32-bit kernel. Moving to a 64-bit environment will
-allow larger address spaces and easier integration with modern tools. The
-migration will proceed in stages:
+LifeOS now boots a 64-bit kernel. Migrating to the new architecture required
+enabling long mode in the bootloader and rewriting the early assembly stubs.
+The remaining work will continue in stages:
 
 1. **Bootloader upgrade** – extend the existing bootloader to enable long mode
    after loading the kernel. This requires building identity mapped page tables

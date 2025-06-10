@@ -8,12 +8,12 @@ mkdir -p build
 nasm -f bin src/boot/bootloader.asm -o build/bootloader.bin
 
 # Assemble kernel entry stub
-nasm -f elf32 src/kernel/entry.asm -o build/entry.o
+nasm -f elf64 src/kernel/entry.asm -o build/entry.o
 
 # Compile kernel sources
-GCC=i686-linux-gnu-gcc
-LD=i686-linux-gnu-ld
-CFLAGS="-m32 -ffreestanding -Wall -Wextra -fno-pie -fno-stack-protector"
+GCC=x86_64-linux-gnu-gcc
+LD=x86_64-linux-gnu-ld
+CFLAGS="-m64 -ffreestanding -Wall -Wextra -fno-pie -fno-stack-protector"
 
 $GCC $CFLAGS -c src/kernel/main.c -o build/main.o
 $GCC $CFLAGS -c src/kernel/init.c -o build/init.o
@@ -30,10 +30,10 @@ $GCC $CFLAGS -c src/kernel/sched/sched.c -o build/sched.o
 $GCC $CFLAGS -c src/kernel/driver/driver.c -o build/driver.o
 $GCC $CFLAGS -c src/kernel/syscall/syscall.c -o build/syscall.o
 $GCC $CFLAGS -c src/drivers/keyboard/keyboard.c -o build/keyboard.o
-nasm -f elf32 src/kernel/sched/context_switch.asm -o build/context_switch.o
+nasm -f elf64 src/kernel/sched/context_switch.asm -o build/context_switch.o
 
 # Link kernel binary
-$LD -m elf_i386 -nostdlib -T src/kernel/linker.ld \
+$LD -m elf_x86_64 -nostdlib -T src/kernel/linker.ld \
     build/entry.o build/init.o build/main.o \
     build/mm.o build/console.o build/shell.o build/cmd.o build/power.o build/acpi.o build/string.o build/inventory.o build/pci_classes.o build/sched.o build/driver.o build/syscall.o build/keyboard.o build/context_switch.o \
     -o build/kernel.bin

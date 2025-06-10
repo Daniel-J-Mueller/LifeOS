@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 struct task {
-    uint32_t *sp;           /* Saved stack pointer */
+    uint64_t *sp;           /* Saved stack pointer */
     struct task *next;      /* Next task in run queue */
 };
 
