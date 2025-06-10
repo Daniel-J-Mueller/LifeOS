@@ -30,6 +30,7 @@ void inventory_gather(void) {
                     uint8_t class = hal_pci_class_code(bus, dev, func);
                     uint8_t subclass = hal_pci_subclass_code(bus, dev, func);
                     if (system_inventory.pci_devices < MAX_INVENTORY_PCI) {
+                        system_inventory.pci_bus[system_inventory.pci_devices] = bus;
                         system_inventory.pci_class[system_inventory.pci_devices] = class;
                         system_inventory.pci_subclass[system_inventory.pci_devices] = subclass;
                     }

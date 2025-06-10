@@ -19,6 +19,7 @@ struct compute_inventory {
     unsigned int cpu_cores;     /* number of detected CPU cores */
     unsigned long memory_bytes; /* total system memory in bytes */
     unsigned int pci_devices;   /* count of devices found on the PCI bus */
+    uint8_t pci_bus[MAX_INVENTORY_PCI];     /* bus number for each device */
     uint8_t pci_class[MAX_INVENTORY_PCI];    /* class code of each discovered device */
     uint8_t pci_subclass[MAX_INVENTORY_PCI]; /* subclass code of each device */
 };
@@ -27,8 +28,8 @@ struct compute_inventory {
 Bus enumeration scans every PCI bus during initialization. Each
 possible device and function on buses `0` through `255` is probed and
 counted when the vendor ID register does not return `0xFFFF`.
-Both the class and subclass codes of detected devices are recorded for
-later use by driver modules.
+The bus number along with the class and subclass codes of detected
+devices are recorded for later use by driver modules.
 
 The interactive shell provides an `info` command which dumps the
 current contents of this structure so developers can verify detected

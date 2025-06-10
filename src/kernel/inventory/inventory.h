@@ -9,6 +9,7 @@ struct compute_inventory {
     unsigned int cpu_cores;
     unsigned long memory_bytes;
     unsigned int pci_devices;
+    uint8_t pci_bus[MAX_INVENTORY_PCI];
     uint8_t pci_class[MAX_INVENTORY_PCI];
     uint8_t pci_subclass[MAX_INVENTORY_PCI];
 };
