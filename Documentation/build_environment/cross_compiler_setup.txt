@@ -4,9 +4,10 @@ Cross Compiler Setup
 LifeOS uses cross-compilation to produce binaries for multiple targets. The
 `scripts/setup_toolchain.sh` helper installs a minimal set of packages for
 building 32-bit and 64-bit x86 images. Some systems with multiarch enabled may
-attempt to pull in i386 variants of the cross packages which lack the required
-libraries. The script forces installation of the native `amd64` packages to
-avoid this issue.
+attempt to pull in `i386` variants of the cross packages which lack the required
+libraries. The script prefers the native `amd64` packages and falls back to the
+default names when necessary so the setup works across different Ubuntu
+releases.
 
 Run the following from the repository root:
 
