@@ -1,0 +1,28 @@
+Kernel Entry Stub
+=================
+
+This document outlines the very first steps executed by the LifeOS kernel after
+being loaded by the bootloader. The kernel is built as a flat binary that begins
+executing at physical address ``0x1000`` while the processor is still in real
+mode.
+
+1. **Real mode handoff**
+   - The bootloader jumps to the kernel entry point at ``0x1000`` with interrupts
+     disabled.
+   - A minimal Global Descriptor Table (GDT) is loaded so the processor can
+     switch to protected mode.
+
+2. **Switch to protected mode**
+   - The PE bit in ``CR0`` is set and a far jump is performed to activate
+     32-bit mode.
+   - Segment registers are initialized to point at the flat code and data
+     selectors created in the GDT.
+   - A temporary stack is created so higher level initialization can continue.
+
+3. **Transfer to `kmain`**
+   - Once in protected mode, control passes to the ``kmain`` symbol which will
+     perform the rest of the kernel initialization.
+
+At this stage ``kmain`` simply returns and the processor halts in an infinite
+loop. Future tasks will expand ``kmain`` to set up memory management structures
+and other subsystems.
