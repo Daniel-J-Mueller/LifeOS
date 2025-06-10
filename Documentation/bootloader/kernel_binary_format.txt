@@ -9,7 +9,7 @@ loaded into memory.
 Requirements for the image:
 
 - Code must be position‑independent within the loaded memory range.
- - The bootloader currently loads 16 sectors (8 KiB) starting at the second sector
+ - The bootloader currently loads 32 sectors (16 KiB) starting at the second sector
     of the boot device to address `0x0000:0x1000` (physical `0x1000`).
  - The kernel should not rely on being relocated and must assume long mode is
     already active when control is transferred.
