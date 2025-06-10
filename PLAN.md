@@ -1,8 +1,8 @@
-- [ ] Research and outline overall architecture and component responsibilities
-- [ ] Document architecture breakdown within `Documentation/architecture`
 - [ ] Draft boot process flow describing each initialization stage
 - [ ] Plan compute inventory mechanism to gather hardware and I/O details during startup
 - [ ] Document hardware inventory process in `Documentation/boot_sequence`
+- [ ] Detail memory manager design within `Documentation/architecture`
+- [ ] Outline HAL interface expectations in `Documentation/architecture`
 - [ ] Set up minimal build environment with cross-compilation tools and emulator
 - [ ] Create bootloader skeleton to load the kernel
 - [ ] Implement kernel initialization with memory management stubs

@@ -1,0 +1,38 @@
+LifeOS Subsystem Responsibilities
+================================
+
+This document details the primary duties assigned to each major component of the operating system. The breakdown clarifies how modules interact and where responsibilities begin and end.
+
+Bootloader
+----------
+- Establish CPU state and configure basic memory mappings.
+- Load the kernel image from storage into memory.
+- Provide a small diagnostic interface for early boot errors.
+
+Kernel Core
+-----------
+- Coordinate initialization of all subsystems once control passes from the bootloader.
+- Manage memory allocation and page tables through the memory manager.
+- Launch the initial task scheduler and spawn system tasks.
+
+Hardware Abstraction Layer (HAL)
+--------------------------------
+- Offer uniform access routines for timers, interrupts, and low-level devices.
+- Hide architectural differences so drivers can interact with hardware consistently.
+
+Device Drivers
+--------------
+- Implement direct support for disks, network interfaces, and other peripherals.
+- Report discovered hardware details to the compute inventory service.
+
+Console Interface
+-----------------
+- Provide a minimal command shell for user input and status output.
+- Expose diagnostics produced during boot and from running services.
+
+External Intelligence Hooks
+---------------------------
+- Serve as optional interfaces to external frameworks that supply advanced reasoning or management capabilities.
+- Allow integration without modifying core kernel code.
+
+Each subsystem publishes clearly defined APIs so that higher layers can remain decoupled from implementation details. This modular approach lets LifeOS grow while keeping the initial build simple to understand and maintain.
