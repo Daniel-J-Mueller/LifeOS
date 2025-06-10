@@ -1,8 +1,8 @@
 PCI Bus Enumeration
 ===================
 
-The compute inventory service performs a small PCI scan on bus `0`. It
-counts how many functions respond and records each device's class code.
+The compute inventory service performs a PCI scan across all buses (0–255).
+It counts how many functions respond and records each device's class code.
 Access to configuration space is provided through the HAL. The
 implementation writes a 32‑bit address to port `0xCF8` and then reads the
 resulting value from `0xCFC`.
