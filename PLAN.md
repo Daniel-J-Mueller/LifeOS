@@ -1,6 +1,6 @@
-- [ ] Establish device driver model and initial drivers
-- [ ] Define driver initialization order within the kernel
 - [ ] Implement keyboard input handling for console
+- [ ] Integrate keyboard driver with console input
+- [ ] Document driver initialization sequence
 - [ ] Build simple command parser for console
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory

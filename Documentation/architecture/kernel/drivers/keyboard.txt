@@ -1,0 +1,8 @@
+Keyboard Driver
+===============
+
+The keyboard driver implements a minimal PS/2 poller. During initialization it
+simply registers itself with the driver model. `keyboard_read_char()` may be
+polled by the console or other subsystems to obtain a typed character. The
+current implementation translates a limited set of scancodes into ASCII and does
+not handle modifier keys.

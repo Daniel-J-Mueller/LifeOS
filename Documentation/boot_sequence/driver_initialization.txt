@@ -1,0 +1,12 @@
+Driver Initialization Sequence
+==============================
+
+Once core memory management and the scheduler are ready, built-in device drivers
+are registered. Each driver provides a small structure to the driver model which
+records its name and an initialization callback. The driver model maintains a
+list in the order that drivers register. During `kernel_init` the kernel calls
+`driver_init_all()` which iterates over the list and invokes each driver's init
+function in sequence.
+
+This predictable ordering ensures that devices come online before higher level
+subsystems rely on them.

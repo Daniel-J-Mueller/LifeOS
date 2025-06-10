@@ -1,4 +1,31 @@
 Driver Model Overview
 =====================
 
-Device drivers provide support for hardware peripherals. LifeOS exposes a small initialization API so drivers can register themselves and interact with the kernel through well-defined calls.
+Device drivers provide support for hardware peripherals. LifeOS exposes a small
+initialization API so drivers can register themselves and interact with the
+kernel through well-defined calls.
+
+Registration
+------------
+
+Drivers are described with a simple structure containing a name and an
+initialization callback:
+
+```
+struct driver {
+    const char *name;
+    void (*init)(void);
+    struct driver *next;
+};
+```
+
+Each driver calls `driver_register()` to add itself to a global list. After all
+devices are registered, `driver_init_all()` walks the list in the order of
+registration and invokes each `init` callback.
+
+Early Drivers
+-------------
+
+The first built-in driver is a stub PS/2 keyboard handler. It polls the
+keyboard controller for scancodes and translates a small subset into ASCII
+characters. More sophisticated drivers can be added following the same pattern.

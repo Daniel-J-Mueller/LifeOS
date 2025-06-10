@@ -3,6 +3,8 @@
 #include "inventory/inventory.h"
 #include "console/console.h"
 #include "sched/sched.h"
+#include "driver/driver.h"
+#include "../drivers/keyboard/keyboard.h"
 
 /*
  * kernel_init performs early setup of core subsystems.
@@ -14,5 +16,10 @@ void kernel_init(void) {
     console_init();
     console_write("LifeOS initialized\n");
     sched_init();
+
+    /* Register built-in drivers */
+    keyboard_register();
+    driver_init_all();
+
     /* Other subsystem init calls will follow */
 }
