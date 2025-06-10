@@ -6,6 +6,7 @@ The kernel coordinates all core services of LifeOS. Subdirectories describe its 
 - `memory_management` — allocates and maps system memory.
 - `scheduler` — chooses which tasks execute and when.
 - `driver_model` — standard interface for hardware drivers.
+- `compute_inventory` — records hardware capabilities discovered at boot.
 
 The C function `kmain` acts as the high-level entry point after the assembly
 stub switches the processor to protected mode.

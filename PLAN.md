@@ -1,5 +1,6 @@
-- [ ] Integrate compute inventory gathering into the initialization sequence
 - [ ] Provide a minimalist console interface for user interaction
+- [ ] Implement stub CPU detection logic for compute inventory
+- [ ] Add placeholder memory size detection in HAL
 - [ ] Plan integration hooks for external intelligence frameworks
 - [ ] Develop memory management subsystem
 - [ ] Design and implement basic task scheduler
@@ -9,5 +10,4 @@
 - [ ] Define driver initialization order within the kernel
 - [ ] Document console interface commands and expected behavior
 - [ ] Outline basic system call interface for user tasks
-- [ ] Create initial compute inventory data structure specification
 - [ ] Create build script to produce bootable image
