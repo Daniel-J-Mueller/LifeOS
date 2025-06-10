@@ -1,0 +1,14 @@
+Console Commands
+================
+
+The console currently supports a very small set of commands to assist
+with early debugging. Commands are entered at a prompt and executed
+immediately.
+
+Supported commands:
+
+- `help`  : Display a list of available commands.
+- `clear` : Clear the screen of all text.
+
+Additional commands will appear as the command parser and subsystems
+evolve.
