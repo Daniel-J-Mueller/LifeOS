@@ -5,5 +5,7 @@ Top-level sections include:
 - `architecture` – overall design and subsystem breakdowns.
 - `boot_sequence` – steps executed when LifeOS starts.
 - `build_environment` – how to install toolchains and run the emulator.
+- `bootloader` – design details for the bootloader implementation.
+- `source_layout.txt` – explanation of the source code tree.
 
 Subdirectories may contain deeper folders to document specific subsystems in greater detail.

@@ -6,4 +6,13 @@ The project is built from the ground up with a focus on careful planning before 
 
 Design documents live under the `Documentation` directory. The `scripts` folder contains utilities for setting up the build environment. Run `sudo ./scripts/setup_toolchain.sh` to install the cross compiler and emulator packages required for development.
 
-Implementation code will be added as the project progresses.
+Implementation code lives under the `src` directory. The layout mirrors the OS
+components described in the architecture documentation:
+
+- `src/boot`   contains the bootloader.
+- `src/kernel` holds the kernel and its subsystems.
+- `src/hal`    houses the hardware abstraction layer.
+- `src/drivers` stores device drivers.
+
+Refer to `Documentation/source_layout.txt` for a full description of the source
+tree.
