@@ -1,0 +1,2 @@
+This directory houses the design and implementation documents for LifeOS.
+Each subdirectory describes a major component or system of the operating system.

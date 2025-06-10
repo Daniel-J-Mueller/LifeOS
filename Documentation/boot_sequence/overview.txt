@@ -1,0 +1,11 @@
+Boot Sequence Overview
+======================
+
+This document outlines the expected order of operations when LifeOS starts.
+Key stages:
+
+1. Firmware hands control to the bootloader.
+2. Bootloader prepares the environment and loads the kernel.
+3. Kernel sets up essential subsystems such as memory management and scheduler.
+4. A compute inventory is gathered to understand available hardware and I/O.
+5. Console and external interfaces are initialized.
