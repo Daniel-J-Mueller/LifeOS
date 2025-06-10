@@ -1,7 +1,8 @@
-- [ ] Implement keyboard input handling for console
 - [ ] Integrate keyboard driver with console input
 - [ ] Document driver initialization sequence
 - [ ] Build simple command parser for console
+- [ ] Handle backspace in console input
+- [ ] Create interactive shell using command parser
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Begin design of a simple file system layer

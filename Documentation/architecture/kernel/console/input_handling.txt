@@ -1,0 +1,8 @@
+The console manages keyboard input using a simple ring buffer. Each call to
+`console_poll_input()` queries the keyboard driver for a new character. If a
+character is available it is stored in the buffer provided space remains.
+
+Kernel components can retrieve typed characters using `console_getc()`. The
+function returns `0` when the buffer is empty. No line editing is performed at
+this stage; higher layers are expected to build command processing on top of
+these primitives.
