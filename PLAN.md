@@ -1,14 +1,11 @@
-- [ ] Implement stub CPU detection logic for compute inventory
-- [ ] Add placeholder memory size detection in HAL
 - [ ] Plan integration hooks for external intelligence frameworks
 - [ ] Develop memory management subsystem
 - [ ] Design and implement basic task scheduler
 - [ ] Establish device driver model and initial drivers
-- [ ] Document boot sequence, memory management, and HMI expectations
-- [ ] Specify bootloader error handling strategy
 - [ ] Define driver initialization order within the kernel
-- [ ] Document console interface commands and expected behavior
 - [ ] Implement keyboard input handling for console
 - [ ] Build simple command parser for console
 - [ ] Outline basic system call interface for user tasks
 - [ ] Create build script to produce bootable image
+- [ ] Implement bus enumeration in compute inventory
+- [ ] Begin design of a simple file system layer

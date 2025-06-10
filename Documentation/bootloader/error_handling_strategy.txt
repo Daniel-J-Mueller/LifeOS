@@ -1,0 +1,7 @@
+Bootloader Error Handling Strategy
+=================================
+
+The initial bootloader performs minimal checks while loading the kernel.
+If a disk read fails or the kernel image is invalid, execution halts and
+an error message is printed. Future revisions will extend this strategy
+with retry attempts and more descriptive diagnostics to aid debugging.

@@ -8,4 +8,9 @@ The Hardware Abstraction Layer (HAL) standardizes interactions with low-level de
 - **Interrupt delivery**: route hardware interrupts to the kernel dispatcher regardless of the underlying controller design.
 - **Timing services**: offer a consistent timebase for schedulers and drivers.
 
+The HAL also exposes helper routines for detecting processor features and
+measuring available memory. Early implementations simply query CPUID for
+the number of cores and return a fixed memory size until more advanced
+detection is added.
+
 By encapsulating these tasks, the HAL enables LifeOS to run on different architectures with minimal changes outside of the HAL implementation itself.

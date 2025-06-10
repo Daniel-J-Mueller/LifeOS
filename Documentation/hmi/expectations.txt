@@ -1,0 +1,14 @@
+HMI Expectations
+================
+
+Early revisions of LifeOS rely on a simple text console for all
+interaction. Input is gathered from a keyboard device while output
+is written to the VGA text buffer. The user can expect the following
+capabilities:
+
+- Visible boot messages during system startup.
+- A console prompt ready to accept simple commands.
+- Minimal visual clutter with focus on status information.
+
+As additional devices and graphical interfaces are introduced,
+this document will expand to cover their behavior and configuration.

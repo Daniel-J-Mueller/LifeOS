@@ -1,4 +1,6 @@
 #include "inventory.h"
+#include "../../hal/cpu.h"
+#include "../../hal/memory.h"
 
 /*
  * Gathers basic CPU and memory information.
@@ -8,8 +10,8 @@
 static struct compute_inventory system_inventory;
 
 void inventory_gather(void) {
-    system_inventory.cpu_cores = 1; /* TODO: detect actual CPU cores */
-    system_inventory.memory_bytes = 64UL * 1024 * 1024; /* TODO: detect RAM */
+    system_inventory.cpu_cores = hal_cpu_core_count();
+    system_inventory.memory_bytes = hal_memory_size();
 }
 
 struct compute_inventory *inventory_get(void) {

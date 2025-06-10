@@ -1,0 +1,6 @@
+Human Machine Interface (HMI)
+============================
+
+LifeOS interacts with users primarily through text-based consoles.
+The HMI layer describes input devices, output displays, and how
+higher level components present information to human operators.

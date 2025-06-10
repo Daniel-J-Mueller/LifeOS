@@ -5,6 +5,10 @@ The compute inventory service collects details about the hardware
 available at boot time. Other subsystems query this information to
 adjust their behavior or load appropriate drivers.
 
+CPU core counts are obtained through the HAL using the CPUID
+instruction when available. Physical memory size is currently
+retrieved from a HAL stub that returns a fixed value.
+
 Data Structure
 --------------
 
