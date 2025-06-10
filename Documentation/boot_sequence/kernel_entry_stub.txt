@@ -12,9 +12,9 @@ mode.
    - A minimal Global Descriptor Table (GDT) is loaded so the processor can
      switch to protected mode.
 
-2. **Switch to protected mode**
-   - The PE bit in ``CR0`` is set and a far jump is performed to activate
-     32-bit mode.
+2. **Switch to long mode**
+   - The PE bit in ``CR0`` is set and paging structures are prepared so the
+     processor can enter 64-bit mode.
    - Segment registers are initialized to point at the flat code and data
      selectors created in the GDT.
    - A temporary stack is created so higher level initialization can continue.

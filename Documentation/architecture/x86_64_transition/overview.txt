@@ -1,0 +1,18 @@
+LifeOS x86_64 Transition
+=======================
+
+LifeOS currently boots a 32-bit kernel. Moving to a 64-bit environment will
+allow larger address spaces and easier integration with modern tools. The
+migration will proceed in stages:
+
+1. **Bootloader upgrade** – extend the existing bootloader to enable long mode
+   after loading the kernel. This requires building identity mapped page tables
+   and updating the GDT for 64-bit code segments.
+2. **Kernel entry rewrite** – provide a new assembly stub that switches from real
+   mode to long mode before calling `kmain`.
+3. **64-bit build scripts** – update `build_image.sh` to compile the kernel with
+   `x86_64-linux-gnu-gcc` and link using `ld` for the `elf_x86_64` format.
+4. **Source updates** – audit all assembly files for 32-bit instructions and
+   convert them to their 64-bit equivalents.
+5. **Testing** – once a minimal boot is functional, update unit tests and
+   documentation to reflect the new architecture.
