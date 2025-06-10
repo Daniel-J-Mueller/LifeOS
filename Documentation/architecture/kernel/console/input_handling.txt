@@ -3,9 +3,9 @@ The console manages keyboard input using a simple ring buffer. Each call to
 character is available it is stored in the buffer provided space remains.
 
 Kernel components can retrieve typed characters using `console_getc()`. The
-function returns `0` when the buffer is empty. No line editing is performed at
-this stage; higher layers are expected to build command processing on top of
-these primitives.
+function returns `0` when the buffer is empty. Basic line editing is provided:
+pressing backspace removes the most recently queued character. More advanced
+editing will be handled by higher layers.
 
 The kernel's idle task calls `console_poll_input()` on every loop
 iteration to ensure keystrokes are collected even when no other tasks

@@ -41,6 +41,14 @@ void console_putc(char c) {
         cursor_x = 0;
         if (++cursor_y >= VGA_ROWS)
             cursor_y = 0;
+    } else if (c == '\b') {
+        if (cursor_x > 0) {
+            cursor_x--;
+        } else if (cursor_y > 0) {
+            cursor_y--;
+            cursor_x = VGA_COLS - 1;
+        }
+        vga_buffer[cursor_y * VGA_COLS + cursor_x] = ((uint16_t)vga_color << 8) | ' ';
     } else {
         vga_buffer[cursor_y * VGA_COLS + cursor_x] = ((uint16_t)vga_color << 8) | c;
         if (++cursor_x >= VGA_COLS) {
@@ -66,10 +74,19 @@ void console_poll_input(void) {
     char c = keyboard_read_char();
     if (!c)
         return;
-    unsigned int next_head = (input_head + 1) % INPUT_BUF_SIZE;
-    if (next_head != input_tail) {
-        input_buf[input_head] = c;
-        input_head = next_head;
+    if (c == '\b') {
+        if (input_head != input_tail) {
+            if (input_head == 0)
+                input_head = INPUT_BUF_SIZE - 1;
+            else
+                input_head--;
+        }
+    } else {
+        unsigned int next_head = (input_head + 1) % INPUT_BUF_SIZE;
+        if (next_head != input_tail) {
+            input_buf[input_head] = c;
+            input_head = next_head;
+        }
     }
 }
 

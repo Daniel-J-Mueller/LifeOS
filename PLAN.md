@@ -1,4 +1,3 @@
-- [ ] Handle backspace in console input
 - [ ] Create interactive shell using command parser
 - [ ] Add `info` command to display compute inventory
 - [ ] Implement command history in the interactive shell
