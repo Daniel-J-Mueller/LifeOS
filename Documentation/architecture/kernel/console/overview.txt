@@ -1,0 +1,7 @@
+Console Interface
+=================
+
+The console provides simple text I/O using the VGA text mode buffer. It is
+initialized during `kernel_init` and offers basic routines to write characters or
+strings to the screen. Early versions support a single screen with automatic
+cursor updates.
