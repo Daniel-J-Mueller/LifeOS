@@ -1,13 +1,16 @@
 PCI Bus Enumeration
 ===================
 
-The compute inventory service performs a very small PCI scan to count
-how many devices exist on bus `0`. Access to configuration space is
-provided through the HAL. The implementation writes a 32‑bit address to
-port `0xCF8` and then reads the resulting value from `0xCFC`.
+The compute inventory service performs a small PCI scan on bus `0`. It
+counts how many functions respond and records each device's class code.
+Access to configuration space is provided through the HAL. The
+implementation writes a 32‑bit address to port `0xCF8` and then reads the
+resulting value from `0xCFC`.
 
 For each possible device (0–31) and function (0–7) combination the
 vendor ID field is read. If it is not `0xFFFF` the function is
-considered present and contributes to the device count. The scan is
-performed during early kernel initialization and the total is stored in
-`compute_inventory.pci_devices`.
+considered present and contributes to the device count. When a device is
+found the byte at offset `0x0B` of its configuration header is captured
+as the class code and stored sequentially in `compute_inventory.pci_class`.
+The scan is performed during early kernel initialization and the totals
+are stored in the global inventory structure.

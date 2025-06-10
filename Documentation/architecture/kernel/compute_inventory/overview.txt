@@ -19,6 +19,7 @@ struct compute_inventory {
     unsigned int cpu_cores;     /* number of detected CPU cores */
     unsigned long memory_bytes; /* total system memory in bytes */
     unsigned int pci_devices;   /* count of devices found on the PCI bus */
+    uint8_t pci_class[MAX_INVENTORY_PCI]; /* class code of each discovered device */
 };
 ```
 
