@@ -1,9 +1,16 @@
 Compute Inventory
 =================
 
-During initialization, the kernel queries connected hardware to build an
-inventory of available compute resources and I/O capabilities. This includes
-CPU features, memory size, storage devices, and peripheral interfaces.
+LifeOS relies on an early enumeration phase to learn what hardware is present. The kernel exposes a compute inventory service that performs the following steps:
 
-The inventory guides configuration of drivers and system services, ensuring that
-each component is aware of what resources exist and how best to utilize them.
+1. **CPU and memory discovery**
+   - Query the processor for feature flags, supported instruction sets, and core counts.
+   - Measure available physical memory using firmware-provided tables or probing techniques.
+2. **Bus scanning**
+   - Enumerate devices on common buses such as PCI or platform-specific interconnects.
+   - Collect identifiers and configuration spaces so appropriate drivers can be loaded later.
+3. **Storage and peripheral cataloging**
+   - Detect block devices, input peripherals, and communication interfaces.
+   - Record device capacities and any unique attributes required by the driver model.
+
+All gathered information is stored in a structured table accessible by other subsystems. By centralizing discovery, the boot process remains consistent across platforms and the OS can adapt to differing hardware capabilities.

@@ -1,8 +1,3 @@
-- [ ] Draft boot process flow describing each initialization stage
-- [ ] Plan compute inventory mechanism to gather hardware and I/O details during startup
-- [ ] Document hardware inventory process in `Documentation/boot_sequence`
-- [ ] Detail memory manager design within `Documentation/architecture`
-- [ ] Outline HAL interface expectations in `Documentation/architecture`
 - [ ] Set up minimal build environment with cross-compilation tools and emulator
 - [ ] Create bootloader skeleton to load the kernel
 - [ ] Implement kernel initialization with memory management stubs
@@ -13,3 +8,8 @@
 - [ ] Design and implement basic task scheduler
 - [ ] Establish device driver model and initial drivers
 - [ ] Document boot sequence, memory management, and HMI expectations
+- [ ] Specify bootloader error handling strategy
+- [ ] Define driver initialization order within the kernel
+- [ ] Document console interface commands and expected behavior
+- [ ] Outline basic system call interface for user tasks
+- [ ] Create initial compute inventory data structure specification
