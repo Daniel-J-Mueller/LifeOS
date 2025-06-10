@@ -87,8 +87,11 @@ long_mode_start:
     mov ss, ax
     mov rsp, 0x90000
 
-    ; Transfer control to the kernel
-    jmp 0x1000
+    ; Transfer control to the kernel. A near jump would be relative to RIP
+    ; in long mode, so load the absolute address of the kernel entry into
+    ; a register and jump via that register.
+    mov rax, 0x1000
+    jmp rax
 
 disk_error:
     mov si, err_msg
