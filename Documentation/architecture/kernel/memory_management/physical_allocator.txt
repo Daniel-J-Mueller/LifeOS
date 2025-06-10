@@ -1,4 +1,8 @@
 Physical Allocator
 =================
 
-The physical allocator maintains a bitmap of available memory frames. It is responsible for reserving and releasing pages that back higher level allocators.
+The physical allocator maintains free pages of memory for the rest of the kernel. In the
+initial implementation a very small "bump" allocator is used. Pages are handed
+out sequentially starting just after the kernel image. Freeing pages is not yet
+supported, but the interface will eventually evolve into a bitmap based manager
+as described in future tasks.

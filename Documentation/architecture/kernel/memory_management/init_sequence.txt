@@ -2,6 +2,10 @@ Memory Management Initialization
 ===============================
 
 The early kernel calls `mm_init` during `kernel_init` to prepare the
-memory manager. The routine is currently a stub but will eventually
-create page tables and initialize allocation structures so higher
-layers can request memory safely.
+memory manager. `mm_init` now sets the starting address for the physical
+page allocator based on the end of the kernel image. Each call to
+`page_alloc` returns a 4&nbsp;KiB page and advances this pointer.
+
+Future revisions will create page tables and more robust allocation
+structures so higher layers can request memory safely and free pages
+when they are no longer needed.
