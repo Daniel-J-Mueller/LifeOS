@@ -11,5 +11,6 @@ to reboot the machine. The console `restart` command exposes this
 functionality to the user.
 
 `kernel_shutdown()` writes to the ACPI power management registers to
-power down the system. This is triggered by the new `shutdown` command
-in the interactive shell.
+power down the system.  An early stub ACPI parser initializes during
+boot and will eventually supply the exact register addresses.  The
+`shutdown` command in the interactive shell triggers this sequence.

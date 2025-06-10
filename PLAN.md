@@ -3,7 +3,8 @@
 - [x] Display bus number for each PCI device in the info command
 - [x] Store vendor and device IDs for each PCI device
 - [x] Display vendor and device IDs in the info command
-- [ ] Create ACPI table parser stub for power management
+- [x] Create ACPI table parser stub for power management
+- [ ] Integrate ACPI shutdown using parsed FADT values
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration

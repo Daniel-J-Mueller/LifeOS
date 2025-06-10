@@ -1,0 +1,8 @@
+ACPI Parser Stub
+================
+
+The `acpi_init()` function scans for ACPI tables.  At this stage it is a
+stub that only announces itself through the console.  A pointer to the
+FADT is stored for future use by power management routines.  The
+`acpi_get_fadt()` accessor returns this pointer so other kernel modules
+can query it once real parsing code is added.
