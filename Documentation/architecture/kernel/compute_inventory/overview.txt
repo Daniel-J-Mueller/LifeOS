@@ -22,9 +22,9 @@ struct compute_inventory {
 };
 ```
 
-Bus enumeration currently scans the primary PCI bus and records how many
-devices respond. The stub implementation simply returns zero until real
-enumeration is added.
+Bus enumeration scans the primary PCI bus during initialization. Each
+possible device and function on bus `0` is probed and counted when the
+vendor ID register does not return `0xFFFF`.
 
 The interactive shell provides an `info` command which dumps the
 current contents of this structure so developers can verify detected

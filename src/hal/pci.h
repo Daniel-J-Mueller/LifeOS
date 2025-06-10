@@ -1,13 +1,37 @@
 #ifndef HAL_PCI_H
 #define HAL_PCI_H
 
+#include <stdint.h>
+#include "io.h"
+
 /*
- * hal_pci_device_count returns the number of PCI devices detected on
- * the primary bus. This is currently a stub that performs no real
- * enumeration and returns zero.
+ * Read a 32-bit value from PCI configuration space.
+ */
+static inline uint32_t pci_config_read(uint8_t bus, uint8_t dev,
+                                       uint8_t func, uint8_t offset) {
+    uint32_t address = (1u << 31) | ((uint32_t)bus << 16) |
+                       ((uint32_t)dev << 11) | ((uint32_t)func << 8) |
+                       (offset & 0xFC);
+    outl(0xCF8, address);
+    return inl(0xCFC);
+}
+
+/*
+ * hal_pci_device_count enumerates bus 0 using the standard I/O ports
+ * and returns the number of functions that respond with a valid
+ * vendor ID.
  */
 static inline unsigned int hal_pci_device_count(void) {
-    return 0;
+    unsigned int count = 0;
+    for (uint8_t dev = 0; dev < 32; dev++) {
+        for (uint8_t func = 0; func < 8; func++) {
+            uint32_t data = pci_config_read(0, dev, func, 0);
+            if ((data & 0xFFFF) != 0xFFFF) {
+                count++;
+            }
+        }
+    }
+    return count;
 }
 
 #endif /* HAL_PCI_H */
