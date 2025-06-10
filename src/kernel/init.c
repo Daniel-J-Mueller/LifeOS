@@ -6,6 +6,7 @@
 #include "syscall/syscall.h"
 #include "driver/driver.h"
 #include "../drivers/keyboard/keyboard.h"
+#include "acpi/acpi.h"
 
 /*
  * kernel_init performs early setup of core subsystems.
@@ -15,6 +16,7 @@ void kernel_init(void) {
     mm_init();
     inventory_gather();
     console_init();
+    acpi_init();
     console_write("LifeOS initialized\n");
     sched_init();
 

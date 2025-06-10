@@ -1,0 +1,12 @@
+Power Management Overview
+=========================
+
+LifeOS provides simple interfaces to halt, reboot and power off the
+machine.  While the current implementation writes directly to ACPI
+power management registers, upcoming work will rely on parsed ACPI
+tables to discover the proper shutdown mechanism.
+
+The first step toward this is a minimal ACPI table parser stub.  The
+parser is initialized during kernel startup and will eventually locate
+the Fixed ACPI Description Table (FADT).  For now it simply prints an
+initialization message and stores a NULL pointer.
