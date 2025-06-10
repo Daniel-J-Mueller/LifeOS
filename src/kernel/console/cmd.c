@@ -15,6 +15,8 @@ static void show_info(void) {
     console_write_dec(inv->cpu_cores);
     console_write("\nMemory bytes: ");
     console_write_dec(inv->memory_bytes);
+    console_write("\nPCI devices: ");
+    console_write_dec(inv->pci_devices);
     console_write("\n");
 }
 

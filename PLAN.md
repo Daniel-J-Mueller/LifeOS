@@ -1,8 +1,8 @@
-- [ ] Extend `info` command to display bus enumeration results
 - [ ] Implement command history in the interactive shell
 - [ ] Add `exit` command to halt the system from the shell
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
+- [ ] Add support for enumerating PCI device class codes
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
