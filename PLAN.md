@@ -22,4 +22,3 @@
 - [ ] Add unit test for info command PCI listing
 - [ ] Add unit test for PCI vendor and device ID capture
 - [ ] Map vendor IDs to names in info output
-- [ ] Document amd64-only cross package installation in setup script

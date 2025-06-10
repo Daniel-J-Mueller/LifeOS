@@ -7,9 +7,12 @@ The project is built from the ground up with a focus on careful planning before 
 Design documents live under the `Documentation` directory. The `scripts` folder
 contains utilities for setting up the build environment. Run
 `sudo ./scripts/setup_toolchain.sh` to install the cross compiler and emulator
-packages required for development. The script prefers the `amd64` variants of
-the cross packages and falls back to the default names if needed so systems with
-multiarch enabled do not pull in unsupported `i386` dependencies. After the
+packages required for development. The helper now installs only the
+`x86_64-linux-gnu` toolchain; 32-bit packages were dropped due to unresolved
+`i386` dependencies on some distributions. The script prefers the `amd64`
+variants of the cross packages and falls back to the default names if needed so
+systems with multiarch enabled do not pull in unsupported `i386` dependencies.
+After the
 toolchain is ready, execute
 `./scripts/build_image.sh` to create a bootable image. See
 `Documentation/build_environment/build_and_run.txt` for instructions on running
