@@ -1,5 +1,5 @@
 - [x] Implement command history in the interactive shell
-- [ ] Add `exit` command to halt the system from the shell
+- [ ] Implement `restart` command to reboot the system
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Add support for enumerating PCI device class codes

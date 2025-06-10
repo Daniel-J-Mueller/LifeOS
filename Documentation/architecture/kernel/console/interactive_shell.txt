@@ -12,5 +12,8 @@ shell also remembers a small history of previously entered commands.
 Pressing the up or down arrow keys cycles through this history so
 commands can be repeated or edited without retyping them.
 
+Typing `exit` at the prompt halts LifeOS and returns control to the
+emulator, allowing the virtual machine to be closed cleanly.
+
 The shell task runs alongside other kernel tasks so input can be
 processed while background activity occurs.
