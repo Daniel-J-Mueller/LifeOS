@@ -9,7 +9,9 @@ The bootloader is responsible for:
 - Passing execution to the kernel once the image has been verified and mapped.
 
 The code for the bootloader resides under `src/boot` as a small assembly
-program. It prints a loading message, reads the flat 64-bit kernel image from
-disk using BIOS services, enables long mode by creating minimal page tables,
-and then jumps to the loaded address. Error handling is minimal at this stage
+program. It initializes the standard COM1 serial port so messages appear on the
+host terminal. The loader prints a loading message, reads the flat 64-bit kernel
+image from disk using BIOS services, enables long mode by creating minimal page
+tables, and then jumps to the loaded address. Error handling is minimal at this
+stage
 and will be improved in later tasks.

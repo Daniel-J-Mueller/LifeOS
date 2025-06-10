@@ -1,6 +1,8 @@
 [BITS 16]
 [ORG 0x7C00]
 
+SERIAL_PORT equ 0x3F8
+
 ; LifeOS bootloader enabling 64-bit long mode and jumping to the kernel
 
 start:
@@ -10,6 +12,7 @@ start:
     mov ss, ax
     mov sp, 0x7C00
     mov [boot_drive], dl
+    call serial_init
 
     mov si, load_msg
     call print_string
@@ -19,7 +22,7 @@ start:
     mov es, ax
     mov bx, 0x1000
     mov ah, 0x02        ; BIOS read sectors
-    mov al, 32          ; number of sectors
+    mov al, 21          ; number of sectors
     mov ch, 0
     mov dh, 0
     mov cl, 2           ; start reading after boot sector
@@ -102,12 +105,45 @@ disk_error:
 print_string:
     lodsb
     or al, al
-    jz .done
+    jz print_string_done
     mov ah, 0x0E
     mov bh, 0x00
     int 0x10
+    mov bl, al
+serial_wait:
+    mov dx, SERIAL_PORT + 5
+    in al, dx
+    test al, 0x20
+    jz serial_wait
+    mov dx, SERIAL_PORT
+    mov al, bl
+    out dx, al
     jmp print_string
-.done:
+print_string_done:
+    ret
+
+serial_init:
+    mov dx, SERIAL_PORT + 1
+    mov al, 0x00
+    out dx, al
+    mov dx, SERIAL_PORT + 3
+    mov al, 0x80
+    out dx, al
+    mov dx, SERIAL_PORT + 0
+    mov al, 0x01
+    out dx, al
+    mov dx, SERIAL_PORT + 1
+    mov al, 0x00
+    out dx, al
+    mov dx, SERIAL_PORT + 3
+    mov al, 0x03
+    out dx, al
+    mov dx, SERIAL_PORT + 2
+    mov al, 0xC7
+    out dx, al
+    mov dx, SERIAL_PORT + 4
+    mov al, 0x0B
+    out dx, al
     ret
 
 boot_drive db 0
