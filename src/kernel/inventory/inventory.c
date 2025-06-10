@@ -1,7 +1,14 @@
 #include "inventory.h"
+#ifndef INVENTORY_TEST
 #include "../../hal/cpu.h"
 #include "../../hal/memory.h"
 #include "../../hal/pci.h"
+#else
+unsigned int hal_cpu_core_count(void);
+uint64_t hal_memory_size(void);
+uint32_t pci_config_read(uint8_t bus, uint8_t dev, uint8_t func, uint8_t offset);
+uint8_t hal_pci_class_code(uint8_t bus, uint8_t dev, uint8_t func);
+#endif
 
 /*
  * Gathers basic CPU and memory information.

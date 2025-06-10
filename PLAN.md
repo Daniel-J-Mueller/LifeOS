@@ -1,4 +1,3 @@
-- [ ] Create unit test to verify compute inventory output
 - [ ] Store subclass codes for each PCI device
 - [ ] Record bus number for each PCI device in compute inventory
 - [ ] Map PCI class codes to human-readable names in info output
@@ -13,3 +12,4 @@
 - [ ] Add left/right arrow navigation for in-line command editing
 - [ ] Integrate system call dispatcher via software interrupt
 - [ ] Provide user-space stub library for invoking system calls
+- [ ] Add unit test for scheduler round-robin behavior

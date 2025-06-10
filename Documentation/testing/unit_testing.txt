@@ -1,0 +1,21 @@
+Unit Testing Overview
+=====================
+
+This directory documents the small test programs used to validate isolated
+components of LifeOS. Each test links against the OS sources with stubbed
+hardware interfaces so logic can run on a standard host system.
+
+The first available test verifies the compute inventory service:
+
+- `tests/inventory_test.c` builds the inventory module with stub HAL
+  functions and asserts that detected values match the expected stubs.
+
+To build and run the test:
+
+```
+$ gcc -I src -DINVENTORY_TEST tests/inventory_test.c \
+      src/kernel/inventory/inventory.c -o tests/inventory_test
+$ ./tests/inventory_test
+```
+
+Successful execution prints no output and returns zero.
