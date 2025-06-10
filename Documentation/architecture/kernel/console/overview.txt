@@ -2,9 +2,9 @@ Console Interface
 =================
 
 The console provides simple text I/O using the VGA text mode buffer. It is
-initialized during `kernel_init` and offers basic routines to write characters or
-strings to the screen. Early versions support a single screen with automatic
-cursor updates.
+initialized during `kernel_init` and now also configures the COM1 serial port so
+all output appears on the host terminal. Basic routines write characters or
+strings to both VGA and serial with automatic cursor updates on screen.
 
 Input Handling
 --------------

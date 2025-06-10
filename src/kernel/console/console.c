@@ -3,6 +3,8 @@
 #include "../../hal/io.h"
 #include "../../drivers/keyboard/keyboard.h"
 
+#define SERIAL_PORT 0x3F8
+
 #define VGA_ADDR 0xB8000
 #define VGA_COLS 80
 #define VGA_ROWS 25
@@ -19,6 +21,22 @@ static uint8_t vga_color = (COLOR_BLACK << 4) | COLOR_LIGHT_GREY;
 static char input_buf[INPUT_BUF_SIZE];
 static unsigned int input_head = 0;
 static unsigned int input_tail = 0;
+
+static void serial_init(void) {
+    outb(SERIAL_PORT + 1, 0x00);    /* Disable interrupts */
+    outb(SERIAL_PORT + 3, 0x80);    /* Enable DLAB */
+    outb(SERIAL_PORT + 0, 0x01);    /* Divisor low byte (115200) */
+    outb(SERIAL_PORT + 1, 0x00);    /* Divisor high byte */
+    outb(SERIAL_PORT + 3, 0x03);    /* 8 bits, no parity, one stop */
+    outb(SERIAL_PORT + 2, 0xC7);    /* Enable FIFO */
+    outb(SERIAL_PORT + 4, 0x0B);    /* IRQs disabled, RTS/DSR set */
+}
+
+static void serial_putc(char c) {
+    while ((inb(SERIAL_PORT + 5) & 0x20) == 0)
+        ;
+    outb(SERIAL_PORT, c);
+}
 
 static void update_cursor(void) {
     uint16_t pos = cursor_y * VGA_COLS + cursor_x;
@@ -37,6 +55,7 @@ void console_clear(void) {
 }
 
 void console_putc(char c) {
+    serial_putc(c);
     if (c == '\n') {
         cursor_x = 0;
         if (++cursor_y >= VGA_ROWS)
@@ -93,6 +112,7 @@ void console_write_hex16(uint16_t value) {
 }
 
 void console_init(void) {
+    serial_init();
     console_clear();
 }
 
