@@ -8,6 +8,7 @@ The bootloader is responsible for:
 - Loading the kernel image from the boot device into memory.
 - Passing execution to the kernel once the image has been verified and mapped.
 
-The code for the bootloader resides under `src/boot` and is currently a single
-assembly file that prints a loading message and loops. Loading logic will be
-implemented in future tasks.
+The code for the bootloader resides under `src/boot` as a small assembly
+program. It prints a loading message, reads the flat 32-bit kernel image from
+disk using BIOS services, and then jumps to the loaded address. Error handling
+is minimal at this stage and will be improved in later tasks.

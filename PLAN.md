@@ -1,6 +1,7 @@
 - [x] Set up minimal build environment with cross-compilation tools and emulator
 - [x] Create bootloader skeleton to load the kernel
-- [ ] Define kernel binary format and bootloader loading routine
+- [x] Define kernel binary format and bootloader loading routine
+- [ ] Create basic kernel entry stub and linker script for flat binary
 - [ ] Implement kernel initialization with memory management stubs
 - [ ] Integrate compute inventory gathering into the initialization sequence
 - [ ] Provide a minimalist console interface for user interaction
