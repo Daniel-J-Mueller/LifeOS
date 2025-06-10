@@ -33,6 +33,11 @@ int main(void) {
     assert(inv->memory_bytes == 128ULL * 1024 * 1024);
     assert(inv->pci_devices == 3);
     for (unsigned int i = 0; i < inv->pci_devices; ++i) {
+        if (i < 2) {
+            assert(inv->pci_bus[i] == 0);
+        } else {
+            assert(inv->pci_bus[i] == 1);
+        }
         assert(inv->pci_class[i] == 0x02);
         assert(inv->pci_subclass[i] == 0x00);
     }
