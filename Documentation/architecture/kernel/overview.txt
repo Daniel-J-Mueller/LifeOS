@@ -7,4 +7,7 @@ The kernel coordinates all core services of LifeOS. Subdirectories describe its 
 - `scheduler` — chooses which tasks execute and when.
 - `driver_model` — standard interface for hardware drivers.
 
+The C function `kmain` acts as the high-level entry point after the assembly
+stub switches the processor to protected mode.
+
 As new subsystems appear, they will be documented under this directory.

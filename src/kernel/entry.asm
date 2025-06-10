@@ -1,5 +1,8 @@
+
 [BITS 16]
 [ORG 0x1000]
+
+extern kmain
 
 ; Kernel entry stub for LifeOS
 ; Switches from real mode to 32-bit protected mode and calls kmain.
@@ -29,10 +32,6 @@ protected_mode_start:
 .halt:
     hlt
     jmp .halt
-
-; Placeholder kernel main
-kmain:
-    ret
 
 ; Global Descriptor Table
 align 8

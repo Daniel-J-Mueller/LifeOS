@@ -2,7 +2,8 @@
 - [x] Create bootloader skeleton to load the kernel
 - [x] Define kernel binary format and bootloader loading routine
 - [x] Create basic kernel entry stub and linker script for flat binary
-- [ ] Add C-based kernel main function invoked from entry stub
+- [x] Add C-based kernel main function invoked from entry stub
+- [ ] Create kernel header file declaring initialization entry points
 - [x] Document kernel entry stub and protected mode switch
 - [ ] Implement kernel initialization with memory management stubs
 - [ ] Integrate compute inventory gathering into the initialization sequence
