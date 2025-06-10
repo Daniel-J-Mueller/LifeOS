@@ -1,6 +1,6 @@
 
 [BITS 16]
-[ORG 0x1000]
+global start
 
 extern kmain
 

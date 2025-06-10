@@ -1,25 +1,26 @@
 Building and Running LifeOS
 ===========================
 
-This document describes how to compile the kernel and launch it under QEMU.
-It assumes the cross compiler and emulator have been installed with
-`scripts/setup_toolchain.sh`.
+This document describes how to compile the operating system and launch it under
+QEMU.  It assumes the cross compiler and emulator have been installed with
+`sudo ./scripts/setup_toolchain.sh`.
 
-1. **Build the kernel**
-   Navigate to the repository root and run:
+1. **Build the bootable image**
+   From the repository root run:
    ```
-   gcc -m32 -ffreestanding -c src/kernel/main.c -o build/main.o
-   # Additional objects would be compiled here
-   ld -melf_i386 -T src/kernel/linker.ld build/main.o -o build/kernel.bin
+   ./scripts/build_image.sh
    ```
-   These commands produce a minimal kernel binary at `build/kernel.bin`.
+   The script assembles the bootloader, compiles the kernel sources and
+   produces `build/os-image.bin` which contains both components.
 
 2. **Run in QEMU**
-   Launch the kernel with:
+   Launch the image with:
    ```
-   qemu-system-x86_64 -kernel build/kernel.bin -serial stdio
+   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -serial stdio
    ```
    QEMU will start the virtual machine and display console output in the
-   terminal window.
+   terminal window. Use `Ctrl+A X` to exit when running in `-nographic` mode.
 
-A proper build system will replace these manual commands in future revisions.
+These commands provide a simple workflow on Ubuntu for testing the current
+LifeOS prototype. A more sophisticated build system may replace the script in
+future revisions.

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -e
+
+# Build output directory
+mkdir -p build
+
+# Assemble bootloader
+nasm -f bin src/boot/bootloader.asm -o build/bootloader.bin
+
+# Assemble kernel entry stub
+nasm -f elf32 src/kernel/entry.asm -o build/entry.o
+
+# Compile kernel sources
+GCC=i686-linux-gnu-gcc
+LD=i686-linux-gnu-ld
+CFLAGS="-m32 -ffreestanding -Wall -Wextra -fno-pie -fno-stack-protector"
+
+$GCC $CFLAGS -c src/kernel/main.c -o build/main.o
+$GCC $CFLAGS -c src/kernel/init.c -o build/init.o
+$GCC $CFLAGS -c src/kernel/mm/mm.c -o build/mm.o
+$GCC $CFLAGS -c src/kernel/console/console.c -o build/console.o
+$GCC $CFLAGS -c src/kernel/inventory/inventory.c -o build/inventory.o
+
+# Link kernel binary
+$LD -m elf_i386 -nostdlib -T src/kernel/linker.ld \
+    build/entry.o build/init.o build/main.o \
+    build/mm.o build/console.o build/inventory.o \
+    -o build/kernel.bin
+
+# Combine bootloader and kernel into a bootable image
+cat build/bootloader.bin build/kernel.bin > build/os-image.bin
+
+echo "Build complete. Bootable image located at build/os-image.bin"
