@@ -20,3 +20,11 @@ Command Parsing
 Higher level components use `console_execute_command()` to interpret a line of
 text. Only `help` and `clear` are recognized at this stage, keeping the parser
 minimal while the shell is under development.
+
+Interactive Shell
+-----------------
+
+The interactive shell runs in its own kernel task. It consumes characters
+from the console input buffer, echoes them to the screen and executes
+commands when the enter key is pressed. The shell currently supports basic
+backspace editing and shows a simple `LifeOS>` prompt.

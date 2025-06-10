@@ -2,6 +2,7 @@
 #include "kernel.h"
 #include "console/console.h"
 #include "sched/sched.h"
+#include "console/shell.h"
 
 static void idle_task(void) {
     for (;;) {
@@ -30,6 +31,9 @@ void kmain(void) {
 
     struct task *demo = sched_create_task(demo_task);
     sched_add_task(demo);
+
+    struct task *shell = sched_create_task(shell_task);
+    sched_add_task(shell);
 
     sched_start();
 }

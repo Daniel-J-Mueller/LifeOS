@@ -1,6 +1,6 @@
-- [ ] Create interactive shell using command parser
 - [ ] Add `info` command to display compute inventory
 - [ ] Implement command history in the interactive shell
+- [ ] Add `exit` command to halt the system from the shell
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Begin design of a simple file system layer
