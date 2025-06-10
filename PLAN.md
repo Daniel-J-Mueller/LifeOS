@@ -1,4 +1,3 @@
-- [ ] Plan integration hooks for external intelligence frameworks
 - [ ] Develop memory management subsystem
 - [ ] Design and implement basic task scheduler
 - [ ] Establish device driver model and initial drivers
@@ -6,6 +5,7 @@
 - [ ] Implement keyboard input handling for console
 - [ ] Build simple command parser for console
 - [ ] Outline basic system call interface for user tasks
-- [ ] Create build script to produce bootable image
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Begin design of a simple file system layer
+- [ ] Implement stub API for external intelligence hooks
+- [ ] Provide example host tool for serial command integration

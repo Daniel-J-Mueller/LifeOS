@@ -1,0 +1,25 @@
+Integration Hooks for External Intelligence Frameworks
+======================================================
+
+LifeOS aims to support advanced reasoning or monitoring frameworks that run
+outside of the core kernel.  To keep the kernel small and maintainable these
+frameworks communicate through well defined hooks rather than direct
+modification of kernel code.
+
+Planned hook locations:
+
+- **Boot sequence** – the kernel checks for a module or service at boot that can
+  register callbacks for system events.
+- **Console interface** – commands typed by the user can be forwarded to the
+  external framework for processing or advice.
+- **Scheduling policies** – future versions may allow an external component to
+  influence task scheduling decisions by exposing a policy API.
+
+Communication methods are intentionally simple to begin with.  A plain text
+protocol over a virtual serial port or network interface keeps implementations
+portable.  Initial prototypes will focus on passing console commands to a host
+process running on the same machine.
+
+These hooks allow experimentation with AI assistance without entangling the core
+operating system logic.  As capabilities mature the interfaces can evolve while
+keeping the kernel stable.
