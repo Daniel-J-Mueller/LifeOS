@@ -19,12 +19,12 @@ void sched_init(void) {
 struct task *sched_create_task(void (*entry)(void)) {
     struct task *t = (struct task *)page_alloc();
     uint8_t *stack = (uint8_t *)page_alloc();
-    uint32_t *sp = (uint32_t *)(stack + 4096);
+    uint64_t *sp = (uint64_t *)(stack + 4096);
 
     /* Build initial stack so context_switch pops registers and jumps to entry */
-    *--sp = (uint32_t)entry; /* return address for first switch */
-    for (int i = 0; i < 8; ++i)
-        *--sp = 0;           /* EDI..EAX */
+    *--sp = (uint64_t)entry; /* return address for first switch */
+    for (int i = 0; i < 6; ++i)
+        *--sp = 0;           /* r15..rbp */
 
     t->sp = sp;
     t->next = 0;

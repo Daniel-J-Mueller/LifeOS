@@ -12,7 +12,7 @@ The kernel coordinates all core services of LifeOS. Subdirectories describe its 
 - `power_management` — handles system shutdown and reboot logic.
 
 The C function `kmain` acts as the high-level entry point after the assembly
-stub switches the processor to protected mode.
+stub sets up long mode.
 
 Initialization routines such as memory setup are declared in `kernel.h`.
 `kmain` invokes `kernel_init` which in turn brings core subsystems online.

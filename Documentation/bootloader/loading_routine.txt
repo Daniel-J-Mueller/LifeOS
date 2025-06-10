@@ -12,8 +12,8 @@ assumes the boot device uses BIOS services and that the kernel image occupies th
    starting at sector two (CHS `0/0/2`) into memory at address `0x0000:0x1000`.
 4. If the disk read fails, the bootloader hangs to indicate an unrecoverable
    error. Error handling will be refined in later tasks.
-5. On success, execution jumps to the loaded address where the 32‑bit kernel
-   begins execution.
+5. On success, the bootloader builds temporary page tables, enables long mode,
+   and jumps to the loaded address where the 64‑bit kernel begins execution.
 
 This simple strategy limits the bootloader to small kernel images but keeps the
 code compact while the rest of the operating system is brought up.

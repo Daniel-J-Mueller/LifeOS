@@ -10,5 +10,6 @@ The bootloader is responsible for:
 
 The code for the bootloader resides under `src/boot` as a small assembly
 program. It prints a loading message, reads the flat 64-bit kernel image from
-disk using BIOS services, and then jumps to the loaded address. Error handling
-is minimal at this stage and will be improved in later tasks.
+disk using BIOS services, enables long mode by creating minimal page tables,
+and then jumps to the loaded address. Error handling is minimal at this stage
+and will be improved in later tasks.
