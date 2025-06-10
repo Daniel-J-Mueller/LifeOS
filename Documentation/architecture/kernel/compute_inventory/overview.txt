@@ -22,16 +22,19 @@ struct compute_inventory {
     uint8_t pci_bus[MAX_INVENTORY_PCI];     /* bus number for each device */
     uint8_t pci_class[MAX_INVENTORY_PCI];    /* class code of each discovered device */
     uint8_t pci_subclass[MAX_INVENTORY_PCI]; /* subclass code of each device */
+    uint16_t pci_vendor[MAX_INVENTORY_PCI];  /* vendor ID of each device */
+    uint16_t pci_device[MAX_INVENTORY_PCI];  /* device ID of each device */
 };
 ```
 
 Bus enumeration scans every PCI bus during initialization. Each
 possible device and function on buses `0` through `255` is probed and
 counted when the vendor ID register does not return `0xFFFF`.
-The bus number along with the class and subclass codes of detected
-devices are recorded for later use by driver modules.
+The bus number along with the class, subclass, vendor and device IDs of
+detected devices are recorded for later use by driver modules.
 
 The interactive shell provides an `info` command which dumps the
 current contents of this structure. Each PCI device is listed with its
 bus number and a descriptive class name so developers can easily
-verify detected hardware.
+verify detected hardware. Vendor and device identifiers are printed in
+hexadecimal for reference.

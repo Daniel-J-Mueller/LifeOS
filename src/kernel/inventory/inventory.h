@@ -12,6 +12,8 @@ struct compute_inventory {
     uint8_t pci_bus[MAX_INVENTORY_PCI];
     uint8_t pci_class[MAX_INVENTORY_PCI];
     uint8_t pci_subclass[MAX_INVENTORY_PCI];
+    uint16_t pci_vendor[MAX_INVENTORY_PCI];
+    uint16_t pci_device[MAX_INVENTORY_PCI];
 };
 
 void inventory_gather(void);

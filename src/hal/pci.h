@@ -34,6 +34,18 @@ static inline uint8_t hal_pci_subclass_code(uint8_t bus, uint8_t dev,
     return (data >> 16) & 0xFF;
 }
 
+static inline uint16_t hal_pci_vendor_id(uint8_t bus, uint8_t dev,
+                                         uint8_t func) {
+    uint32_t data = pci_config_read(bus, dev, func, 0);
+    return data & 0xFFFF;
+}
+
+static inline uint16_t hal_pci_device_id(uint8_t bus, uint8_t dev,
+                                         uint8_t func) {
+    uint32_t data = pci_config_read(bus, dev, func, 0);
+    return (data >> 16) & 0xFFFF;
+}
+
 /*
  * hal_pci_device_count enumerates all 256 PCI buses using the standard I/O ports
  * and returns the number of functions that respond with a valid vendor ID.
