@@ -8,6 +8,7 @@ The kernel coordinates all core services of LifeOS. Subdirectories describe its 
 - `driver_model` — standard interface for hardware drivers.
 - `compute_inventory` — records hardware capabilities discovered at boot.
 - `console` — minimal text interface used for diagnostics and user input.
+- `system_calls` — gateway for user tasks to request kernel services.
 
 The C function `kmain` acts as the high-level entry point after the assembly
 stub switches the processor to protected mode.

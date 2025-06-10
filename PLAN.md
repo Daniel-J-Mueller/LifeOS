@@ -1,6 +1,3 @@
-- [x] Implement command history in the interactive shell
-- [x] Implement `restart` command to reboot the system
-- [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Add support for enumerating PCI device class codes
 - [ ] Create ACPI table parser stub for power management
@@ -12,3 +9,5 @@
 - [ ] Expand scheduler to support task termination
 - [ ] Research approach for Linux-like terminal environment using host packages
 - [ ] Add left/right arrow navigation for in-line command editing
+- [ ] Integrate system call dispatcher via software interrupt
+- [ ] Provide user-space stub library for invoking system calls

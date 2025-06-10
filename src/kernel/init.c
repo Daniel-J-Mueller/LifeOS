@@ -3,6 +3,7 @@
 #include "inventory/inventory.h"
 #include "console/console.h"
 #include "sched/sched.h"
+#include "syscall/syscall.h"
 #include "driver/driver.h"
 #include "../drivers/keyboard/keyboard.h"
 
@@ -20,6 +21,8 @@ void kernel_init(void) {
     /* Register built-in drivers */
     keyboard_register();
     driver_init_all();
+
+    syscall_init();
 
     /* Other subsystem init calls will follow */
 }

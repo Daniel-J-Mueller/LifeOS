@@ -1,0 +1,18 @@
+System Call Interface
+=====================
+
+User tasks invoke kernel services through a small system call layer.  Early
+versions route requests directly through a software interrupt handler.  A simple
+dispatch routine interprets the system call number and arguments, then calls the
+corresponding kernel implementation.
+
+Initial Call Set
+----------------
+
+Two calls are currently defined:
+
+* `SYS_CONSOLE_WRITE` — print a string to the console.
+* `SYS_YIELD` — voluntarily yield the CPU to the scheduler.
+
+Future revisions will expand this table and transition user tasks to run in a
+separate privilege level.

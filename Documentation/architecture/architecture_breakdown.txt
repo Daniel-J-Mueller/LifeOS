@@ -9,6 +9,7 @@ LifeOS is organized into modular components to simplify development and testing.
 - **Device Drivers**: Implement support for specific peripherals.
 - **Compute Inventory Service**: Gathers hardware details early in boot.
 - **Console Interface**: Minimal text interface for user interaction.
+- **System Call Interface**: Mediates requests from user tasks to the kernel.
 - **External Intelligence Hooks**: Integration points for advanced frameworks.
 
 Each component will be developed incrementally with clear responsibilities and interfaces.
