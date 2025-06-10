@@ -1,4 +1,4 @@
-- [ ] Implement command history in the interactive shell
+- [x] Implement command history in the interactive shell
 - [ ] Add `exit` command to halt the system from the shell
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
@@ -10,3 +10,4 @@
 - [ ] Introduce basic virtual memory paging
 - [ ] Expand scheduler to support task termination
 - [ ] Research approach for Linux-like terminal environment using host packages
+- [ ] Add left/right arrow navigation for in-line command editing

@@ -7,7 +7,10 @@ handler and interprets complete lines using the command parser.
 A dedicated shell task echoes characters to the screen while building
 an input buffer. When the user presses enter, the buffer contents are
 passed to `console_execute_command()`. Basic backspace editing is
-supported and a simple prompt is displayed after each command.
+supported and a simple prompt is displayed after each command. The
+shell also remembers a small history of previously entered commands.
+Pressing the up or down arrow keys cycles through this history so
+commands can be repeated or edited without retyping them.
 
 The shell task runs alongside other kernel tasks so input can be
 processed while background activity occurs.

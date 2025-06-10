@@ -17,10 +17,26 @@ static const char scancode_ascii[128] = {
     [0x39] = ' ', [0x1c] = '\n', [0x0f] = '\t', [0x0e] = '\b'
 };
 
+static int have_e0 = 0;
+
 char keyboard_read_char(void) {
     if ((inb(0x64) & 1) == 0)
         return 0;
     unsigned char sc = inb(0x60);
+    if (sc == 0xE0) {
+        have_e0 = 1;
+        return 0;
+    }
+    if (have_e0) {
+        have_e0 = 0;
+        switch (sc) {
+        case 0x48: return KEY_UP;
+        case 0x50: return KEY_DOWN;
+        case 0x4B: return KEY_LEFT;
+        case 0x4D: return KEY_RIGHT;
+        default: return 0;
+        }
+    }
     if (sc >= sizeof(scancode_ascii))
         return 0;
     return scancode_ascii[sc];
