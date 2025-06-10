@@ -4,3 +4,13 @@ Human Machine Interface (HMI)
 LifeOS interacts with users primarily through text-based consoles.
 The HMI layer describes input devices, output displays, and how
 higher level components present information to human operators.
+
+Planned Design
+--------------
+
+Once the OS finishes booting, a small terminal strip will remain
+visible along the bottom of the screen. Users can speak commands or
+type into this area to interact with the system. The rest of the
+display is reserved for task oriented graphics that visualize ongoing
+processing. This layout avoids a traditional command-based terminal
+while still providing convenient textual interaction when needed.
