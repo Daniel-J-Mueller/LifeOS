@@ -9,6 +9,7 @@ static void show_help(void) {
     console_write("  clear - Clear the screen\n");
     console_write("  info  - Display hardware information\n");
     console_write("  restart - Reboot the system\n");
+    console_write("  shutdown - Power off the system\n");
     console_write("  exit  - Halt the system\n");
 }
 
@@ -32,6 +33,8 @@ void console_execute_command(const char *cmd) {
         show_info();
     } else if (strcmp(cmd, "restart") == 0) {
         kernel_reboot();
+    } else if (strcmp(cmd, "shutdown") == 0) {
+        kernel_shutdown();
     } else if (strcmp(cmd, "exit") == 0) {
         kernel_halt();
     } else if (cmd[0] != '\0') {

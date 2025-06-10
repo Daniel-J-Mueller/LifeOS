@@ -18,3 +18,13 @@ void kernel_reboot(void) {
         __asm__ volatile("hlt");
     }
 }
+
+void kernel_shutdown(void) {
+    console_write("Shutting down...\n");
+    for (;;) {
+        __asm__ volatile("cli");
+        outw(0x604, 0x2000);
+        outw(0xB004, 0x2000);
+        __asm__ volatile("hlt");
+    }
+}

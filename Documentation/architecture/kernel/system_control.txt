@@ -9,3 +9,7 @@ the virtual machine when running under QEMU.
 `kernel_reboot()` issues a reset request through the keyboard controller
 to reboot the machine. The console `restart` command exposes this
 functionality to the user.
+
+`kernel_shutdown()` writes to the ACPI power management registers to
+power down the system. This is triggered by the new `shutdown` command
+in the interactive shell.

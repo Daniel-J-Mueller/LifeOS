@@ -1,9 +1,9 @@
 - [x] Implement command history in the interactive shell
 - [x] Implement `restart` command to reboot the system
-- [ ] Implement `shutdown` command to power off the system via ACPI
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Add support for enumerating PCI device class codes
+- [ ] Create ACPI table parser stub for power management
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
