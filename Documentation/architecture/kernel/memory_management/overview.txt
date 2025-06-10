@@ -1,0 +1,10 @@
+Memory Management Overview
+=========================
+
+The memory manager allocates physical and virtual memory for all kernel components and user tasks. It is organized in layers, each described in the files within this directory:
+
+- `physical_allocator.txt` — tracks free pages of physical memory and hands them to higher layers.
+- `virtual_memory.txt` — builds page tables and provides address translation with simple protection flags.
+- `kernel_heap.txt` — offers dynamic allocations inside the kernel using pages supplied by the lower layers.
+
+Future updates may refine these strategies with more advanced allocators and pooling techniques.

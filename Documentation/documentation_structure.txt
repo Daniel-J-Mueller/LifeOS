@@ -1,2 +1,9 @@
 This directory houses the design and implementation documents for LifeOS.
 Each subdirectory describes a major component or system of the operating system.
+
+Top-level sections include:
+- `architecture` – overall design and subsystem breakdowns.
+- `boot_sequence` – steps executed when LifeOS starts.
+- `build_environment` – how to install toolchains and run the emulator.
+
+Subdirectories may contain deeper folders to document specific subsystems in greater detail.

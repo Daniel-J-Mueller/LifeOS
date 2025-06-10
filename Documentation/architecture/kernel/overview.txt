@@ -1,0 +1,10 @@
+Kernel Overview
+===============
+
+The kernel coordinates all core services of LifeOS. Subdirectories describe its major components in detail:
+
+- `memory_management` — allocates and maps system memory.
+- `scheduler` — chooses which tasks execute and when.
+- `driver_model` — standard interface for hardware drivers.
+
+As new subsystems appear, they will be documented under this directory.

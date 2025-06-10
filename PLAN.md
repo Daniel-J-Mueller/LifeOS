@@ -1,4 +1,4 @@
-- [ ] Set up minimal build environment with cross-compilation tools and emulator
+- [x] Set up minimal build environment with cross-compilation tools and emulator
 - [ ] Create bootloader skeleton to load the kernel
 - [ ] Implement kernel initialization with memory management stubs
 - [ ] Integrate compute inventory gathering into the initialization sequence
@@ -13,3 +13,4 @@
 - [ ] Document console interface commands and expected behavior
 - [ ] Outline basic system call interface for user tasks
 - [ ] Create initial compute inventory data structure specification
+- [ ] Create build script to produce bootable image

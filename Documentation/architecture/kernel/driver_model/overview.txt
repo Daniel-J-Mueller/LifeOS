@@ -1,0 +1,4 @@
+Driver Model Overview
+=====================
+
+Device drivers provide support for hardware peripherals. LifeOS exposes a small initialization API so drivers can register themselves and interact with the kernel through well-defined calls.

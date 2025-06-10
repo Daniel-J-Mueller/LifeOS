@@ -1,0 +1,11 @@
+HAL Overview
+============
+
+The Hardware Abstraction Layer (HAL) standardizes interactions with low-level devices so that the kernel and drivers remain portable. Key expectations include:
+
+- **Initialization hooks**: configure timers, interrupts and essential bus controllers before other subsystems start.
+- **Uniform access methods**: provide read/write functions for I/O ports or memory-mapped registers without exposing platform specifics.
+- **Interrupt delivery**: route hardware interrupts to the kernel dispatcher regardless of the underlying controller design.
+- **Timing services**: offer a consistent timebase for schedulers and drivers.
+
+By encapsulating these tasks, the HAL enables LifeOS to run on different architectures with minimal changes outside of the HAL implementation itself.

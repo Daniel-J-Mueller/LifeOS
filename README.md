@@ -4,4 +4,6 @@ LifeOS is an emulatable operating system designed to host complex intelligence f
 
 The project is built from the ground up with a focus on careful planning before implementation to avoid common OS pitfalls. All components, from the bootloader to user interaction, will be developed in stages with an emphasis on testability and modularity.
 
-This repository currently contains planning and design documents. Implementation code will be added as the project progresses.
+Design documents live under the `Documentation` directory. The `scripts` folder contains utilities for setting up the build environment. Run `sudo ./scripts/setup_toolchain.sh` to install the cross compiler and emulator packages required for development.
+
+Implementation code will be added as the project progresses.
