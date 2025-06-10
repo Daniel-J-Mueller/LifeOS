@@ -22,12 +22,14 @@ static void show_info(void) {
     console_write_dec(inv->memory_bytes);
     console_write("\nPCI devices: ");
     console_write_dec(inv->pci_devices);
-    console_write("\nDevice classes:");
+    console_write("\nPCI device list:\n");
     for (unsigned int i = 0; i < inv->pci_devices && i < MAX_INVENTORY_PCI; ++i) {
-        console_write(" ");
+        console_write("  Bus ");
+        console_write_dec(inv->pci_bus[i]);
+        console_write(": ");
         console_write(pci_class_name(inv->pci_class[i]));
+        console_write("\n");
     }
-    console_write("\n");
 }
 
 void console_execute_command(const char *cmd) {
