@@ -2,3 +2,10 @@ Scheduler Overview
 ==================
 
 The scheduler determines which task runs on the CPU at any given time. Early revisions will implement a simple round-robin policy with a fixed time slice. Later versions can incorporate priorities or more advanced strategies.
+
+Basic Implementation
+--------------------
+
+The initial scheduler is cooperative and uses a simple round-robin queue. Each task has its own 4 KiB stack allocated by the physical page allocator. A context switch saves the outgoing task's registers and restores the next task's stack before returning. Tasks must call `sched_yield()` periodically to give up the CPU.
+
+A small demo task is created by `kmain` to print a message while the idle task simply executes `hlt` in a loop. Additional tasks can be added using `sched_create_task()` and `sched_add_task()`.

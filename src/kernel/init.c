@@ -2,6 +2,7 @@
 #include "mm/mm.h"
 #include "inventory/inventory.h"
 #include "console/console.h"
+#include "sched/sched.h"
 
 /*
  * kernel_init performs early setup of core subsystems.
@@ -12,5 +13,6 @@ void kernel_init(void) {
     inventory_gather();
     console_init();
     console_write("LifeOS initialized\n");
+    sched_init();
     /* Other subsystem init calls will follow */
 }
