@@ -18,8 +18,8 @@ Command Parsing
 ---------------
 
 Higher level components use `console_execute_command()` to interpret a line of
-text. Only `help` and `clear` are recognized at this stage, keeping the parser
-minimal while the shell is under development.
+text. The parser currently accepts `help`, `clear` and `info`, keeping the
+feature set minimal while the shell is under development.
 
 Interactive Shell
 -----------------

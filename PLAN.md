@@ -1,4 +1,4 @@
-- [ ] Add `info` command to display compute inventory
+- [ ] Extend `info` command to display bus enumeration results
 - [ ] Implement command history in the interactive shell
 - [ ] Add `exit` command to halt the system from the shell
 - [ ] Outline basic system call interface for user tasks

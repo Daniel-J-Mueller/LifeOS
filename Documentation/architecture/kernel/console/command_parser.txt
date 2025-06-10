@@ -2,10 +2,11 @@ Console Command Parser
 ======================
 
 The command parser interprets lines entered at the console and invokes
-built-in functions. Early revisions recognize just two commands:
+built-in functions. Early revisions recognize three commands:
 
 - `help`  – display a short list of supported commands.
 - `clear` – clear the console screen.
+- `info`  – print basic hardware information.
 
 Parsing is case sensitive and whitespace at the start or end of the line is not
 ignored. Unknown commands result in an "Unknown command" message. This parser is
