@@ -10,7 +10,8 @@ resulting value from `0xCFC`.
 For each possible device (0–31) and function (0–7) combination the
 vendor ID field is read. If it is not `0xFFFF` the function is
 considered present and contributes to the device count. When a device is
-found the byte at offset `0x0B` of its configuration header is captured
-as the class code and stored sequentially in `compute_inventory.pci_class`.
+found the bytes at offsets `0x0B` and `0x0A` of its configuration header are
+captured as the class and subclass codes. These are stored sequentially in
+`compute_inventory.pci_class` and `compute_inventory.pci_subclass`.
 The scan is performed during early kernel initialization and the totals
 are stored in the global inventory structure.

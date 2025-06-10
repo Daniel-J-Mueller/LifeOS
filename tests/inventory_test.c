@@ -21,13 +21,20 @@ uint8_t hal_pci_class_code(uint8_t bus, uint8_t dev, uint8_t func) {
     return 0x02;
 }
 
+uint8_t hal_pci_subclass_code(uint8_t bus, uint8_t dev, uint8_t func) {
+    (void)bus; (void)dev; (void)func;
+    return 0x00;
+}
+
 int main(void) {
     inventory_gather();
     struct compute_inventory *inv = inventory_get();
     assert(inv->cpu_cores == 4);
     assert(inv->memory_bytes == 128ULL * 1024 * 1024);
     assert(inv->pci_devices == 3);
-    for (unsigned int i = 0; i < inv->pci_devices; ++i)
+    for (unsigned int i = 0; i < inv->pci_devices; ++i) {
         assert(inv->pci_class[i] == 0x02);
+        assert(inv->pci_subclass[i] == 0x00);
+    }
     return 0;
 }

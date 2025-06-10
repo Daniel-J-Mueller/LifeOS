@@ -8,6 +8,7 @@ unsigned int hal_cpu_core_count(void);
 uint64_t hal_memory_size(void);
 uint32_t pci_config_read(uint8_t bus, uint8_t dev, uint8_t func, uint8_t offset);
 uint8_t hal_pci_class_code(uint8_t bus, uint8_t dev, uint8_t func);
+uint8_t hal_pci_subclass_code(uint8_t bus, uint8_t dev, uint8_t func);
 #endif
 
 /*
@@ -27,8 +28,11 @@ void inventory_gather(void) {
                 uint32_t data = pci_config_read(bus, dev, func, 0);
                 if ((data & 0xFFFF) != 0xFFFF) {
                     uint8_t class = hal_pci_class_code(bus, dev, func);
-                    if (system_inventory.pci_devices < MAX_INVENTORY_PCI)
+                    uint8_t subclass = hal_pci_subclass_code(bus, dev, func);
+                    if (system_inventory.pci_devices < MAX_INVENTORY_PCI) {
                         system_inventory.pci_class[system_inventory.pci_devices] = class;
+                        system_inventory.pci_subclass[system_inventory.pci_devices] = subclass;
+                    }
                     system_inventory.pci_devices++;
                 }
             }

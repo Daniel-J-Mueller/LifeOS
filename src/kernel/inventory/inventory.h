@@ -10,6 +10,7 @@ struct compute_inventory {
     unsigned long memory_bytes;
     unsigned int pci_devices;
     uint8_t pci_class[MAX_INVENTORY_PCI];
+    uint8_t pci_subclass[MAX_INVENTORY_PCI];
 };
 
 void inventory_gather(void);
