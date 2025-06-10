@@ -1,4 +1,3 @@
-- [ ] Design and implement basic task scheduler
 - [ ] Establish device driver model and initial drivers
 - [ ] Define driver initialization order within the kernel
 - [ ] Implement keyboard input handling for console
@@ -10,3 +9,4 @@
 - [ ] Provide example host tool for serial command integration
 - [ ] Expand physical allocator to support freeing pages
 - [ ] Introduce basic virtual memory paging
+- [ ] Expand scheduler to support task termination
