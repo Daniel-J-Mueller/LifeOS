@@ -18,12 +18,13 @@ Inventory information is stored in a single `compute_inventory` struct:
 struct compute_inventory {
     unsigned int cpu_cores;     /* number of detected CPU cores */
     unsigned long memory_bytes; /* total system memory in bytes */
+    unsigned int pci_devices;   /* count of devices found on the PCI bus */
 };
 ```
 
-Future revisions may extend this structure with bus data and storage
-capacities. For now it captures only the most essential properties
-required during early initialization.
+Bus enumeration currently scans the primary PCI bus and records how many
+devices respond. The stub implementation simply returns zero until real
+enumeration is added.
 
 The interactive shell provides an `info` command which dumps the
 current contents of this structure so developers can verify detected
