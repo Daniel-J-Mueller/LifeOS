@@ -12,4 +12,7 @@ void console_poll_input(void);
 /* Retrieve a queued character, or 0 if none available */
 char console_getc(void);
 
+/* Execute a command string */
+void console_execute_command(const char *cmd);
+
 #endif /* CONSOLE_H */
