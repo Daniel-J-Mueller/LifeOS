@@ -2,11 +2,12 @@ Power Management Overview
 =========================
 
 LifeOS provides simple interfaces to halt, reboot and power off the
-machine.  While the current implementation writes directly to ACPI
-power management registers, upcoming work will rely on parsed ACPI
-tables to discover the proper shutdown mechanism.
+machine.  Early versions wrote directly to well known ACPI power
+management ports.  The implementation now relies on stubbed ACPI
+tables to supply the register addresses used for shutdown.
 
-The first step toward this is a minimal ACPI table parser stub.  The
-parser is initialized during kernel startup and will eventually locate
-the Fixed ACPI Description Table (FADT).  For now it simply prints an
-initialization message and stores a NULL pointer.
+The parser initializes during kernel startup and sets up a small
+representation of the Fixed ACPI Description Table (FADT).  Default
+values for QEMU are populated so the power code can pull the PM1
+control ports and S5 sleep types.  Future work will locate the real
+tables instead of these constants.
