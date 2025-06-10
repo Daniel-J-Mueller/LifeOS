@@ -19,8 +19,8 @@ Command Parsing
 
 Higher level components use `console_execute_command()` to interpret a line of
 text. The parser currently accepts `help`, `clear` and `info`. The `info`
-command now lists each PCI device with its bus number and class name using short
-descriptive labels, while the
+command now lists each PCI device with its bus number, vendor and device IDs,
+and class name using short descriptive labels, while the
 overall feature set remains minimal during early shell development.
 
 Interactive Shell

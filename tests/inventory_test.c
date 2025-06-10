@@ -16,6 +16,14 @@ uint32_t pci_config_read(uint8_t bus, uint8_t dev, uint8_t func, uint8_t offset)
     return pci_device_lookup(bus, dev, func) ? 0x12345678 : 0xFFFF;
 }
 
+uint16_t hal_pci_vendor_id(uint8_t bus, uint8_t dev, uint8_t func) {
+    return pci_config_read(bus, dev, func, 0) & 0xFFFF;
+}
+
+uint16_t hal_pci_device_id(uint8_t bus, uint8_t dev, uint8_t func) {
+    return (pci_config_read(bus, dev, func, 0) >> 16) & 0xFFFF;
+}
+
 uint8_t hal_pci_class_code(uint8_t bus, uint8_t dev, uint8_t func) {
     (void)bus; (void)dev; (void)func;
     return 0x02;
@@ -40,6 +48,8 @@ int main(void) {
         }
         assert(inv->pci_class[i] == 0x02);
         assert(inv->pci_subclass[i] == 0x00);
+        assert(inv->pci_vendor[i] == 0x5678);
+        assert(inv->pci_device[i] == 0x1234);
     }
     return 0;
 }

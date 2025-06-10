@@ -87,6 +87,11 @@ void console_write_hex8(uint8_t value) {
     console_putc(hex[value & 0xF]);
 }
 
+void console_write_hex16(uint16_t value) {
+    console_write_hex8((value >> 8) & 0xFF);
+    console_write_hex8(value & 0xFF);
+}
+
 void console_init(void) {
     console_clear();
 }

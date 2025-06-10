@@ -6,8 +6,8 @@ built-in functions. Early revisions recognize three commands:
 
 - `help`  – display a short list of supported commands.
 - `clear` – clear the console screen.
-- `info`  – print hardware information including the bus number and class name
-  of each detected PCI device.
+- `info`  – print hardware information including the bus number, vendor and
+  device IDs, and class name of each detected PCI device.
 
 Parsing is case sensitive and whitespace at the start or end of the line is not
 ignored. Unknown commands result in an "Unknown command" message. This parser is

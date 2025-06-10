@@ -11,9 +11,11 @@ For each possible device (0–31) and function (0–7) combination the
 vendor ID field is read. If it is not `0xFFFF` the function is
 considered present and contributes to the device count. When a device is
 found the bytes at offsets `0x0B` and `0x0A` of its configuration header are
-captured as the class and subclass codes. The bus number where each device
-resides is also stored. These values are saved sequentially in
-`compute_inventory.pci_bus`, `compute_inventory.pci_class` and
-`compute_inventory.pci_subclass`.
+captured as the class and subclass codes. The vendor and device identifiers are
+read from offset `0x00`. The bus number where each device resides is also
+stored. These values are saved sequentially in
+`compute_inventory.pci_bus`, `compute_inventory.pci_class`,
+`compute_inventory.pci_subclass`, `compute_inventory.pci_vendor` and
+`compute_inventory.pci_device`.
 The scan is performed during early kernel initialization and the totals
 are stored in the global inventory structure.

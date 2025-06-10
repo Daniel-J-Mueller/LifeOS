@@ -26,7 +26,11 @@ static void show_info(void) {
     for (unsigned int i = 0; i < inv->pci_devices && i < MAX_INVENTORY_PCI; ++i) {
         console_write("  Bus ");
         console_write_dec(inv->pci_bus[i]);
-        console_write(": ");
+        console_write("  Vend 0x");
+        console_write_hex16(inv->pci_vendor[i]);
+        console_write(" Dev 0x");
+        console_write_hex16(inv->pci_device[i]);
+        console_write(" : ");
         console_write(pci_class_name(inv->pci_class[i]));
         console_write("\n");
     }
