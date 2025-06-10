@@ -7,6 +7,7 @@ LifeOS is organized into modular components to simplify development and testing.
 - **Kernel**: Core services such as memory management, task scheduling and device management. See `kernel/overview.txt` for details.
 - **Hardware Abstraction Layer (HAL)**: Provides a consistent interface to underlying hardware. Documentation resides in `hal/overview.txt`.
 - **Device Drivers**: Implement support for specific peripherals.
+- **Compute Inventory Service**: Gathers hardware details early in boot.
 - **Console Interface**: Minimal text interface for user interaction.
 - **External Intelligence Hooks**: Integration points for advanced frameworks.
 

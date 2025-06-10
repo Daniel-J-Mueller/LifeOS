@@ -25,6 +25,11 @@ Device Drivers
 - Implement direct support for disks, network interfaces, and other peripherals.
 - Report discovered hardware details to the compute inventory service.
 
+Compute Inventory Service
+------------------------
+- Gather CPU, memory and device information during early boot.
+- Make collected data available to other subsystems.
+
 Console Interface
 -----------------
 - Provide a minimal command shell for user input and status output.

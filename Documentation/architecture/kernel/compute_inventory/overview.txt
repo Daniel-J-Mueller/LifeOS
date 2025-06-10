@@ -1,0 +1,22 @@
+Compute Inventory Service
+========================
+
+The compute inventory service collects details about the hardware
+available at boot time. Other subsystems query this information to
+adjust their behavior or load appropriate drivers.
+
+Data Structure
+--------------
+
+Inventory information is stored in a single `compute_inventory` struct:
+
+```
+struct compute_inventory {
+    unsigned int cpu_cores;     /* number of detected CPU cores */
+    unsigned long memory_bytes; /* total system memory in bytes */
+};
+```
+
+Future revisions may extend this structure with bus data and storage
+capacities. For now it captures only the most essential properties
+required during early initialization.
