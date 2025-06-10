@@ -1,4 +1,3 @@
-- [ ] Develop memory management subsystem
 - [ ] Design and implement basic task scheduler
 - [ ] Establish device driver model and initial drivers
 - [ ] Define driver initialization order within the kernel
@@ -9,3 +8,5 @@
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
+- [ ] Expand physical allocator to support freeing pages
+- [ ] Introduce basic virtual memory paging

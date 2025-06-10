@@ -8,3 +8,7 @@ The memory manager allocates physical and virtual memory for all kernel componen
 - `kernel_heap.txt` — offers dynamic allocations inside the kernel using pages supplied by the lower layers.
 
 Future updates may refine these strategies with more advanced allocators and pooling techniques.
+
+At this stage the memory manager provides a very small physical page allocator
+that hands out 4&nbsp;KiB pages sequentially. It serves as the foundation for
+upcoming work on dynamic allocation and virtual memory.
