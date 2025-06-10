@@ -18,5 +18,8 @@ emulator, allowing the virtual machine to be closed cleanly.
 Issuing the `restart` command performs a full system reboot using the
 kernel's power management interface.
 
+The `shutdown` command powers the machine off via ACPI and is useful
+when running under virtualization where a clean power off is required.
+
 The shell task runs alongside other kernel tasks so input can be
 processed while background activity occurs.

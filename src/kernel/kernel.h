@@ -12,5 +12,6 @@ void kernel_init(void);
 /* Halt the operating system */
 void kernel_halt(void);
 void kernel_reboot(void);
+void kernel_shutdown(void);
 
 #endif /* KERNEL_H */
