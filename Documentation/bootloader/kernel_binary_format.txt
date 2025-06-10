@@ -1,0 +1,18 @@
+Kernel Binary Format
+====================
+
+The initial LifeOS kernel is built as a flat binary image so the bootloader can
+load it with minimal logic. The image starts with 32‑bit code at the first byte
+and contains no headers. Execution begins immediately at offset `0x0000` after
+the image is loaded into memory.
+
+Requirements for the image:
+
+- Code must be position‑independent within the loaded memory range.
+- The bootloader currently loads 16 sectors (8 KiB) starting at the second sector
+  of the boot device to address `0x0000:0x1000` (physical `0x1000`).
+- The kernel should not rely on being relocated and must set up its own protected
+  mode environment after entry.
+
+Future revisions may adopt a more complex executable format, but the flat image
+keeps the bootstrap process simple while core subsystems come online.
