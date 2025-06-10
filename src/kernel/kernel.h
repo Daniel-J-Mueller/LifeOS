@@ -9,4 +9,7 @@ void kmain(void);
 /* Sets up core subsystems before enabling tasks */
 void kernel_init(void);
 
+/* Halt the operating system */
+void kernel_halt(void);
+
 #endif /* KERNEL_H */
