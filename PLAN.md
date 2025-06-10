@@ -2,6 +2,8 @@
 - [ ] Set up minimal build environment with cross-compilation tools and emulator
 - [ ] Create bootloader skeleton to load the kernel
 - [ ] Implement kernel initialization with memory management stubs
+- [ ] Plan compute inventory mechanism to gather hardware and I/O details during startup
+- [ ] Integrate compute inventory gathering into the initialization sequence
 - [ ] Provide a minimalist console interface for user interaction
 - [ ] Plan integration hooks for external intelligence frameworks
 - [ ] Develop memory management subsystem

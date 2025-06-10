@@ -1,0 +1,17 @@
+LifeOS Architecture Overview
+============================
+
+LifeOS is organized into modular components to simplify development and testing.
+Major parts include:
+
+- **Bootloader**: Initializes hardware state and loads the kernel.
+- **Kernel**: Provides core services such as memory management, task scheduling,
+  and device management.
+- **Hardware Abstraction Layer (HAL)**: Offers a consistent interface to
+  underlying hardware devices.
+- **Device Drivers**: Implement support for specific hardware peripherals.
+- **Console Interface**: Minimal text interface for user interaction.
+- **External Intelligence Hooks**: Integration points for advanced frameworks.
+
+Each component will be developed incrementally with clear responsibilities and
+interfaces.

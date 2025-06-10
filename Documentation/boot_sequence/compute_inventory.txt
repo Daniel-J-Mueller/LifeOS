@@ -1,0 +1,9 @@
+Compute Inventory
+=================
+
+During initialization, the kernel queries connected hardware to build an
+inventory of available compute resources and I/O capabilities. This includes
+CPU features, memory size, storage devices, and peripheral interfaces.
+
+The inventory guides configuration of drivers and system services, ensuring that
+each component is aware of what resources exist and how best to utilize them.
