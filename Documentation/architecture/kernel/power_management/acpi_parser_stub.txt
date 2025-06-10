@@ -1,9 +1,10 @@
 ACPI Parser Stub
 ================
 
-The `acpi_init()` function scans for ACPI tables.  At this stage it is a
-stub that announces itself through the console and fills a small
-`acpi_fadt` structure with default values.  The power management code
-uses these fields to determine which ports to program when shutting the
-machine down.  The `acpi_get_fadt()` accessor exposes the pointer so
-other modules can use the information once real parsing code is added.
+The `acpi_init()` function now searches the BIOS memory region for the
+Root System Description Pointer (RSDP).  When found, it walks the RSDT
+to locate the Fixed ACPI Description Table and copies the relevant port
+addresses into the `acpi_fadt` structure.  If any table is missing the
+routine falls back to a set of defaults compatible with QEMU.  The
+`acpi_get_fadt()` accessor exposes the populated structure so other
+subsystems can retrieve the power management register locations.

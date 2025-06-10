@@ -13,8 +13,10 @@ struct acpi_fadt {
     uint16_t slp_typb;     /* SLP_TYP value for PM1b */
 };
 
-/* Initialize ACPI table parsing. Currently a stub that sets up
- * default FADT values for QEMU. */
+/* Initialize ACPI table parsing. The routine scans memory for the
+ * Root System Description Pointer (RSDP) and attempts to locate the
+ * Fixed ACPI Description Table. If discovery fails, default values
+ * targeting QEMU are used. */
 void acpi_init(void);
 
 /* Returns pointer to the FADT if discovered, otherwise NULL. */
