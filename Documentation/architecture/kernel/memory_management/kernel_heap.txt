@@ -1,0 +1,4 @@
+Kernel Heap
+===========
+
+Dynamic allocations within the kernel use a simple heap built on top of the virtual memory system. Early versions will implement a small buddy allocator.

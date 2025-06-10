@@ -1,0 +1,4 @@
+Scheduler Overview
+==================
+
+The scheduler determines which task runs on the CPU at any given time. Early revisions will implement a simple round-robin policy with a fixed time slice. Later versions can incorporate priorities or more advanced strategies.

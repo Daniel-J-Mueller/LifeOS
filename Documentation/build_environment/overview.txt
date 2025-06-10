@@ -1,0 +1,1 @@
+The build_environment directory contains instructions and scripts for setting up the LifeOS development environment. Each file explains how to install required tools and how to run the emulator used for testing the operating system.

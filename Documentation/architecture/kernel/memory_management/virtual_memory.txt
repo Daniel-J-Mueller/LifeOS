@@ -1,0 +1,4 @@
+Virtual Memory
+==============
+
+This layer manages page tables for each address space and applies simple protection flags. It translates virtual addresses used by the kernel and tasks into physical frames supplied by the allocator.

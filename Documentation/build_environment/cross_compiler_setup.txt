@@ -1,0 +1,12 @@
+Cross Compiler Setup
+====================
+
+LifeOS uses cross-compilation to produce binaries for multiple targets. The `scripts/setup_toolchain.sh` helper installs a minimal set of packages for building 32-bit and 64-bit x86 images.
+
+Run the following from the repository root:
+
+```
+sudo ./scripts/setup_toolchain.sh
+```
+
+After installation the `i686-linux-gnu` and `x86_64-linux-gnu` GCC toolchains are ready for use.

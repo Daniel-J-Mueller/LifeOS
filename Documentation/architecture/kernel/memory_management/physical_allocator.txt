@@ -1,0 +1,4 @@
+Physical Allocator
+=================
+
+The physical allocator maintains a bitmap of available memory frames. It is responsible for reserving and releasing pages that back higher level allocators.
