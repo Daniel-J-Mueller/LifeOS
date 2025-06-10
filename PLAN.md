@@ -1,4 +1,3 @@
-- [ ] Provide a minimalist console interface for user interaction
 - [ ] Implement stub CPU detection logic for compute inventory
 - [ ] Add placeholder memory size detection in HAL
 - [ ] Plan integration hooks for external intelligence frameworks
@@ -9,5 +8,7 @@
 - [ ] Specify bootloader error handling strategy
 - [ ] Define driver initialization order within the kernel
 - [ ] Document console interface commands and expected behavior
+- [ ] Implement keyboard input handling for console
+- [ ] Build simple command parser for console
 - [ ] Outline basic system call interface for user tasks
 - [ ] Create build script to produce bootable image
