@@ -1,5 +1,3 @@
-- [ ] Integrate keyboard driver with console input
-- [ ] Document driver initialization sequence
 - [ ] Build simple command parser for console
 - [ ] Handle backspace in console input
 - [ ] Create interactive shell using command parser
@@ -11,3 +9,4 @@
 - [ ] Expand physical allocator to support freeing pages
 - [ ] Introduce basic virtual memory paging
 - [ ] Expand scheduler to support task termination
+- [ ] Research approach for Linux-like terminal environment using host packages

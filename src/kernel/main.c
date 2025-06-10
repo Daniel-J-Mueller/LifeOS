@@ -5,6 +5,7 @@
 
 static void idle_task(void) {
     for (;;) {
+        console_poll_input();
         __asm__("hlt");
         sched_yield();
     }
