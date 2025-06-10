@@ -7,8 +7,8 @@ scale as features are added.
 
 Current top-level directories include:
 - `boot`   – Bootloader source that prepares the system and loads the kernel.
-- `kernel` – Core kernel code. Subdirectories will house memory management,
-             scheduler, and other subsystems.
+- `kernel` – Core kernel code. Subdirectories house memory management,
+             the scheduler, driver model, and other subsystems.
 - `hal`    – Hardware abstraction layer implementations.
 - `drivers`– Device driver code.
 
