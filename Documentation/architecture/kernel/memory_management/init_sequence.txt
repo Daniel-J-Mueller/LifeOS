@@ -1,0 +1,7 @@
+Memory Management Initialization
+===============================
+
+The early kernel calls `mm_init` during `kernel_init` to prepare the
+memory manager. The routine is currently a stub but will eventually
+create page tables and initialize allocation structures so higher
+layers can request memory safely.

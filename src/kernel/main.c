@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include "kernel.h"
 
 /*
  * Primary C entry point for the kernel. The environment is assumed
@@ -6,7 +7,7 @@
  * temporary stack set up by the assembly entry stub.
  */
 void kmain(void) {
-    /* Placeholder for future initialization code. */
+    kernel_init();
     for (;;) {
         __asm__("hlt");
     }
