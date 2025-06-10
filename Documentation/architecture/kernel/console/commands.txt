@@ -9,6 +9,7 @@ Supported commands:
 
 - `help`  : Display a list of available commands.
 - `clear` : Clear the screen of all text.
+- `info`  : Show detected CPU cores and memory size.
 
 Additional commands will appear as the command parser and subsystems
 evolve.

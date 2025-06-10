@@ -65,6 +65,22 @@ void console_write(const char *s) {
         console_putc(*s++);
 }
 
+void console_write_dec(unsigned long value) {
+    char buf[21];
+    int i = 0;
+
+    if (value == 0) {
+        console_putc('0');
+        return;
+    }
+    while (value > 0 && i < 20) {
+        buf[i++] = '0' + (value % 10);
+        value /= 10;
+    }
+    while (i-- > 0)
+        console_putc(buf[i]);
+}
+
 void console_init(void) {
     console_clear();
 }

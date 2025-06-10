@@ -24,3 +24,7 @@ struct compute_inventory {
 Future revisions may extend this structure with bus data and storage
 capacities. For now it captures only the most essential properties
 required during early initialization.
+
+The interactive shell provides an `info` command which dumps the
+current contents of this structure so developers can verify detected
+hardware.
