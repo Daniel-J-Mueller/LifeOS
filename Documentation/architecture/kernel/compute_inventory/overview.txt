@@ -32,5 +32,5 @@ The bus number along with the class and subclass codes of detected
 devices are recorded for later use by driver modules.
 
 The interactive shell provides an `info` command which dumps the
-current contents of this structure so developers can verify detected
-hardware.
+current contents of this structure. PCI class codes are translated to
+descriptive names so developers can easily verify detected hardware.
