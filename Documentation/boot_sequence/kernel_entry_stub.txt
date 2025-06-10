@@ -23,6 +23,6 @@ mode.
    - Once in protected mode, control passes to the ``kmain`` symbol which will
      perform the rest of the kernel initialization.
 
-At this stage ``kmain`` simply returns and the processor halts in an infinite
-loop. Future tasks will expand ``kmain`` to set up memory management structures
-and other subsystems.
+At this stage ``kmain`` is implemented in C. It currently enters an infinite
+loop where the ``hlt`` instruction is executed repeatedly. Future tasks will
+expand ``kmain`` to set up memory management structures and other subsystems.
