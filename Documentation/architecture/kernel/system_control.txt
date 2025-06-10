@@ -1,10 +1,11 @@
 System Control
 ==============
 
-The kernel provides a minimal interface for halting the operating system.
-Currently this consists of the `kernel_halt()` function which disables
-interrupts and issues the `hlt` instruction in a loop. It is used by the
-console `exit` command to stop the virtual machine when running under QEMU.
+The kernel provides a minimal interface for basic power management.
+The `kernel_halt()` function disables interrupts and issues the `hlt`
+instruction in a loop. It is used by the console `exit` command to stop
+the virtual machine when running under QEMU.
 
-Additional power management features such as reboot or sleep states may be
-added in future revisions.
+`kernel_reboot()` issues a reset request through the keyboard controller
+to reboot the machine. The console `restart` command exposes this
+functionality to the user.

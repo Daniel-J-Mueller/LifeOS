@@ -1,5 +1,6 @@
 - [x] Implement command history in the interactive shell
-- [ ] Implement `restart` command to reboot the system
+- [x] Implement `restart` command to reboot the system
+- [ ] Implement `shutdown` command to power off the system via ACPI
 - [ ] Outline basic system call interface for user tasks
 - [ ] Implement bus enumeration in compute inventory
 - [ ] Add support for enumerating PCI device class codes

@@ -15,5 +15,8 @@ commands can be repeated or edited without retyping them.
 Typing `exit` at the prompt halts LifeOS and returns control to the
 emulator, allowing the virtual machine to be closed cleanly.
 
+Issuing the `restart` command performs a full system reboot using the
+kernel's power management interface.
+
 The shell task runs alongside other kernel tasks so input can be
 processed while background activity occurs.
