@@ -3,6 +3,7 @@
 #include "console/console.h"
 #include "sched/sched.h"
 #include "console/shell.h"
+#include "syscall/syscall.h"
 
 static void idle_task(void) {
     for (;;) {
@@ -14,7 +15,7 @@ static void idle_task(void) {
 
 static void demo_task(void) {
     for (;;) {
-        console_write("Demo task running\n");
+        syscall_dispatch(SYS_CONSOLE_WRITE, (uint32_t)"Demo task running\n", 0, 0);
         sched_yield();
     }
 }

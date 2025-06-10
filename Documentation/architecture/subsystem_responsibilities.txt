@@ -35,6 +35,11 @@ Console Interface
 - Provide a minimal command shell for user input and status output.
 - Expose diagnostics produced during boot and from running services.
 
+System Call Interface
+---------------------
+- Dispatch requests from user tasks to kernel functions.
+- Provide a stable API for future user space.
+
 External Intelligence Hooks
 ---------------------------
 - Serve as optional interfaces to external frameworks that supply advanced reasoning or management capabilities.
