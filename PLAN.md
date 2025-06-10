@@ -1,5 +1,5 @@
 - [x] Store subclass codes for each PCI device
-- [ ] Map PCI class codes to human-readable names in info output
+- [x] Map PCI class codes to human-readable names in info output
 - [ ] Display bus number for each PCI device in the info command
 - [ ] Store vendor and device IDs for each PCI device
 - [ ] Create ACPI table parser stub for power management
@@ -14,3 +14,4 @@
 - [ ] Integrate system call dispatcher via software interrupt
 - [ ] Provide user-space stub library for invoking system calls
 - [ ] Add unit test for scheduler round-robin behavior
+- [ ] Add unit test for PCI class name mapping

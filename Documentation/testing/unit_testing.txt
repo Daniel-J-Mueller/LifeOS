@@ -14,7 +14,7 @@ To build and run the test:
 
 ```
 $ gcc -I src -DINVENTORY_TEST tests/inventory_test.c \
-      src/kernel/inventory/inventory.c -o tests/inventory_test
+      src/kernel/inventory/inventory.c src/kernel/inventory/pci_classes.c -o tests/inventory_test
 $ ./tests/inventory_test
 ```
 

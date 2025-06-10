@@ -1,0 +1,32 @@
+PCI Class Name Mapping
+======================
+
+The console `info` command translates raw PCI class codes into short
+human-readable descriptions. This mapping currently covers the most
+common classes defined by the PCI specification. Unknown codes are
+reported as "Unknown".
+
+The mapping is implemented in `src/kernel/inventory/pci_classes.c` and
+exposed through `pci_class_name()`. The function returns one of the
+following strings based on the class code value:
+
+- 0x00: Unclassified
+- 0x01: Mass Storage
+- 0x02: Network
+- 0x03: Display
+- 0x04: Multimedia
+- 0x05: Memory
+- 0x06: Bridge
+- 0x07: Communication
+- 0x08: System
+- 0x09: Input
+- 0x0A: Docking
+- 0x0B: Processor
+- 0x0C: Serial Bus
+- 0x0D: Wireless
+- 0x0E: Intelligent I/O
+- 0x0F: Satellite
+- 0x10: Encryption
+- 0x11: Signal Processing
+- 0x12: Processing Accel
+- 0x13: Instrumentation
