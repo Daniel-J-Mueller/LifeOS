@@ -22,3 +22,6 @@
 - [ ] Add unit test for info command PCI listing
 - [ ] Add unit test for PCI vendor and device ID capture
 - [ ] Map vendor IDs to names in info output
+- [ ] Begin migration to 64-bit architecture
+- [ ] Update bootloader to enable long mode
+- [ ] Convert kernel entry to 64-bit and adapt build scripts
