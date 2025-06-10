@@ -13,3 +13,10 @@ Keyboard input is queued in a small ring buffer managed by the console. The
 function `console_poll_input()` checks the keyboard driver for typed characters
 and stores them in the buffer. Characters can then be retrieved with
 `console_getc()`, returning `0` when no input is available.
+
+Command Parsing
+---------------
+
+Higher level components use `console_execute_command()` to interpret a line of
+text. Only `help` and `clear` are recognized at this stage, keeping the parser
+minimal while the shell is under development.
