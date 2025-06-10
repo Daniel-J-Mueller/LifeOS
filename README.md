@@ -30,7 +30,10 @@ the image under QEMU.
    ```
 3. Launch LifeOS in QEMU:
    ```
-   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -serial stdio
+   LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 \
+/usr/bin/qemu-system-x86_64 \
+  -drive format=raw,file=build/os-image.bin \
+  -serial stdio
    ```
 
 Implementation code lives under the `src` directory. The layout mirrors the OS
