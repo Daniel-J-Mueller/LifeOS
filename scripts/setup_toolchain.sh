@@ -9,8 +9,8 @@ fi
 apt-get update
 apt-get install -y \
   build-essential \
-  gcc-i686-linux-gnu g++-i686-linux-gnu \
-  gcc-x86-64-linux-gnu g++-x86-64-linux-gnu \
+  gcc-i686-linux-gnu:amd64 g++-i686-linux-gnu:amd64 \
+  gcc-x86-64-linux-gnu:amd64 g++-x86-64-linux-gnu:amd64 \
   qemu-system-x86
 
 echo "Toolchain installation complete."
