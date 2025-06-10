@@ -1,0 +1,9 @@
+Shutdown via FADT
+=================
+
+With the stub ACPI parser in place, power off now relies on the
+`acpi_fadt` structure.  The table contains the PM1 control port
+addresses and sleep type values needed to request the S5 state.
+`kernel_shutdown()` looks up these fields and writes the sleep command
+to each port.  Default values targeting QEMU are provided until real
+ACPI table parsing is implemented.

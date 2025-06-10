@@ -4,7 +4,8 @@
 - [x] Store vendor and device IDs for each PCI device
 - [x] Display vendor and device IDs in the info command
 - [x] Create ACPI table parser stub for power management
-- [ ] Integrate ACPI shutdown using parsed FADT values
+- [x] Integrate ACPI shutdown using parsed FADT values
+- [ ] Expand ACPI parser to locate the RSDP and FADT in memory
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration

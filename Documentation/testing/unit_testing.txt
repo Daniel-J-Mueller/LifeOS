@@ -19,3 +19,12 @@ $ ./tests/inventory_test
 ```
 
 Successful execution prints no output and returns zero.
+
+To validate the ACPI parser stub:
+
+```
+$ gcc -I src -DACPI_TEST tests/acpi_test.c src/kernel/acpi/acpi.c -o tests/acpi_test
+$ ./tests/acpi_test
+```
+
+This ensures that default FADT values are populated as expected.

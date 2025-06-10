@@ -1,2 +1,3 @@
 build/
 tests/inventory_test
+tests/acpi_test
