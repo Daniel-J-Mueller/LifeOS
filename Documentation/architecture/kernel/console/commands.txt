@@ -9,7 +9,8 @@ Supported commands:
 
 - `help`  : Display a list of available commands.
 - `clear` : Clear the screen of all text.
- - `info`  : Show detected CPU cores, memory size, and PCI device classes.
+ - `info`  : Show detected CPU cores, memory size, and list PCI devices with
+   their bus numbers and class names.
 - `restart` : Reboot the operating system.
 - `exit`  : Halt the operating system and return to the emulator.
 
