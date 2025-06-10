@@ -1,0 +1,17 @@
+Source Code Layout
+==================
+
+LifeOS source code resides under the `src` directory. The layout mirrors the
+major components documented in the architecture breakdown so development can
+scale as features are added.
+
+Current top-level directories include:
+- `boot`   – Bootloader source that prepares the system and loads the kernel.
+- `kernel` – Core kernel code. Subdirectories will house memory management,
+             scheduler, and other subsystems.
+- `hal`    – Hardware abstraction layer implementations.
+- `drivers`– Device driver code.
+
+Additional directories can be added as new subsystems are introduced. This
+structure keeps the tree organized without being overly complex at the early
+stages of the project.

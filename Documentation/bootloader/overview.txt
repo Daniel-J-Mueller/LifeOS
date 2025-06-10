@@ -1,0 +1,13 @@
+Bootloader Overview
+===================
+
+This directory describes the LifeOS bootloader and how it hands control to the kernel.
+
+The bootloader is responsible for:
+- Setting up a temporary execution environment after firmware handoff.
+- Loading the kernel image from the boot device into memory.
+- Passing execution to the kernel once the image has been verified and mapped.
+
+The code for the bootloader resides under `src/boot` and is currently a single
+assembly file that prints a loading message and loops. Loading logic will be
+implemented in future tasks.
