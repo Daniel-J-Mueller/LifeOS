@@ -1,0 +1,16 @@
+Memory Manager Design
+=====================
+
+The LifeOS memory manager is responsible for allocating physical and virtual memory to kernel subsystems and user tasks. The design follows a layered approach:
+
+1. **Physical memory allocator**
+   - Maintains a bitmap of available frames.
+   - Provides low-level routines to reserve and release pages.
+2. **Virtual memory mapper**
+   - Builds and manages page tables for each address space.
+   - Supports simple protection flags for read, write, and execute permissions.
+3. **Kernel heap**
+   - Implements a basic slab or buddy allocator for dynamic allocations within the kernel.
+   - Relies on the physical and virtual layers to supply pages on demand.
+
+Initially the manager will operate with coarse granularity to keep the implementation small. Future revisions can refine allocation strategies and add features such as memory pooling and NUMA awareness.
