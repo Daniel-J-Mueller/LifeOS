@@ -1,3 +1,5 @@
+![LifeOS Logo](LifeOS_logo.png)
+
 # LifeOS
 
 LifeOS is an emulatable operating system designed to host complex intelligence frameworks. The project aims for minimalist outputs and indirect human control, allowing autonomous operation with optional human intervention. Visual feedback is kept informative and relevant to the active user. Each human machine interface (HMI) is viewed as an input modality to a broader intelligent system that reacts in the best interest of the user and OS. The operating system now targets the x86_64 architecture for improved performance and future expansion.
