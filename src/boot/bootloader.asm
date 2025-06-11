@@ -20,7 +20,7 @@ start:
     mov es, ax
     mov bx, 0x1000
     mov ah, 0x02        ; BIOS read sectors
-    mov al, 33          ; number of sectors to read
+    mov al, 34          ; number of sectors to read
     mov ch, 0
     mov dh, 0
     mov cl, 2           ; start reading after boot sector
