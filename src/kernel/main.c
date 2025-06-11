@@ -12,12 +12,6 @@ static void idle_task(void) {
     }
 }
 
-static void demo_task(void) {
-    for (;;) {
-        syscall_dispatch(SYS_CONSOLE_WRITE, (uint32_t)"Demo task running\n", 0, 0);
-        sched_yield();
-    }
-}
 
 /*
  * Primary C entry point for the kernel. The environment is assumed
@@ -28,9 +22,6 @@ void kmain(void) {
     kernel_init();
     struct task *idle = sched_create_task(idle_task);
     sched_add_task(idle);
-
-    struct task *demo = sched_create_task(demo_task);
-    sched_add_task(demo);
 
     struct task *shell = sched_create_task(shell_task);
     sched_add_task(shell);

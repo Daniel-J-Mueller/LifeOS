@@ -58,7 +58,6 @@ void shell_show_prompt(void) {
 }
 
 void shell_task(void) {
-    shell_show_prompt();
 
     for (;;) {
         char c = console_getc();

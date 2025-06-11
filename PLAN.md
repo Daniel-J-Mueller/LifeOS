@@ -18,5 +18,7 @@
 - [ ] Add unit test for ACPI table lookup
 - [ ] Map vendor IDs to names in info output
 - [ ] Document dynamic pane manager and key bindings
+- [ ] Start with a single pane showing the shell prompt
+- [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn
 - [ ] Add unit test for shell history navigation
