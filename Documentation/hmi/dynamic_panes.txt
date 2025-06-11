@@ -11,11 +11,29 @@ allow the operator to adjust the grid dimensions at run time:
 * **F1** – decrease the number of pane columns.
 * **F4** – increase the number of pane rows.
 * **F3** – decrease the number of pane rows.
+* **F5** – move focus left.
+* **F6** – move focus right.
+* **F7** – move focus up.
+* **F8** – move focus down.
 
-The right **Alt** key moves the active pane to the left.  The **Fn** key
-located to the right of the space bar moves the active pane to the right.
+The right **Alt** key still moves the active pane to the left and the
+**Fn** key located to the right of the space bar moves it to the right.
 Pressing **Ctrl** together with these keys moves the active pane up and
-down respectively.
+down respectively.  The dedicated function keys provide the same
+behavior without any modifier keys.
+
+The shell also exposes text commands that mirror these actions:
+
+```
+wider    - add a column
+thinner  - remove a column
+taller   - add a row
+shorter  - remove a row
+left     - move focus left
+right    - move focus right
+up       - move focus up
+down     - move focus down
+```
 
 When a pane becomes active it expands to roughly half of the display
 area.  Remaining panes share the leftover space so the entire screen is
