@@ -10,6 +10,7 @@
 #define VGA_ADDR 0xB8000
 #define VGA_COLS 80
 #define VGA_ROWS 25
+#define SCROLLBACK_LINES 100
 #define COLOR_LIGHT_GREY 7
 #define COLOR_BLACK 0
 
@@ -17,6 +18,13 @@ static volatile uint16_t *const vga_buffer = (volatile uint16_t *)VGA_ADDR;
 static uint8_t cursor_x = 0;
 static uint8_t cursor_y = 0;
 static uint8_t vga_color = (COLOR_BLACK << 4) | COLOR_LIGHT_GREY;
+
+/* In-memory copies of the visible screen and additional scrollback lines */
+static uint16_t screen_buffer[VGA_ROWS][VGA_COLS];
+static uint16_t scrollback[SCROLLBACK_LINES][VGA_COLS];
+static unsigned int sb_start = 0;   /* index of oldest line */
+static unsigned int sb_count = 0;   /* number of stored lines */
+static unsigned int sb_view = 0;    /* lines above bottom currently shown */
 
 /* Simple ring buffer for keyboard input */
 #define INPUT_BUF_SIZE 128
@@ -48,9 +56,70 @@ static void update_cursor(void) {
     outb(0x3D5, pos & 0xFF);
 }
 
+static void scrollback_push(const uint16_t *line) {
+    unsigned int idx = (sb_start + sb_count) % SCROLLBACK_LINES;
+    for (unsigned int x = 0; x < VGA_COLS; ++x)
+        scrollback[idx][x] = line[x];
+    if (sb_count < SCROLLBACK_LINES)
+        sb_count++;
+    else
+        sb_start = (sb_start + 1) % SCROLLBACK_LINES;
+}
+
+static void render_view(void) {
+    unsigned int total = sb_count + VGA_ROWS;
+    if (sb_view > sb_count)
+        sb_view = sb_count;
+    unsigned int start = (total > VGA_ROWS + sb_view) ?
+        total - VGA_ROWS - sb_view : 0;
+
+    for (unsigned int row = 0; row < VGA_ROWS; ++row) {
+        unsigned int idx = start + row;
+        if (idx < sb_count) {
+            unsigned int real = (sb_start + idx) % SCROLLBACK_LINES;
+            for (unsigned int x = 0; x < VGA_COLS; ++x)
+                vga_buffer[row * VGA_COLS + x] = scrollback[real][x];
+        } else {
+            unsigned int scr = idx - sb_count;
+            if (scr < VGA_ROWS)
+                for (unsigned int x = 0; x < VGA_COLS; ++x)
+                    vga_buffer[row * VGA_COLS + x] = screen_buffer[scr][x];
+            else
+                for (unsigned int x = 0; x < VGA_COLS; ++x)
+                    vga_buffer[row * VGA_COLS + x] = ((uint16_t)vga_color << 8) | ' ';
+        }
+    }
+    update_cursor();
+}
+
+static void scroll_screen(void) {
+    scrollback_push(screen_buffer[0]);
+    for (unsigned int y = 0; y < VGA_ROWS - 1; ++y)
+        for (unsigned int x = 0; x < VGA_COLS; ++x)
+            screen_buffer[y][x] = screen_buffer[y + 1][x];
+    for (unsigned int x = 0; x < VGA_COLS; ++x)
+        screen_buffer[VGA_ROWS - 1][x] = ((uint16_t)vga_color << 8) | ' ';
+    if (sb_view == 0)
+        for (unsigned int y = 0; y < VGA_ROWS; ++y)
+            for (unsigned int x = 0; x < VGA_COLS; ++x)
+                vga_buffer[y * VGA_COLS + x] = screen_buffer[y][x];
+}
+
+static void ensure_bottom(void) {
+    if (sb_view) {
+        sb_view = 0;
+        render_view();
+    }
+}
+
 void console_clear(void) {
-    for (unsigned int i = 0; i < VGA_COLS * VGA_ROWS; ++i)
-        vga_buffer[i] = ((uint16_t)vga_color << 8) | ' ';
+    for (unsigned int y = 0; y < VGA_ROWS; ++y)
+        for (unsigned int x = 0; x < VGA_COLS; ++x) {
+            uint16_t val = ((uint16_t)vga_color << 8) | ' ';
+            screen_buffer[y][x] = val;
+            vga_buffer[y * VGA_COLS + x] = val;
+        }
+    sb_start = sb_count = sb_view = 0;
     cursor_x = 0;
     cursor_y = 0;
     update_cursor();
@@ -58,10 +127,13 @@ void console_clear(void) {
 
 void console_putc(char c) {
     serial_putc(c);
+    ensure_bottom();
     if (c == '\n') {
         cursor_x = 0;
-        if (++cursor_y >= VGA_ROWS)
-            cursor_y = 0;
+        if (++cursor_y >= VGA_ROWS) {
+            scroll_screen();
+            cursor_y = VGA_ROWS - 1;
+        }
     } else if (c == '\b') {
         if (cursor_x > 0) {
             cursor_x--;
@@ -69,16 +141,23 @@ void console_putc(char c) {
             cursor_y--;
             cursor_x = VGA_COLS - 1;
         }
-        vga_buffer[cursor_y * VGA_COLS + cursor_x] = ((uint16_t)vga_color << 8) | ' ';
+        screen_buffer[cursor_y][cursor_x] = ((uint16_t)vga_color << 8) | ' ';
+        if (sb_view == 0)
+            vga_buffer[cursor_y * VGA_COLS + cursor_x] = screen_buffer[cursor_y][cursor_x];
     } else {
-        vga_buffer[cursor_y * VGA_COLS + cursor_x] = ((uint16_t)vga_color << 8) | c;
+        screen_buffer[cursor_y][cursor_x] = ((uint16_t)vga_color << 8) | c;
+        if (sb_view == 0)
+            vga_buffer[cursor_y * VGA_COLS + cursor_x] = screen_buffer[cursor_y][cursor_x];
         if (++cursor_x >= VGA_COLS) {
             cursor_x = 0;
-            if (++cursor_y >= VGA_ROWS)
-                cursor_y = 0;
+            if (++cursor_y >= VGA_ROWS) {
+                scroll_screen();
+                cursor_y = VGA_ROWS - 1;
+            }
         }
     }
-    update_cursor();
+    if (sb_view == 0)
+        update_cursor();
 }
 
 void console_write(const char *s) {
@@ -142,6 +221,16 @@ void console_poll_input(void) {
 
     if (c == KEY_CTRL) {
         ctrl = 1;
+        return;
+    }
+
+    if ((c == KEY_UP || c == KEY_DOWN) && (ctrl || sb_view)) {
+        if (c == KEY_UP && sb_view < sb_count)
+            sb_view++;
+        else if (c == KEY_DOWN && sb_view > 0)
+            sb_view--;
+        render_view();
+        ctrl = 0;
         return;
     }
 
@@ -215,16 +304,25 @@ void console_set_cursor(uint8_t x, uint8_t y) {
 }
 
 void console_draw_quadrants(void) {
-    for (unsigned int y = 0; y < VGA_ROWS; ++y)
-        vga_buffer[y * VGA_COLS + VGA_COLS / 2] =
-            ((uint16_t)vga_color << 8) | 0xB3; /* vertical */
-    for (unsigned int x = 0; x < VGA_COLS; ++x)
-        vga_buffer[(VGA_ROWS / 2) * VGA_COLS + x] =
-            ((uint16_t)vga_color << 8) | 0xC4; /* horizontal */
-    vga_buffer[(VGA_ROWS / 2) * VGA_COLS + VGA_COLS / 2] =
-        ((uint16_t)vga_color << 8) | 0xC5; /* cross */
+    for (unsigned int y = 0; y < VGA_ROWS; ++y) {
+        uint16_t val = ((uint16_t)vga_color << 8) | 0xB3;
+        screen_buffer[y][VGA_COLS / 2] = val;
+        if (sb_view == 0)
+            vga_buffer[y * VGA_COLS + VGA_COLS / 2] = val;
+    }
+    for (unsigned int x = 0; x < VGA_COLS; ++x) {
+        uint16_t val = ((uint16_t)vga_color << 8) | 0xC4;
+        screen_buffer[VGA_ROWS / 2][x] = val;
+        if (sb_view == 0)
+            vga_buffer[(VGA_ROWS / 2) * VGA_COLS + x] = val;
+    }
+    uint16_t val = ((uint16_t)vga_color << 8) | 0xC5;
+    screen_buffer[VGA_ROWS / 2][VGA_COLS / 2] = val;
+    if (sb_view == 0)
+        vga_buffer[(VGA_ROWS / 2) * VGA_COLS + VGA_COLS / 2] = val;
     cursor_x = 1;
     cursor_y = (VGA_ROWS / 2) + 1;
-    update_cursor();
+    if (sb_view == 0)
+        update_cursor();
     shell_show_prompt();
 }

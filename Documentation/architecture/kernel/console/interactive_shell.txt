@@ -10,7 +10,11 @@ passed to `console_execute_command()`. Basic backspace editing is
 supported and a simple prompt is displayed after each command. The
 shell also remembers a small history of previously entered commands.
 Pressing the up or down arrow keys cycles through this history so
-commands can be repeated or edited without retyping them.
+commands can be repeated or edited without retyping them. Holding
+**Ctrl** while pressing the up or down arrow scrolls the display
+through the new scrollback buffer. Once scrolling has begun, the arrow
+keys continue moving through previous output until the bottom of the
+screen is reached.
 
 Typing `exit` at the prompt halts LifeOS and returns control to the
 emulator, allowing the virtual machine to be closed cleanly.

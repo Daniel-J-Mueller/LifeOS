@@ -1,0 +1,9 @@
+The console now maintains a small scrollback buffer in memory. When
+output reaches the bottom of the screen, the visible lines are shifted
+up and the oldest line is preserved in this buffer. Up to one hundred
+lines are kept so previous messages remain accessible.
+
+Hold the **Ctrl** key and press the up or down arrow keys to browse the
+scrollback history. Once scrolling has begun, the arrow keys alone
+continue moving through the buffer. Any new output automatically returns
+to the live view at the bottom.
