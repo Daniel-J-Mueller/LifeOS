@@ -2,6 +2,7 @@
 #include "console.h"
 #include "../../hal/io.h"
 #include "../../drivers/keyboard/keyboard.h"
+#include "../hmi/pane.h"
 
 #define SERIAL_PORT 0x3F8
 
@@ -118,9 +119,51 @@ void console_init(void) {
 
 /* Poll keyboard driver for new input */
 void console_poll_input(void) {
+    static int ctrl = 0;
     char c = keyboard_read_char();
     if (!c)
         return;
+
+    if (c == KEY_CTRL) {
+        ctrl = 1;
+        return;
+    }
+
+    if (c == KEY_ALT_R) {
+        if (ctrl)
+            pane_move_up();
+        else
+            pane_move_left();
+        ctrl = 0;
+        return;
+    }
+
+    if (c == KEY_FN) {
+        if (ctrl)
+            pane_move_down();
+        else
+            pane_move_right();
+        ctrl = 0;
+        return;
+    }
+
+    switch (c) {
+    case KEY_F1:
+        pane_resize_width(-1);
+        return;
+    case KEY_F2:
+        pane_resize_width(1);
+        return;
+    case KEY_F3:
+        pane_resize_height(-1);
+        return;
+    case KEY_F4:
+        pane_resize_height(1);
+        return;
+    default:
+        break;
+    }
+
     if (c == '\b') {
         if (input_head != input_tail) {
             if (input_head == 0)

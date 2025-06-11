@@ -18,6 +18,18 @@ static const char scancode_ascii[128] = {
 };
 
 static int have_e0 = 0;
+static char handle_extended(unsigned char sc) {
+    switch (sc) {
+    case 0x48: return KEY_UP;
+    case 0x50: return KEY_DOWN;
+    case 0x4B: return KEY_LEFT;
+    case 0x4D: return KEY_RIGHT;
+    case 0x38: return KEY_ALT_R;
+    case 0x5D: return KEY_FN;
+    default:
+        return 0;
+    }
+}
 
 char keyboard_read_char(void) {
     if ((inb(0x64) & 1) == 0)
@@ -29,13 +41,19 @@ char keyboard_read_char(void) {
     }
     if (have_e0) {
         have_e0 = 0;
-        switch (sc) {
-        case 0x48: return KEY_UP;
-        case 0x50: return KEY_DOWN;
-        case 0x4B: return KEY_LEFT;
-        case 0x4D: return KEY_RIGHT;
-        default: return 0;
-        }
+        return handle_extended(sc);
+    }
+    if (sc & 0x80)
+        return 0;
+    switch (sc) {
+    case 0x3B: return KEY_F1;
+    case 0x3C: return KEY_F2;
+    case 0x3D: return KEY_F3;
+    case 0x3E: return KEY_F4;
+    case 0x1D: return KEY_CTRL;
+    case 0x38: return KEY_ALT_R; /* treat left alt same as right for now */
+    default:
+        break;
     }
     if (sc >= sizeof(scancode_ascii))
         return 0;
