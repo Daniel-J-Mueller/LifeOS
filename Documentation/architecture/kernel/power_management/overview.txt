@@ -6,8 +6,10 @@ machine.  Early versions wrote directly to well known ACPI power
 management ports.  The implementation now relies on stubbed ACPI
 tables to supply the register addresses used for shutdown.
 
-The parser initializes during kernel startup and sets up a small
-representation of the Fixed ACPI Description Table (FADT).  Default
-values for QEMU are populated so the power code can pull the PM1
-control ports and S5 sleep types.  Future work will locate the real
-tables instead of these constants.
+The parser initializes during kernel startup, scanning memory for the
+RSDP and enumerating every table listed in the RSDT.  The Fixed ACPI
+Description Table is parsed to obtain the PM1 control registers and S5
+sleep types.  All discovered table headers are kept in a small array so
+other kernel subsystems may query them by signature.  Default values for
+QEMU are still provided when enumeration fails so basic power management
+continues to work.

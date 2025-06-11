@@ -13,6 +13,19 @@ struct acpi_fadt {
     uint16_t slp_typb;     /* SLP_TYP value for PM1b */
 };
 
+/* Standard ACPI System Description Table header. */
+struct acpi_sdt_header {
+    char     signature[4];
+    uint32_t length;
+    uint8_t  revision;
+    uint8_t  checksum;
+    char     oem_id[6];
+    char     oem_table_id[8];
+    uint32_t oem_revision;
+    uint32_t creator_id;
+    uint32_t creator_revision;
+} __attribute__((packed));
+
 /* Initialize ACPI table parsing. The routine scans memory for the
  * Root System Description Pointer (RSDP) and attempts to locate the
  * Fixed ACPI Description Table. If discovery fails, default values
@@ -21,5 +34,10 @@ void acpi_init(void);
 
 /* Returns pointer to the FADT if discovered, otherwise NULL. */
 struct acpi_fadt *acpi_get_fadt(void);
+
+/* Search the parsed table list for the given signature and return
+ * a pointer to the matching header or NULL if not found. */
+struct acpi_sdt_header *acpi_get_table(const char sig[4]);
+
 
 #endif /* ACPI_H */

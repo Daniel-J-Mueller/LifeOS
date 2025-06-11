@@ -20,11 +20,13 @@ $ ./tests/inventory_test
 
 Successful execution prints no output and returns zero.
 
-To validate the ACPI parser stub:
+To validate the ACPI parser stub and table discovery:
 
 ```
 $ gcc -I src -DACPI_TEST tests/acpi_test.c src/kernel/acpi/acpi.c -o tests/acpi_test
 $ ./tests/acpi_test
 ```
 
-This ensures that default FADT values are populated as expected.
+The test verifies that the parser populates the FADT structure and that
+`acpi_get_table()` can locate the FADT by its signature.  Successful
+execution prints no output and returns zero.
