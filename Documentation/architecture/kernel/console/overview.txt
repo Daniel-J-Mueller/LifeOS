@@ -28,5 +28,7 @@ Interactive Shell
 
 The interactive shell runs in its own kernel task. It consumes characters
 from the console input buffer, echoes them to the screen and executes
-commands when the enter key is pressed. The shell currently supports basic
-backspace editing and shows a simple `LifeOS>` prompt.
+commands when the enter key is pressed. Basic editing is available:
+backspace deletes the character before the cursor and the left/right arrow
+keys move the cursor within the line. A simple `LifeOS>` prompt is
+displayed at all times.

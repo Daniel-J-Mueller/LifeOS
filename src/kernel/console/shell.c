@@ -31,64 +31,85 @@ static const char *history_get(int offset) {
     return history[idx];
 }
 
+static void redraw_line(const char *buf, unsigned int len, unsigned int pos,
+                        uint8_t start_x, uint8_t start_y,
+                        unsigned int *disp_len) {
+    console_set_cursor(start_x, start_y);
+    for (unsigned int i = 0; i < *disp_len; ++i)
+        console_putc(' ');
+    console_set_cursor(start_x, start_y);
+    for (unsigned int i = 0; i < len; ++i)
+        console_putc(buf[i]);
+    *disp_len = len;
+    console_set_cursor(start_x + pos, start_y);
+}
+
 void shell_task(void) {
     char cmd_buf[CMD_BUF_SIZE];
-    unsigned int idx = 0;
+    unsigned int len = 0;
+    unsigned int pos = 0;
+    unsigned int disp_len = 0;
+    uint8_t prompt_x, prompt_y;
 
     console_write("LifeOS> ");
+    console_get_cursor(&prompt_x, &prompt_y);
+
     for (;;) {
         char c = console_getc();
         if (c) {
             if (c == '\n') {
-                cmd_buf[idx] = '\0';
+                cmd_buf[len] = '\0';
+                console_set_cursor(prompt_x + disp_len, prompt_y);
                 console_putc('\n');
-                if (idx > 0)
+                if (len > 0)
                     history_add(cmd_buf);
                 history_nav = -1;
                 console_execute_command(cmd_buf);
-                idx = 0;
+                len = pos = disp_len = 0;
                 console_write("LifeOS> ");
+                console_get_cursor(&prompt_x, &prompt_y);
             } else if (c == '\b') {
-                if (idx > 0) {
-                    idx--;
-                    console_putc('\b');
+                if (pos > 0) {
+                    for (unsigned int i = pos - 1; i < len - 1; ++i)
+                        cmd_buf[i] = cmd_buf[i + 1];
+                    len--; pos--;
+                    redraw_line(cmd_buf, len, pos, prompt_x, prompt_y, &disp_len);
+                }
+            } else if (c == KEY_LEFT) {
+                if (pos > 0) {
+                    pos--;
+                    console_set_cursor(prompt_x + pos, prompt_y);
+                }
+            } else if (c == KEY_RIGHT) {
+                if (pos < len) {
+                    pos++;
+                    console_set_cursor(prompt_x + pos, prompt_y);
                 }
             } else if (c == KEY_UP) {
                 if (history_count > 0 && history_nav < history_count - 1) {
                     history_nav++;
                     const char *h = history_get(history_nav);
-                    while (idx > 0) {
-                        idx--;
-                        console_putc('\b');
-                    }
-                    unsigned int i = 0;
-                    while (h[i] && i < CMD_BUF_SIZE - 1) {
-                        cmd_buf[i] = h[i];
-                        console_putc(h[i]);
-                        i++;
-                    }
-                    idx = i;
+                    for (len = 0; h[len] && len < CMD_BUF_SIZE - 1; ++len)
+                        cmd_buf[len] = h[len];
+                    pos = len;
+                    redraw_line(cmd_buf, len, pos, prompt_x, prompt_y, &disp_len);
                 }
             } else if (c == KEY_DOWN) {
                 if (history_nav >= 0) {
                     history_nav--;
                     const char *h = (history_nav >= 0) ? history_get(history_nav) : "";
-                    while (idx > 0) {
-                        idx--;
-                        console_putc('\b');
-                    }
-                    unsigned int i = 0;
-                    while (h[i] && i < CMD_BUF_SIZE - 1) {
-                        cmd_buf[i] = h[i];
-                        console_putc(h[i]);
-                        i++;
-                    }
-                    idx = i;
+                    for (len = 0; h[len] && len < CMD_BUF_SIZE - 1; ++len)
+                        cmd_buf[len] = h[len];
+                    pos = len;
+                    redraw_line(cmd_buf, len, pos, prompt_x, prompt_y, &disp_len);
                 }
             } else {
-                if (idx < CMD_BUF_SIZE - 1) {
-                    cmd_buf[idx++] = c;
-                    console_putc(c);
+                if (len < CMD_BUF_SIZE - 1) {
+                    for (unsigned int i = len; i > pos; --i)
+                        cmd_buf[i] = cmd_buf[i - 1];
+                    cmd_buf[pos++] = c;
+                    len++;
+                    redraw_line(cmd_buf, len, pos, prompt_x, prompt_y, &disp_len);
                 }
                 history_nav = -1;
             }

@@ -9,6 +9,7 @@ capabilities:
 - Visible boot messages during system startup.
 - A console prompt ready to accept simple commands.
 - Previous commands can be recalled using the up/down arrow keys.
+- The left and right arrow keys move the cursor for basic in-line editing.
 - Minimal visual clutter with focus on status information.
 
 As additional devices and graphical interfaces are introduced,
