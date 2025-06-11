@@ -1,0 +1,21 @@
+Dynamic Pane Manager
+====================
+
+LifeOS is moving toward a more flexible text interface using a grid of
+"panes".  The screen initially starts as a single square.  Function keys
+allow the operator to adjust the grid dimensions at run time:
+
+* **F2** – increase the number of pane columns.
+* **F1** – decrease the number of pane columns.
+* **F4** – increase the number of pane rows.
+* **F3** – decrease the number of pane rows.
+
+The right **Alt** key moves the active pane to the left.  The **Fn** key
+located to the right of the space bar moves the active pane to the right.
+Pressing **Ctrl** together with these keys moves the active pane up and
+down respectively.
+
+When a pane becomes active it expands to roughly half of the display
+area.  Remaining panes share the leftover space so the entire screen is
+always filled.  For now only simple ASCII grid lines are drawn, but the
+interface lays the groundwork for a future graphical window manager.

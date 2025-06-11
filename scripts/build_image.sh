@@ -30,12 +30,13 @@ $GCC $CFLAGS -c src/kernel/sched/sched.c -o build/sched.o
 $GCC $CFLAGS -c src/kernel/driver/driver.c -o build/driver.o
 $GCC $CFLAGS -c src/kernel/syscall/syscall.c -o build/syscall.o
 $GCC $CFLAGS -c src/drivers/keyboard/keyboard.c -o build/keyboard.o
+$GCC $CFLAGS -c src/kernel/hmi/pane.c -o build/pane.o
 nasm -f elf64 src/kernel/sched/context_switch.asm -o build/context_switch.o
 
 # Link kernel binary
 $LD -m elf_x86_64 -nostdlib -T src/kernel/linker.ld \
     build/entry.o build/init.o build/main.o \
-    build/mm.o build/console.o build/shell.o build/cmd.o build/power.o build/acpi.o build/string.o build/inventory.o build/pci_classes.o build/sched.o build/driver.o build/syscall.o build/keyboard.o build/context_switch.o \
+    build/mm.o build/console.o build/shell.o build/cmd.o build/power.o build/acpi.o build/string.o build/inventory.o build/pci_classes.o build/sched.o build/driver.o build/syscall.o build/keyboard.o build/pane.o build/context_switch.o \
     -o build/kernel.bin
 
 # Combine bootloader and kernel into a bootable image

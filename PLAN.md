@@ -26,5 +26,5 @@
 - [ ] Add unit test for PCI vendor and device ID capture
 - [ ] Add unit test for ACPI table lookup
 - [ ] Map vendor IDs to names in info output
-- [ ] Draw quadrant-based GUI with console in lower-left quadrant
-- [ ] Document quadrant GUI layout in HMI docs
+- [ ] Implement pane-based text interface with adjustable grid
+- [ ] Document dynamic pane manager and key bindings
