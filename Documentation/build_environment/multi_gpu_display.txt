@@ -12,7 +12,7 @@ Common fixes:
    Ensure `DISPLAY` points to the X11 or Wayland session running on the
 graphics card with connected monitors. For example:
    ```
-   DISPLAY=:0 qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -serial mon:stdio
+   DISPLAY=:0 qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -serial stdio
    ```
    The window should appear on the GPU driving `:0`.
 
@@ -29,7 +29,7 @@ graphics card with connected monitors. For example:
    If no GPU provides local outputs, forward the display using VNC or
    SPICE:
    ```
-   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -display vnc=0.0.0.0:0 -serial mon:stdio
+   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -display vnc=0.0.0.0:0 -serial stdio
    ```
    Connect a VNC client to view the console from another machine.
 

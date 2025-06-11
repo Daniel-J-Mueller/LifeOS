@@ -4,7 +4,7 @@
 - [ ] Provide example host tool for serial command integration
 - [x] Document enabling KVM acceleration for QEMU
 - [x] Document graphics setup for multi-GPU hosts running QEMU
-- [ ] Mirror kernel and bootloader output to serial port for headless debugging
+- [x] Mirror kernel and bootloader output to serial port for headless debugging
 - [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
 - [x] Adjust bootloader to load entire kernel image
 - [ ] Automate bootloader sector count via build script
@@ -34,3 +34,4 @@
 - [ ] Add unit test verifying console text persists after initialization
 - [ ] Add unit test ensuring VGA and serial outputs remain in sync
 - [ ] Document pane command usage and serial console setup
+- [ ] Translate CP437 box drawing characters to Unicode for serial output

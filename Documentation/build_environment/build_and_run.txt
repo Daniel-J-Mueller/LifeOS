@@ -17,7 +17,7 @@ QEMU.  It assumes the cross compiler and emulator have been installed with
    Launch the image with:
    ```
    qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
-     -serial mon:stdio -enable-kvm
+     -serial stdio -enable-kvm
    ```
    The `-enable-kvm` option uses hardware virtualization when available
    for improved performance.
@@ -26,7 +26,7 @@ QEMU.  It assumes the cross compiler and emulator have been installed with
    different output method:
    ```
    qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
-     -serial mon:stdio -display curses -enable-kvm
+     -serial stdio -display curses -enable-kvm
    ```
    This keeps the console visible in the terminal. Use `Ctrl+A X` to exit
    when running in `-nographic` or `-display curses` modes.

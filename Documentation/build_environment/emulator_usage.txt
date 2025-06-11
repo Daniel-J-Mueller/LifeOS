@@ -4,7 +4,7 @@ Emulator Usage
 LifeOS uses QEMU to run and debug early kernels. Once the toolchain is installed, QEMU can launch the operating system image with a command like:
 
 ```
-qemu-system-x86_64 -kernel path/to/kernel.bin -serial mon:stdio
+qemu-system-x86_64 -kernel path/to/kernel.bin -serial stdio
 ```
 
 Replace `path/to/kernel.bin` with the kernel binary produced by the build system. Additional devices or debugging options can be added as needed.
