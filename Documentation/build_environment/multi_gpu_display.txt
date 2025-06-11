@@ -1,0 +1,37 @@
+Managing QEMU Graphics on Multi-GPU Hosts
+========================================
+
+Systems with several GPUs may dedicate only one device to actual display
+outputs while others are compute-only. QEMU renders the guest console
+through the host's windowing system, so a missing or misconfigured
+display server often presents as a blank window or no window at all.
+
+Common fixes:
+
+1. **Use the active X session**
+   Ensure `DISPLAY` points to the X11 or Wayland session running on the
+graphics card with connected monitors. For example:
+   ```
+   DISPLAY=:0 qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -serial mon:stdio
+   ```
+   The window should appear on the GPU driving `:0`.
+
+2. **Select a QEMU front-end**
+   QEMU supports several interfaces with `-display`:
+   - `-display gtk` (default GUI window)
+   - `-display sdl` (SDL window)
+   - `-display curses` for terminal-only output when no GUI is available
+
+   Choose one that matches your environment. `curses` is handy for
+   headless servers.
+
+3. **Remote access**
+   If no GPU provides local outputs, forward the display using VNC or
+   SPICE:
+   ```
+   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -display vnc=0.0.0.0:0 -serial mon:stdio
+   ```
+   Connect a VNC client to view the console from another machine.
+
+Properly directing QEMU's GUI resolves most graphics issues when the
+host contains multiple GPUs.
