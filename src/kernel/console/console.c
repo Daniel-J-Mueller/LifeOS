@@ -108,7 +108,10 @@ static void scroll_screen(void) {
             screen_buffer[y][x] = screen_buffer[y + 1][x];
     for (unsigned int x = 0; x < VGA_COLS; ++x)
         screen_buffer[VGA_ROWS - 1][x] = ((uint16_t)vga_color << 8) | ' ';
-    refresh_screen();
+    if (sb_view == 0)
+        for (unsigned int y = 0; y < VGA_ROWS; ++y)
+            for (unsigned int x = 0; x < VGA_COLS; ++x)
+                vga_buffer[y * VGA_COLS + x] = screen_buffer[y][x];
 }
 
 static void ensure_bottom(void) {
@@ -120,9 +123,11 @@ static void ensure_bottom(void) {
 
 void console_clear(void) {
     for (unsigned int y = 0; y < VGA_ROWS; ++y)
-        for (unsigned int x = 0; x < VGA_COLS; ++x)
-            screen_buffer[y][x] = ((uint16_t)vga_color << 8) | ' ';
-    refresh_screen();
+        for (unsigned int x = 0; x < VGA_COLS; ++x) {
+            uint16_t val = ((uint16_t)vga_color << 8) | ' ';
+            screen_buffer[y][x] = val;
+            vga_buffer[y * VGA_COLS + x] = val;
+        }
     sb_start = sb_count = sb_view = 0;
     cursor_x = 0;
     cursor_y = 0;
@@ -146,10 +151,12 @@ void console_putc(char c) {
             cursor_x = VGA_COLS - 1;
         }
         screen_buffer[cursor_y][cursor_x] = ((uint16_t)vga_color << 8) | ' ';
-        refresh_screen();
+        if (sb_view == 0)
+            vga_buffer[cursor_y * VGA_COLS + cursor_x] = screen_buffer[cursor_y][cursor_x];
     } else {
         screen_buffer[cursor_y][cursor_x] = ((uint16_t)vga_color << 8) | c;
-        refresh_screen();
+        if (sb_view == 0)
+            vga_buffer[cursor_y * VGA_COLS + cursor_x] = screen_buffer[cursor_y][cursor_x];
         if (++cursor_x >= VGA_COLS) {
             cursor_x = 0;
             if (++cursor_y >= VGA_ROWS) {
@@ -309,14 +316,19 @@ void console_draw_quadrants(void) {
     for (unsigned int y = 0; y < VGA_ROWS; ++y) {
         uint16_t val = ((uint16_t)vga_color << 8) | 0xB3;
         screen_buffer[y][VGA_COLS / 2] = val;
+        if (sb_view == 0)
+            vga_buffer[y * VGA_COLS + VGA_COLS / 2] = val;
     }
     for (unsigned int x = 0; x < VGA_COLS; ++x) {
         uint16_t val = ((uint16_t)vga_color << 8) | 0xC4;
         screen_buffer[VGA_ROWS / 2][x] = val;
+        if (sb_view == 0)
+            vga_buffer[(VGA_ROWS / 2) * VGA_COLS + x] = val;
     }
     uint16_t val = ((uint16_t)vga_color << 8) | 0xC5;
     screen_buffer[VGA_ROWS / 2][VGA_COLS / 2] = val;
-    refresh_screen();
+    if (sb_view == 0)
+        vga_buffer[(VGA_ROWS / 2) * VGA_COLS + VGA_COLS / 2] = val;
     cursor_x = 1;
     cursor_y = (VGA_ROWS / 2) + 1;
     if (sb_view == 0)
