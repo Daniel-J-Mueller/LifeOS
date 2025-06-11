@@ -26,6 +26,9 @@ static unsigned int sb_start = 0;   /* index of oldest line */
 static unsigned int sb_count = 0;   /* number of stored lines */
 static unsigned int sb_view = 0;    /* lines above bottom currently shown */
 
+/* Forward declaration to avoid implicit declaration warnings */
+static void update_cursor(void);
+
 static void refresh_screen(void) {
     if (sb_view)
         return;
