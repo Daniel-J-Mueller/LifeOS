@@ -13,5 +13,6 @@ struct file *fs_create(const char *name);
 struct file *fs_open(const char *name);
 int fs_write(struct file *f, const char *data, unsigned int len);
 int fs_read(struct file *f, char *buf, unsigned int len);
+int fs_list(struct file **list, unsigned int max);
 
 #endif /* FS_H */

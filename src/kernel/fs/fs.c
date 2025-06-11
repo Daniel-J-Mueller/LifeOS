@@ -59,3 +59,13 @@ int fs_read(struct file *f, char *buf, unsigned int len) {
         buf[i] = f->data[i];
     return (int)len;
 }
+
+int fs_list(struct file **list, unsigned int max) {
+    unsigned int count = 0;
+    for (int i = 0; i < MAX_FILES && count < max; i++) {
+        if (files[i].used) {
+            list[count++] = &files[i];
+        }
+    }
+    return (int)count;
+}

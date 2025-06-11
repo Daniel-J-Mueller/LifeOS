@@ -1,5 +1,6 @@
 - [x] Begin design of a simple file system layer
-- [ ] Add file listing support to file system
+- [x] Add file listing support to file system
+- [ ] Add file deletion support to file system
 - [ ] Integrate fs_init into kernel initialization
 - [ ] Document file system API usage
 - [ ] Implement stub API for external intelligence hooks
