@@ -4,10 +4,10 @@ character is available it is stored in the buffer provided space remains.
 
 Kernel components can retrieve typed characters using `console_getc()`. The
 function returns `0` when the buffer is empty. Basic line editing is provided:
-pressing backspace removes the most recently queued character. The left and
-right arrow keys move the cursor within the current line so characters can be
-inserted or removed at any position. More advanced editing will be handled by
-higher layers.
+pressing backspace adds a control character to the buffer which higher layers
+interpret to delete the preceding character. The left and right arrow keys move
+the cursor within the current line so characters can be inserted or removed at
+any position. More advanced editing will be handled by higher layers.
 
 The kernel's idle task calls `console_poll_input()` on every loop
 iteration to ensure keystrokes are collected even when no other tasks
