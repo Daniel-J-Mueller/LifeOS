@@ -6,6 +6,8 @@ LifeOS is an emulatable operating system designed to host complex intelligence f
 
 LifeOS currently boots into a basic terminal with minimal command functionality. The system is being scaffolded in pieces to ensure that it remains fast, flexible, and scalable for varied setups. It will eventually support a sort of 'dual OS', whereby the user can interact with files, while the 'orchestrator' (presumably Elarin) will be able to access resources in a more direct and efficient manner.
 
+![LifeOS Boot Terminal](Assets/Boot_Terminal.png)
+
 The project is built from the ground up with a focus on careful planning before implementation to avoid common OS inefficiencies. All components, from the bootloader to user interaction, will be developed in stages with an emphasis on testability and modularity.
 
 Design documents live under the `Documentation` directory. The `scripts` folder
