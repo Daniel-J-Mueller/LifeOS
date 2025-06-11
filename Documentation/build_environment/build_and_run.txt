@@ -17,14 +17,16 @@ QEMU.  It assumes the cross compiler and emulator have been installed with
    Launch the image with:
    ```
    qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
-     -serial mon:stdio
+     -serial mon:stdio -enable-kvm
    ```
+   The `-enable-kvm` option uses hardware virtualization when available
+   for improved performance.
    By default QEMU opens a graphical window that mirrors the VGA text
    buffer. If your environment lacks a display server, specify a
    different output method:
    ```
    qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
-     -serial mon:stdio -display curses
+     -serial mon:stdio -display curses -enable-kvm
    ```
    This keeps the console visible in the terminal. Use `Ctrl+A X` to exit
    when running in `-nographic` or `-display curses` modes.

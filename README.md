@@ -35,8 +35,9 @@ the image under QEMU.
    LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 \
 /usr/bin/qemu-system-x86_64 \
   -drive format=raw,file=build/os-image.bin \
-  -serial mon:stdio
-   ```
+  -serial mon:stdio -enable-kvm
+  ```
+   Use `-enable-kvm` to leverage hardware virtualization for better performance.
 
 Implementation code lives under the `src` directory. The layout mirrors the OS
 components described in the architecture documentation:

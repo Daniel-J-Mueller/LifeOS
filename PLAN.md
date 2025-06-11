@@ -4,6 +4,7 @@
 - [ ] Document file system API usage
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
+- [ ] Document enabling KVM acceleration for QEMU
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging
 - [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
 - [ ] Expand physical allocator to support freeing pages
