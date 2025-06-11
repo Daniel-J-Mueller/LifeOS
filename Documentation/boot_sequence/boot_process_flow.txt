@@ -13,15 +13,16 @@ Each stage is executed in sequence with the goal of bringing the system to an op
    - Once the environment is ready, the kernel image is loaded into memory and execution is transferred.
 3. **Kernel initialization**
    - Early kernel code sets up memory management structures and the initial page tables.
-   - The task scheduler and interrupt handlers are brought online in a minimal form.
-   - Services required for hardware discovery are enabled.
-4. **Compute inventory gathering**
+   - The text console and pane manager start so all subsequent output appears inside the layout.
+   - Hardware discovery routines gather compute inventory.
+4. **ACPI power management setup**
    - Hardware enumeration routines query CPU capabilities, available memory, storage, and peripheral buses.
    - Drivers report discovered devices so the OS knows what resources are present.
    - Results are stored for later use by higher level subsystems and logging.
-5. **ACPI power management setup**
+5. **Driver and service initialization**
    - The ACPI parser scans memory for the RSDP and enumerates tables.
    - Power management registers are recorded and defaults are provided when tables are missing.
+   - Built-in drivers are registered and brought online.
 6. **Interface initialization**
    - The kernel starts the console so diagnostics and user input are possible.
    - External hooks for intelligence frameworks are registered if present.
