@@ -14,8 +14,6 @@ start:
     mov [boot_drive], dl
     call serial_init
 
-    mov si, load_msg
-    call print_string
 
     ; Load kernel from disk to 0x0000:0x1000
     mov ax, 0x0000
@@ -148,7 +146,6 @@ serial_init:
 
 boot_drive db 0
 err_msg   db 'Disk read failure', 0
-load_msg  db 'Loading LifeOS kernel...', 0
 
 align 8
 gdt_start:
