@@ -26,10 +26,10 @@ struct acpi_sdt_header {
     uint32_t creator_revision;
 } __attribute__((packed));
 
-/* Initialize ACPI table parsing. The routine scans memory for the
- * Root System Description Pointer (RSDP) and attempts to locate the
- * Fixed ACPI Description Table. If discovery fails, default values
- * targeting QEMU are used. */
+/* Initialize ACPI table parsing. The routine searches the EBDA and BIOS
+ * areas for the Root System Description Pointer. Both RSDT and XSDT
+ * layouts are supported so the parser can operate on real firmware
+ * tables. If discovery fails, default values targeting QEMU are used. */
 void acpi_init(void);
 
 /* Returns pointer to the FADT if discovered, otherwise NULL. */

@@ -1,12 +1,12 @@
 ACPI Parser Stub
 ================
 
-The `acpi_init()` function now searches the BIOS memory region for the
-Root System Description Pointer (RSDP).  When found, it walks the RSDT
-and records each referenced table pointer.  The Fixed ACPI Description
-Table is parsed to populate an `acpi_fadt` structure containing the
-power management register locations.  All discovered table headers are
-stored in an internal list so additional tables can be queried later.
-If any required table is missing the routine falls back to a set of
-defaults compatible with QEMU.  The `acpi_get_fadt()` accessor returns
-the parsed FADT while `acpi_get_table()` allows lookups by signature.
+The `acpi_init()` function now searches both the EBDA and BIOS memory
+regions for the Root System Description Pointer (RSDP).  If a revision 2
+pointer is discovered the XSDT is used, otherwise the older RSDT is
+processed.  Each entry is enumerated and stored in an internal list so
+additional tables can be queried later.  The Fixed ACPI Description
+Table provides the PM1 control registers used for shutdown.  Should any
+required table be missing the routine falls back to defaults compatible
+with QEMU.  The `acpi_get_fadt()` accessor returns the parsed FADT while
+`acpi_get_table()` allows lookups by signature.

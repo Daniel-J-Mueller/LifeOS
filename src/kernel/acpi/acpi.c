@@ -16,12 +16,17 @@ static struct acpi_fadt *fadt_table = 0;
 static struct acpi_sdt_header *acpi_tables[MAX_ACPI_TABLES];
 static unsigned int acpi_table_count = 0;
 
+/* ACPI 1.0 RSDP layout with optional 2.0 extensions */
 struct acpi_rsdp {
     char     signature[8];
     uint8_t  checksum;
     char     oem_id[6];
     uint8_t  revision;
     uint32_t rsdt_address;
+    uint32_t length;       /* Only valid when revision >= 2 */
+    uint64_t xsdt_address;  /* ACPI 2.0 64-bit table pointer */
+    uint8_t  ext_checksum;  /* Checksum of entire structure */
+    uint8_t  reserved[3];
 } __attribute__((packed));
 
 
@@ -43,70 +48,90 @@ struct acpi_fadt_table {
     uint32_t pm1b_cnt_blk;
 } __attribute__((packed));
 
+static struct acpi_rsdp *scan_rsdp(unsigned char *s, unsigned char *e) {
+    const char sig[8] = "RSD PTR ";
+    for (unsigned char *p = s; p + sizeof(struct acpi_rsdp) <= e; p += 16) {
+        int match = 1;
+        for (unsigned int i = 0; i < 8; i++) {
+            if (p[i] != sig[i]) { match = 0; break; }
+        }
+        if (match)
+            return (struct acpi_rsdp *)p;
+    }
+    return NULL;
+}
+
 void acpi_init(void) {
     console_write("ACPI parser initializing\n");
 
     unsigned char *start;
     unsigned char *end;
+    struct acpi_rsdp *rsdp = NULL;
 #ifdef ACPI_TEST
     start = acpi_test_mem_start;
     end = acpi_test_mem_start + acpi_test_mem_size;
+    rsdp = scan_rsdp(start, end);
 #else
-    start = (unsigned char *)0xE0000;
-    end = (unsigned char *)0x100000;
+    uint16_t ebda_seg = *(volatile uint16_t *)(uintptr_t)0x40e;
+    start = (unsigned char *)((uintptr_t)ebda_seg << 4);
+    end = start + 1024;
+    rsdp = scan_rsdp(start, end);
+    if (!rsdp) {
+        start = (unsigned char *)0xE0000;
+        end = (unsigned char *)0x100000;
+        rsdp = scan_rsdp(start, end);
+    }
 #endif
 
-    const char sig[8] = "RSD PTR ";
-    for (unsigned char *p = start; p + sizeof(struct acpi_rsdp) <= end; p += 16) {
-        int match = 1;
-        for (unsigned int i = 0; i < 8; i++) {
-            if (p[i] != sig[i]) { match = 0; break; }
-        }
-        if (!match)
-            continue;
-
-        struct acpi_rsdp *rsdp = (struct acpi_rsdp *)p;
-        struct acpi_sdt_header *rsdt =
+    if (rsdp) {
+        int use_xsdt = (rsdp->revision >= 2 && rsdp->xsdt_address);
+        struct acpi_sdt_header *sdt = NULL;
 #ifdef ACPI_TEST
-            (struct acpi_sdt_header *)(start + rsdp->rsdt_address);
+        if (use_xsdt)
+            sdt = (struct acpi_sdt_header *)(start + (uintptr_t)rsdp->xsdt_address);
+        else
+            sdt = (struct acpi_sdt_header *)(start + rsdp->rsdt_address);
 #else
-            (rsdp->rsdt_address < 0x200000) ?
-                (struct acpi_sdt_header *)(uintptr_t)rsdp->rsdt_address : NULL;
+        if (use_xsdt && rsdp->xsdt_address < 0x200000)
+            sdt = (struct acpi_sdt_header *)(uintptr_t)rsdp->xsdt_address;
+        else if (!use_xsdt && rsdp->rsdt_address < 0x200000)
+            sdt = (struct acpi_sdt_header *)(uintptr_t)rsdp->rsdt_address;
 #endif
-        if (!rsdt)
-            break;
-
-        if (rsdt->signature[0] != 'R' || rsdt->signature[1] != 'S' ||
-            rsdt->signature[2] != 'D' || rsdt->signature[3] != 'T')
-            break;
-
-        acpi_table_count = 0;
-        unsigned int entries =
-            (rsdt->length - sizeof(struct acpi_sdt_header)) / 4;
-        uint32_t *addrs = (uint32_t *)(rsdt + 1);
-        for (unsigned int i = 0; i < entries && acpi_table_count < MAX_ACPI_TABLES; i++) {
-            struct acpi_sdt_header *hdr =
+        if (sdt && ((sdt->signature[0]=='R' && sdt->signature[1]=='S' && sdt->signature[2]=='D' && sdt->signature[3]=='T') ||
+                    (sdt->signature[0]=='X' && sdt->signature[1]=='S' && sdt->signature[2]=='D' && sdt->signature[3]=='T'))) {
+            acpi_table_count = 0;
+            unsigned int entries = (sdt->length - sizeof(struct acpi_sdt_header)) / (use_xsdt ? 8 : 4);
+            for (unsigned int i = 0; i < entries && acpi_table_count < MAX_ACPI_TABLES; i++) {
+                struct acpi_sdt_header *hdr;
+                uintptr_t addr;
+                if (use_xsdt) {
+                    uint64_t *addrs = (uint64_t *)(sdt + 1);
+                    addr = (uintptr_t)addrs[i];
+                } else {
+                    uint32_t *addrs = (uint32_t *)(sdt + 1);
+                    addr = (uintptr_t)addrs[i];
+                }
 #ifdef ACPI_TEST
-                (struct acpi_sdt_header *)(start + addrs[i]);
+                hdr = (struct acpi_sdt_header *)(start + addr);
 #else
-                (addrs[i] < 0x200000) ?
-                    (struct acpi_sdt_header *)(uintptr_t)addrs[i] : NULL;
+                hdr = (addr < 0x200000) ? (struct acpi_sdt_header *)addr : NULL;
 #endif
-            if (!hdr)
-                continue;
-            acpi_tables[acpi_table_count++] = hdr;
-            if (hdr->signature[0]=='F' && hdr->signature[1]=='A' &&
-                hdr->signature[2]=='C' && hdr->signature[3]=='P') {
-                struct acpi_fadt_table *fadt = (struct acpi_fadt_table *)hdr;
-                fadt_data.pm1a_cnt_blk = (uint16_t)fadt->pm1a_cnt_blk;
-                fadt_data.pm1b_cnt_blk = (uint16_t)fadt->pm1b_cnt_blk;
-                fadt_data.slp_typa = 0;
-                fadt_data.slp_typb = 0;
-                fadt_table = &fadt_data;
+                if (!hdr)
+                    continue;
+                acpi_tables[acpi_table_count++] = hdr;
+                if (hdr->signature[0]=='F' && hdr->signature[1]=='A' &&
+                    hdr->signature[2]=='C' && hdr->signature[3]=='P') {
+                    struct acpi_fadt_table *fadt = (struct acpi_fadt_table *)hdr;
+                    fadt_data.pm1a_cnt_blk = (uint16_t)fadt->pm1a_cnt_blk;
+                    fadt_data.pm1b_cnt_blk = (uint16_t)fadt->pm1b_cnt_blk;
+                    fadt_data.slp_typa = 0;
+                    fadt_data.slp_typb = 0;
+                    fadt_table = &fadt_data;
+                }
             }
+            console_write("ACPI tables parsed\n");
+            return;
         }
-        console_write("ACPI tables parsed\n");
-        return;
     }
 
     /* Fallback defaults when tables are not found */

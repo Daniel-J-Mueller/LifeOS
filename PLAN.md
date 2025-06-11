@@ -21,6 +21,8 @@
 - [ ] Add unit test for info command PCI listing
 - [ ] Add unit test for PCI vendor and device ID capture
 - [ ] Add unit test for ACPI table lookup
+- [x] Enhance ACPI parser to use EBDA and XSDT when available
+- [ ] Document ACPI table discovery improvements
 - [ ] Map vendor IDs to names in info output
 - [ ] Document dynamic pane manager and key bindings
 - [ ] Start with a single pane showing the shell prompt
