@@ -54,8 +54,6 @@ void console_clear(void) {
     cursor_x = 0;
     cursor_y = 0;
     update_cursor();
-    if (!pane_is_rendering())
-        pane_clear_active_buffer();
 }
 
 void console_putc(char c) {
@@ -81,8 +79,6 @@ void console_putc(char c) {
         }
     }
     update_cursor();
-    if (!pane_is_rendering())
-        pane_store_char(c);
 }
 
 void console_write(const char *s) {
@@ -169,18 +165,6 @@ void console_poll_input(void) {
         return;
     case KEY_F4:
         pane_resize_height(1);
-        return;
-    case KEY_F5:
-        pane_move_left();
-        return;
-    case KEY_F6:
-        pane_move_right();
-        return;
-    case KEY_F7:
-        pane_move_up();
-        return;
-    case KEY_F8:
-        pane_move_down();
         return;
     default:
         break;

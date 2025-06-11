@@ -18,21 +18,9 @@ static unsigned int grid_h = 1;
 static unsigned int active_x = 0;
 static unsigned int active_y = 0;
 
-static char pane_buf[MAX_GRID][MAX_GRID][VGA_ROWS][VGA_COLS];
-static uint8_t cursor_x[MAX_GRID][MAX_GRID];
-static uint8_t cursor_y[MAX_GRID][MAX_GRID];
-static int rendering = 0;
-
 void pane_init(void) {
     grid_w = grid_h = 1;
     active_x = active_y = 0;
-    for (unsigned int y = 0; y < MAX_GRID; ++y)
-        for (unsigned int x = 0; x < MAX_GRID; ++x) {
-            for (unsigned int r = 0; r < VGA_ROWS; ++r)
-                for (unsigned int c = 0; c < VGA_COLS; ++c)
-                    pane_buf[y][x][r][c] = ' ';
-            cursor_x[y][x] = cursor_y[y][x] = 0;
-        }
     pane_draw_no_prompt();
 }
 
@@ -119,7 +107,6 @@ static void compute_layout(unsigned int widths[], unsigned int heights[]) {
 }
 
 static void pane_draw_internal(int show_prompt) {
-    pane_begin_render();
     console_clear();
 
     unsigned int widths[MAX_GRID];
@@ -134,17 +121,6 @@ static void pane_draw_internal(int show_prompt) {
     ypos[0] = 0;
     for (unsigned int j = 1; j < grid_h; ++j)
         ypos[j] = ypos[j - 1] + heights[j - 1];
-
-    for (unsigned int py = 0; py < grid_h; ++py)
-        for (unsigned int px = 0; px < grid_w; ++px)
-            for (unsigned int sy = 0; sy < heights[py]; ++sy) {
-                unsigned int src_y = (sy * VGA_ROWS) / heights[py];
-                for (unsigned int sx = 0; sx < widths[px]; ++sx) {
-                    unsigned int src_x = (sx * VGA_COLS) / widths[px];
-                    console_set_cursor(xpos[px] + sx, ypos[py] + sy);
-                    console_putc(pane_buf[py][px][src_y][src_x]);
-                }
-            }
 
     for (unsigned int i = 1; i < grid_w; ++i) {
         unsigned int x = xpos[i];
@@ -167,9 +143,7 @@ static void pane_draw_internal(int show_prompt) {
             console_putc(LINE_CROSS);
         }
 
-    console_set_cursor(xpos[active_x] + cursor_x[active_y][active_x],
-                       ypos[active_y] + cursor_y[active_y][active_x]);
-    pane_end_render();
+    console_set_cursor(xpos[active_x] + 1, ypos[active_y] + 1);
     if (show_prompt)
         shell_show_prompt();
 }
@@ -181,47 +155,3 @@ void pane_draw(void) {
 void pane_draw_no_prompt(void) {
     pane_draw_internal(0);
 }
-
-void pane_store_char(char c) {
-    unsigned int px = active_x;
-    unsigned int py = active_y;
-    uint8_t x = cursor_x[py][px];
-    uint8_t y = cursor_y[py][px];
-
-    if (c == '\n') {
-        x = 0;
-        if (++y >= VGA_ROWS)
-            y = 0;
-    } else if (c == '\b') {
-        if (x > 0) {
-            x--;
-        } else if (y > 0) {
-            y--;
-            x = VGA_COLS - 1;
-        }
-        pane_buf[py][px][y][x] = ' ';
-    } else {
-        pane_buf[py][px][y][x] = c;
-        if (++x >= VGA_COLS) {
-            x = 0;
-            if (++y >= VGA_ROWS)
-                y = 0;
-        }
-    }
-
-    cursor_x[py][px] = x;
-    cursor_y[py][px] = y;
-}
-
-void pane_clear_active_buffer(void) {
-    unsigned int px = active_x;
-    unsigned int py = active_y;
-    for (unsigned int r = 0; r < VGA_ROWS; ++r)
-        for (unsigned int c = 0; c < VGA_COLS; ++c)
-            pane_buf[py][px][r][c] = ' ';
-    cursor_x[py][px] = cursor_y[py][px] = 0;
-}
-
-void pane_begin_render(void) { rendering = 1; }
-void pane_end_render(void) { rendering = 0; }
-int pane_is_rendering(void) { return rendering; }
