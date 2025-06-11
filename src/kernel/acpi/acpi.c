@@ -4,6 +4,9 @@
 #include "../console/console.h"
 #else
 static void console_write(const char *s) { (void)s; }
+static void console_write_hex32(uint32_t v) { (void)v; }
+static void console_write_hex16(uint16_t v) { (void)v; }
+static void console_putc(char c) { (void)c; }
 /* Test harness provides the BIOS memory region to scan */
 extern unsigned char *acpi_test_mem_start;
 extern unsigned int acpi_test_mem_size;
@@ -84,6 +87,9 @@ void acpi_init(void) {
 #endif
 
     if (rsdp) {
+        console_write("RSDP found at 0x");
+        console_write_hex32((uint32_t)(uintptr_t)rsdp);
+        console_putc('\n');
         int use_xsdt = (rsdp->revision >= 2 && rsdp->xsdt_address);
         struct acpi_sdt_header *sdt = NULL;
 #ifdef ACPI_TEST
@@ -92,11 +98,22 @@ void acpi_init(void) {
         else
             sdt = (struct acpi_sdt_header *)(start + rsdp->rsdt_address);
 #else
-        if (use_xsdt && rsdp->xsdt_address < 0x200000)
+        /*
+         * The bootloader identity maps the first gigabyte so tables can
+         * reside above the traditional 1 MiB boundary.  Accept any address
+         * below 0x40000000 which keeps the parser simple while covering the
+         * mapped region.
+         */
+        if (use_xsdt && rsdp->xsdt_address < 0x40000000)
             sdt = (struct acpi_sdt_header *)(uintptr_t)rsdp->xsdt_address;
-        else if (!use_xsdt && rsdp->rsdt_address < 0x200000)
+        else if (!use_xsdt && rsdp->rsdt_address < 0x40000000)
             sdt = (struct acpi_sdt_header *)(uintptr_t)rsdp->rsdt_address;
 #endif
+        if (sdt) {
+            console_write(use_xsdt ? "XSDT at 0x" : "RSDT at 0x");
+            console_write_hex32((uint32_t)(uintptr_t)sdt);
+            console_putc('\n');
+        }
         if (sdt && ((sdt->signature[0]=='R' && sdt->signature[1]=='S' && sdt->signature[2]=='D' && sdt->signature[3]=='T') ||
                     (sdt->signature[0]=='X' && sdt->signature[1]=='S' && sdt->signature[2]=='D' && sdt->signature[3]=='T'))) {
             acpi_table_count = 0;
@@ -114,7 +131,8 @@ void acpi_init(void) {
 #ifdef ACPI_TEST
                 hdr = (struct acpi_sdt_header *)(start + addr);
 #else
-                hdr = (addr < 0x200000) ? (struct acpi_sdt_header *)addr : NULL;
+                /* Allow tables anywhere within the 1 GiB region mapped by the bootloader */
+                hdr = (addr < 0x40000000) ? (struct acpi_sdt_header *)addr : NULL;
 #endif
                 if (!hdr)
                     continue;
@@ -127,6 +145,13 @@ void acpi_init(void) {
                     fadt_data.slp_typa = 0;
                     fadt_data.slp_typb = 0;
                     fadt_table = &fadt_data;
+                    console_write("FADT at 0x");
+                    console_write_hex32((uint32_t)addr);
+                    console_write(" PM1a=");
+                    console_write_hex16(fadt_data.pm1a_cnt_blk);
+                    console_write(" PM1b=");
+                    console_write_hex16(fadt_data.pm1b_cnt_blk);
+                    console_putc('\n');
                 }
             }
             console_write("ACPI tables parsed\n");

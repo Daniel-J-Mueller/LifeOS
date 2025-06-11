@@ -113,6 +113,16 @@ void console_write_hex16(uint16_t value) {
     console_write_hex8(value & 0xFF);
 }
 
+void console_write_hex32(uint32_t value) {
+    console_write_hex16((value >> 16) & 0xFFFF);
+    console_write_hex16(value & 0xFFFF);
+}
+
+void console_write_hex64(uint64_t value) {
+    console_write_hex32((uint32_t)(value >> 32));
+    console_write_hex32((uint32_t)(value & 0xFFFFFFFF));
+}
+
 void console_init(void) {
     serial_init();
     /* Ensure VGA starts at offset zero to avoid blank screens */
