@@ -33,7 +33,7 @@ the image under QEMU.
    LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 \
 /usr/bin/qemu-system-x86_64 \
   -drive format=raw,file=build/os-image.bin \
-  -serial stdio
+  -serial mon:stdio
    ```
 
 Implementation code lives under the `src` directory. The layout mirrors the OS
