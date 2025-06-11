@@ -3,8 +3,10 @@ ACPI Parser Stub
 
 The `acpi_init()` function now searches the BIOS memory region for the
 Root System Description Pointer (RSDP).  When found, it walks the RSDT
-to locate the Fixed ACPI Description Table and copies the relevant port
-addresses into the `acpi_fadt` structure.  If any table is missing the
-routine falls back to a set of defaults compatible with QEMU.  The
-`acpi_get_fadt()` accessor exposes the populated structure so other
-subsystems can retrieve the power management register locations.
+and records each referenced table pointer.  The Fixed ACPI Description
+Table is parsed to populate an `acpi_fadt` structure containing the
+power management register locations.  All discovered table headers are
+stored in an internal list so additional tables can be queried later.
+If any required table is missing the routine falls back to a set of
+defaults compatible with QEMU.  The `acpi_get_fadt()` accessor returns
+the parsed FADT while `acpi_get_table()` allows lookups by signature.

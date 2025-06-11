@@ -14,17 +14,6 @@ struct rsdp {
     unsigned int rsdt_address;
 } __attribute__((packed));
 
-struct acpi_sdt_header {
-    char     signature[4];
-    unsigned int length;
-    unsigned char revision;
-    unsigned char checksum;
-    char     oem_id[6];
-    char     oem_table_id[8];
-    unsigned int oem_revision;
-    unsigned int creator_id;
-    unsigned int creator_revision;
-} __attribute__((packed));
 
 struct fadt_table {
     struct acpi_sdt_header h;
@@ -69,5 +58,8 @@ int main(void) {
     assert(f->pm1b_cnt_blk == 0x2222);
     assert(f->slp_typa == 0);
     assert(f->slp_typb == 0);
+
+    struct acpi_sdt_header *hdr = acpi_get_table("FACP");
+    assert(hdr);
     return 0;
 }

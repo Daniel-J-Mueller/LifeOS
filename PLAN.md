@@ -6,7 +6,7 @@
 - [x] Create ACPI table parser stub for power management
 - [x] Integrate ACPI shutdown using parsed FADT values
 - [x] Expand ACPI parser to locate the RSDP and FADT in memory
-- [ ] Parse the RSDT to discover additional ACPI tables
+- [x] Parse the RSDT to discover additional ACPI tables
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
@@ -22,4 +22,5 @@
 - [ ] Add unit test for PCI class name mapping
 - [ ] Add unit test for info command PCI listing
 - [ ] Add unit test for PCI vendor and device ID capture
+- [ ] Add unit test for ACPI table lookup
 - [ ] Map vendor IDs to names in info output

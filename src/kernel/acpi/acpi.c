@@ -12,6 +12,10 @@ extern unsigned int acpi_test_mem_size;
 static struct acpi_fadt fadt_data;
 static struct acpi_fadt *fadt_table = 0;
 
+#define MAX_ACPI_TABLES 16
+static struct acpi_sdt_header *acpi_tables[MAX_ACPI_TABLES];
+static unsigned int acpi_table_count = 0;
+
 struct acpi_rsdp {
     char     signature[8];
     uint8_t  checksum;
@@ -20,17 +24,6 @@ struct acpi_rsdp {
     uint32_t rsdt_address;
 } __attribute__((packed));
 
-struct acpi_sdt_header {
-    char     signature[4];
-    uint32_t length;
-    uint8_t  revision;
-    uint8_t  checksum;
-    char     oem_id[6];
-    char     oem_table_id[8];
-    uint32_t oem_revision;
-    uint32_t creator_id;
-    uint32_t creator_revision;
-} __attribute__((packed));
 
 struct acpi_fadt_table {
     struct acpi_sdt_header h;
@@ -84,16 +77,18 @@ void acpi_init(void) {
             rsdt->signature[2] != 'D' || rsdt->signature[3] != 'T')
             break;
 
+        acpi_table_count = 0;
         unsigned int entries =
             (rsdt->length - sizeof(struct acpi_sdt_header)) / 4;
         uint32_t *addrs = (uint32_t *)(rsdt + 1);
-        for (unsigned int i = 0; i < entries; i++) {
+        for (unsigned int i = 0; i < entries && acpi_table_count < MAX_ACPI_TABLES; i++) {
             struct acpi_sdt_header *hdr =
 #ifdef ACPI_TEST
                 (struct acpi_sdt_header *)(start + addrs[i]);
 #else
                 (struct acpi_sdt_header *)(uintptr_t)addrs[i];
 #endif
+            acpi_tables[acpi_table_count++] = hdr;
             if (hdr->signature[0]=='F' && hdr->signature[1]=='A' &&
                 hdr->signature[2]=='C' && hdr->signature[3]=='P') {
                 struct acpi_fadt_table *fadt = (struct acpi_fadt_table *)hdr;
@@ -102,10 +97,10 @@ void acpi_init(void) {
                 fadt_data.slp_typa = 0;
                 fadt_data.slp_typb = 0;
                 fadt_table = &fadt_data;
-                console_write("ACPI tables parsed\n");
-                return;
             }
         }
+        console_write("ACPI tables parsed\n");
+        return;
     }
 
     /* Fallback defaults when tables are not found */
@@ -119,4 +114,14 @@ void acpi_init(void) {
 
 struct acpi_fadt *acpi_get_fadt(void) {
     return fadt_table;
+}
+
+struct acpi_sdt_header *acpi_get_table(const char sig[4]) {
+    for (unsigned int i = 0; i < acpi_table_count; i++) {
+        struct acpi_sdt_header *h = acpi_tables[i];
+        if (h->signature[0] == sig[0] && h->signature[1] == sig[1] &&
+            h->signature[2] == sig[2] && h->signature[3] == sig[3])
+            return h;
+    }
+    return NULL;
 }
