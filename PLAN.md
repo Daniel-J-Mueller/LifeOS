@@ -26,5 +26,7 @@
 - [ ] Add unit test for PCI vendor and device ID capture
 - [ ] Add unit test for ACPI table lookup
 - [ ] Map vendor IDs to names in info output
-- [ ] Implement pane-based text interface with adjustable grid
+- [x] Implement pane-based text interface with adjustable grid
 - [ ] Document dynamic pane manager and key bindings
+- [ ] Persist command input when panes are redrawn
+- [ ] Add unit test for shell history navigation

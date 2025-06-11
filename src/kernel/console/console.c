@@ -3,6 +3,7 @@
 #include "../../hal/io.h"
 #include "../../drivers/keyboard/keyboard.h"
 #include "../hmi/pane.h"
+#include "shell.h"
 
 #define SERIAL_PORT 0x3F8
 
@@ -207,13 +208,14 @@ void console_set_cursor(uint8_t x, uint8_t y) {
 void console_draw_quadrants(void) {
     for (unsigned int y = 0; y < VGA_ROWS; ++y)
         vga_buffer[y * VGA_COLS + VGA_COLS / 2] =
-            ((uint16_t)vga_color << 8) | '|';
+            ((uint16_t)vga_color << 8) | 0xB3; /* vertical */
     for (unsigned int x = 0; x < VGA_COLS; ++x)
         vga_buffer[(VGA_ROWS / 2) * VGA_COLS + x] =
-            ((uint16_t)vga_color << 8) | '-';
+            ((uint16_t)vga_color << 8) | 0xC4; /* horizontal */
     vga_buffer[(VGA_ROWS / 2) * VGA_COLS + VGA_COLS / 2] =
-        ((uint16_t)vga_color << 8) | '+';
+        ((uint16_t)vga_color << 8) | 0xC5; /* cross */
     cursor_x = 1;
     cursor_y = (VGA_ROWS / 2) + 1;
     update_cursor();
+    shell_show_prompt();
 }
