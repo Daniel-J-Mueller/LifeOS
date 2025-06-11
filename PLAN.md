@@ -3,8 +3,8 @@
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging
-- [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
-- [ ] Automate bootloader sector count via build script
+- [x] Eliminate bootloader filler messages and set VGA base to prevent blank screen
+- [x] Automate bootloader sector count via build script
 - [ ] Expand physical allocator to support freeing pages
 - [ ] Introduce basic virtual memory paging
 - [ ] Expand scheduler to support task termination
@@ -28,3 +28,5 @@
 - [ ] Add unit test for shell history navigation
 - [ ] Add unit test for backspace character handling in console input
 - [ ] Add unit test verifying console text persists after initialization
+- [ ] Add unit test for console scrollback boundary conditions
+- [ ] Document automated bootloader sector sizing in build process

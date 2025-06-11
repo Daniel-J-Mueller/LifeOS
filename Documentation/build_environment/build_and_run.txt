@@ -10,8 +10,9 @@ QEMU.  It assumes the cross compiler and emulator have been installed with
    ```
    ./scripts/build_image.sh
    ```
-   The script assembles the bootloader, compiles the kernel sources and
-   produces `build/os-image.bin` which contains both components.
+   The script compiles the kernel sources, calculates how many disk
+   sectors the kernel occupies and assembles the bootloader with that
+   value. The resulting `build/os-image.bin` contains both components.
 
 2. **Run in QEMU**
    Launch the image with:

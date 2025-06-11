@@ -1,4 +1,7 @@
 [BITS 16]
+%ifndef KERNEL_SECTORS
+%define KERNEL_SECTORS 34
+%endif
 [ORG 0x7C00]
 
 SERIAL_PORT equ 0x3F8
@@ -20,7 +23,7 @@ start:
     mov es, ax
     mov bx, 0x1000
     mov ah, 0x02        ; BIOS read sectors
-    mov al, 34          ; number of sectors to read
+    mov al, KERNEL_SECTORS
     mov ch, 0
     mov dh, 0
     mov cl, 2           ; start reading after boot sector

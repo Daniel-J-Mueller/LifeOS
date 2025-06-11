@@ -4,9 +4,6 @@ set -e
 # Build output directory
 mkdir -p build
 
-# Assemble bootloader
-nasm -f bin src/boot/bootloader.asm -o build/bootloader.bin
-
 # Assemble kernel entry stub
 nasm -f elf64 src/kernel/entry.asm -o build/entry.o
 
@@ -35,10 +32,18 @@ $GCC $CFLAGS -c src/kernel/hmi/pane.c -o build/pane.o
 nasm -f elf64 src/kernel/sched/context_switch.asm -o build/context_switch.o
 
 # Link kernel binary
+
 $LD -m elf_x86_64 -nostdlib -T src/kernel/linker.ld \
     build/entry.o build/init.o build/main.o \
     build/mm.o build/fs.o build/console.o build/shell.o build/cmd.o build/power.o build/acpi.o build/string.o build/inventory.o build/pci_classes.o build/sched.o build/driver.o build/syscall.o build/keyboard.o build/pane.o build/context_switch.o \
     -o build/kernel.bin
+
+# Determine number of sectors the bootloader must load
+KERNEL_SIZE=$(stat -c %s build/kernel.bin)
+KERNEL_SECTORS=$(( (KERNEL_SIZE + 511) / 512 ))
+
+# Assemble bootloader with calculated sector count
+nasm -f bin -DKERNEL_SECTORS=$KERNEL_SECTORS src/boot/bootloader.asm -o build/bootloader.bin
 
 # Combine bootloader and kernel into a bootable image
 cat build/bootloader.bin build/kernel.bin > build/os-image.bin
