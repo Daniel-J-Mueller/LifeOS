@@ -115,6 +115,11 @@ void console_write_hex16(uint16_t value) {
 
 void console_init(void) {
     serial_init();
+    /* Ensure VGA starts at offset zero to avoid blank screens */
+    outb(0x3D4, 0x0C);
+    outb(0x3D5, 0x00);
+    outb(0x3D4, 0x0D);
+    outb(0x3D5, 0x00);
     console_clear();
 }
 
