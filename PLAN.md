@@ -25,5 +25,5 @@
 - [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn
 - [ ] Add unit test for shell history navigation
-- [ ] Investigate and fix VGA text mode blank screen after boot
+- [ ] Add unit test verifying console text persists after initialization
 - [ ] Document file renaming usage once implemented

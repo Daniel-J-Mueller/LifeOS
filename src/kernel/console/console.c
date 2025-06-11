@@ -13,7 +13,7 @@
 #define COLOR_LIGHT_GREY 7
 #define COLOR_BLACK 0
 
-static uint16_t *const vga_buffer = (uint16_t *)VGA_ADDR;
+static volatile uint16_t *const vga_buffer = (volatile uint16_t *)VGA_ADDR;
 static uint8_t cursor_x = 0;
 static uint8_t cursor_y = 0;
 static uint8_t vga_color = (COLOR_BLACK << 4) | COLOR_LIGHT_GREY;
