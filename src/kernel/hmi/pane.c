@@ -10,10 +10,10 @@
 
 static int pane_enabled = 0;
 
-/* Box drawing characters from code page 437 - single line style */
-#define LINE_VERT  ((char)0xB3)
-#define LINE_HORZ  ((char)0xC4)
-#define LINE_CROSS ((char)0xC5)
+/* Box drawing characters from code page 437 - double line style */
+#define LINE_VERT  ((char)0xBA)
+#define LINE_HORZ  ((char)0xCD)
+#define LINE_CROSS ((char)0xCE)
 
 static unsigned int grid_w = 1;
 static unsigned int grid_h = 1;

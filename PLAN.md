@@ -29,6 +29,8 @@
 - [x] Start with a single pane showing the shell prompt
 - [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn
-- [ ] Fix pane borders to use double-width white lines and show prompt in active pane
+- [x] Fix pane borders to use double-width white lines and show prompt in active pane
 - [ ] Add unit test for shell history navigation
 - [ ] Add unit test verifying console text persists after initialization
+- [ ] Add unit test ensuring VGA and serial outputs remain in sync
+- [ ] Document pane command usage and serial console setup
