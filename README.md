@@ -1,4 +1,4 @@
-![LifeOS Logo](Assets/LifeOS_cropped_logo.png)
+![LifeOS Logo](Assets/LifeOS_Full_Banner_Cropped.png)
 
 # LifeOS
 
