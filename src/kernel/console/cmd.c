@@ -11,10 +11,12 @@ static void show_help(void) {
     console_write("  clear - Clear the screen\n");
     console_write("  info  - Display hardware information\n");
     console_write("  gui   - Enter pane mode\n");
-    console_write("  exit-gui - Leave pane mode\n");
-    console_write("  wider  - Increase pane columns\n");
-    console_write("  taller - Increase pane rows\n");
-    console_write("  left/right/up/down - Move between panes\n");
+    if (pane_is_active()) {
+        console_write("  exit-gui - Leave pane mode\n");
+        console_write("  wider  - Increase pane columns\n");
+        console_write("  taller - Increase pane rows\n");
+        console_write("  left/right/up/down - Move between panes\n");
+    }
     console_write("  restart - Reboot the system\n");
     console_write("  shutdown - Power off the system\n");
     console_write("  exit  - Halt the system\n");

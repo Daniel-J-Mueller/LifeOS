@@ -63,12 +63,9 @@ void console_clear(void) {
 }
 
 void console_putc(char c) {
-    /* Only mirror printable ASCII to the serial port to keep the
-       host terminal clean when drawing GUI lines. */
-    if ((unsigned char)c >= 0x20 && (unsigned char)c < 0x7F)
-        serial_putc(c);
-    else if (c == '\n' || c == '\b' || c == '\t')
-        serial_putc(c);
+    /* Mirror all output to the serial console so QEMU always
+       shows the same text as the VGA display. */
+    serial_putc(c);
     if (c == '\n') {
         cursor_x = 0;
         if (++cursor_y >= VGA_ROWS)
