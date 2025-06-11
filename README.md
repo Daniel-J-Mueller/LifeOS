@@ -35,9 +35,9 @@ the image under QEMU.
    LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 \
 /usr/bin/qemu-system-x86_64 \
   -drive format=raw,file=build/os-image.bin \
-  -serial mon:stdio -enable-kvm
+  -serial mon:stdio
   ```
-   Use `-enable-kvm` to leverage hardware virtualization for better performance.
+   Use `-enable-kvm` to leverage hardware virtualization for better performance. (experimental)
 If QEMU does not display output when multiple GPUs are installed, see 
 `Documentation/build_environment/multi_gpu_display.txt` for troubleshooting.
 
