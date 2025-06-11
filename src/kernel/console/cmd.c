@@ -3,12 +3,14 @@
 #include "../inventory/inventory.h"
 #include "../inventory/pci_classes.h"
 #include "../kernel.h"
+#include "../hmi/pane.h"
 
 static void show_help(void) {
     console_write("Available commands:\n");
     console_write("  help  - Display this message\n");
     console_write("  clear - Clear the screen\n");
     console_write("  info  - Display hardware information\n");
+    console_write("  gui start - Enable quadrant layout\n");
     console_write("  restart - Reboot the system\n");
     console_write("  shutdown - Power off the system\n");
     console_write("  exit  - Halt the system\n");
@@ -49,6 +51,8 @@ void console_execute_command(const char *cmd) {
         kernel_shutdown();
     } else if (strcmp(cmd, "exit") == 0) {
         kernel_halt();
+    } else if (strcmp(cmd, "gui start") == 0) {
+        pane_gui_start();
     } else if (cmd[0] != '\0') {
         console_write("Unknown command\n");
     }
