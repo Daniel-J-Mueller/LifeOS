@@ -26,6 +26,15 @@ static unsigned int sb_start = 0;   /* index of oldest line */
 static unsigned int sb_count = 0;   /* number of stored lines */
 static unsigned int sb_view = 0;    /* lines above bottom currently shown */
 
+static void refresh_screen(void) {
+    if (sb_view)
+        return;
+    for (unsigned int y = 0; y < VGA_ROWS; ++y)
+        for (unsigned int x = 0; x < VGA_COLS; ++x)
+            vga_buffer[y * VGA_COLS + x] = screen_buffer[y][x];
+    update_cursor();
+}
+
 /* Simple ring buffer for keyboard input */
 #define INPUT_BUF_SIZE 128
 static char input_buf[INPUT_BUF_SIZE];
