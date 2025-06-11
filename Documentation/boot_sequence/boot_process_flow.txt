@@ -19,7 +19,10 @@ Each stage is executed in sequence with the goal of bringing the system to an op
    - Hardware enumeration routines query CPU capabilities, available memory, storage, and peripheral buses.
    - Drivers report discovered devices so the OS knows what resources are present.
    - Results are stored for later use by higher level subsystems and logging.
-5. **Interface initialization**
+5. **ACPI power management setup**
+   - The ACPI parser scans memory for the RSDP and enumerates tables.
+   - Power management registers are recorded and defaults are provided when tables are missing.
+6. **Interface initialization**
    - The kernel starts the console so diagnostics and user input are possible.
    - External hooks for intelligence frameworks are registered if present.
    - Control transitions to the first scheduled task which continues normal operation.

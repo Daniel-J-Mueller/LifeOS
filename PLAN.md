@@ -16,6 +16,7 @@
 - [ ] Expand scheduler to support task termination
 - [ ] Research approach for Linux-like terminal environment using host packages
 - [x] Add left/right arrow navigation for in-line command editing
+- [x] Ensure kernel logs appear before command prompt during startup
 - [ ] Research dynamic windowing system for automated focus
 - [ ] Prototype window expansion based on user attention cues
 - [ ] Integrate system call dispatcher via software interrupt
