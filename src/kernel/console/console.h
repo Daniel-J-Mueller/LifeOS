@@ -11,6 +11,10 @@ void console_write_dec(unsigned long value);
 void console_write_hex8(uint8_t value);
 void console_write_hex16(uint16_t value);
 
+/* Set or retrieve the current text color */
+void console_set_color(uint8_t fg, uint8_t bg);
+uint8_t console_get_color(void);
+
 /* Poll keyboard driver and queue any typed characters */
 void console_poll_input(void);
 

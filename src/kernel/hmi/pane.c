@@ -10,10 +10,10 @@
 
 static int pane_enabled = 0;
 
-/* Box drawing characters from code page 437 */
-#define LINE_VERT  ((char)0xB3)
-#define LINE_HORZ  ((char)0xC4)
-#define LINE_CROSS ((char)0xC5)
+/* Box drawing characters from code page 437 - double line style */
+#define LINE_VERT  ((char)0xBA)
+#define LINE_HORZ  ((char)0xCD)
+#define LINE_CROSS ((char)0xCE)
 
 static unsigned int grid_w = 1;
 static unsigned int grid_h = 1;
@@ -131,6 +131,9 @@ static void compute_layout(unsigned int widths[], unsigned int heights[]) {
 static void pane_draw_internal(int show_prompt) {
     console_clear();
 
+    uint8_t old_color = console_get_color();
+    console_set_color(15, 0);
+
     unsigned int widths[MAX_GRID];
     unsigned int heights[MAX_GRID];
     compute_layout(widths, heights);
@@ -165,6 +168,7 @@ static void pane_draw_internal(int show_prompt) {
             console_putc(LINE_CROSS);
         }
 
+    console_set_color(old_color & 0x0F, old_color >> 4);
     console_set_cursor(xpos[active_x] + 1, ypos[active_y] + 1);
     if (show_prompt)
         shell_show_prompt();
