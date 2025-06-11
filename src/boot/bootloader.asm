@@ -37,7 +37,7 @@ start:
     mov eax, cr0
     or eax, 0x1
     mov cr0, eax
-    jmp CODE32_SEL:protected_mode
+    jmp CODE32_SEL:protected_mode + 0x7C00
 
 [BITS 32]
 protected_mode:
@@ -80,7 +80,7 @@ protected_mode:
     mov cr0, eax
 
     ; Jump to 64-bit mode
-    jmp CODE64_SEL:long_mode_start
+    jmp CODE64_SEL:long_mode_start + 0x7C00
 
 [BITS 64]
 long_mode_start:
@@ -159,7 +159,7 @@ gdt_end:
 
 gdt_descriptor:
     dw gdt_end - gdt_start - 1
-    dd gdt_start
+    dd gdt_start + 0x7C00
 
 CODE32_SEL equ 0x08
 DATA32_SEL equ 0x10
