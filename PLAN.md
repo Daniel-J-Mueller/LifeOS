@@ -23,6 +23,7 @@
 - [ ] Add unit test verifying multiple GPU enumeration
 - [ ] Add unit test for ACPI table lookup
 - [ ] Document ACPI table discovery improvements
+- [ ] Validate ACPI table checksums for integrity
 - [ ] Map vendor IDs to names in info output
 - [ ] Document dynamic pane manager and key bindings
 - [ ] Start with a single pane showing the shell prompt
