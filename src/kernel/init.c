@@ -18,7 +18,7 @@
 void kernel_init(void) {
     mm_init();
     console_init();
-    pane_init();
+    shell_set_active(0);
     fs_init();
     inventory_gather();
     acpi_init();

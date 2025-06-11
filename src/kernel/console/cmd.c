@@ -3,12 +3,18 @@
 #include "../inventory/inventory.h"
 #include "../inventory/pci_classes.h"
 #include "../kernel.h"
+#include "../hmi/pane.h"
 
 static void show_help(void) {
     console_write("Available commands:\n");
     console_write("  help  - Display this message\n");
     console_write("  clear - Clear the screen\n");
     console_write("  info  - Display hardware information\n");
+    console_write("  gui   - Enter pane mode\n");
+    console_write("  exit-gui - Leave pane mode\n");
+    console_write("  wider  - Increase pane columns\n");
+    console_write("  taller - Increase pane rows\n");
+    console_write("  left/right/up/down - Move between panes\n");
     console_write("  restart - Reboot the system\n");
     console_write("  shutdown - Power off the system\n");
     console_write("  exit  - Halt the system\n");
@@ -43,6 +49,23 @@ void console_execute_command(const char *cmd) {
         console_clear();
     } else if (strcmp(cmd, "info") == 0) {
         show_info();
+    } else if (strcmp(cmd, "gui") == 0) {
+        pane_init();
+        console_write("GUI mode initialized\n");
+    } else if (strcmp(cmd, "exit-gui") == 0) {
+        pane_exit();
+    } else if (strcmp(cmd, "wider") == 0) {
+        pane_resize_width(1);
+    } else if (strcmp(cmd, "taller") == 0) {
+        pane_resize_height(1);
+    } else if (strcmp(cmd, "left") == 0) {
+        pane_move_left();
+    } else if (strcmp(cmd, "right") == 0) {
+        pane_move_right();
+    } else if (strcmp(cmd, "up") == 0) {
+        pane_move_up();
+    } else if (strcmp(cmd, "down") == 0) {
+        pane_move_down();
     } else if (strcmp(cmd, "restart") == 0) {
         kernel_reboot();
     } else if (strcmp(cmd, "shutdown") == 0) {

@@ -6,7 +6,9 @@
 #define VGA_COLS 80
 #define VGA_ROWS 25
 
-#define MAX_GRID 4
+#define MAX_GRID 5
+
+static int pane_enabled = 0;
 
 /* Box drawing characters from code page 437 */
 #define LINE_VERT  ((char)0xB3)
@@ -19,12 +21,16 @@ static unsigned int active_x = 0;
 static unsigned int active_y = 0;
 
 void pane_init(void) {
+    pane_enabled = 1;
     grid_w = grid_h = 1;
     active_x = active_y = 0;
+    shell_set_active(0);
     pane_draw_no_prompt();
 }
 
 void pane_resize_width(int delta) {
+    if (!pane_enabled)
+        return;
     if (delta > 0 && grid_w < MAX_GRID) {
         grid_w++;
     } else if (delta < 0 && grid_w > 1) {
@@ -32,10 +38,13 @@ void pane_resize_width(int delta) {
         if (active_x >= grid_w)
             active_x = grid_w - 1;
     }
+    shell_set_active(active_y * grid_w + active_x);
     pane_draw();
 }
 
 void pane_resize_height(int delta) {
+    if (!pane_enabled)
+        return;
     if (delta > 0 && grid_h < MAX_GRID) {
         grid_h++;
     } else if (delta < 0 && grid_h > 1) {
@@ -43,30 +52,43 @@ void pane_resize_height(int delta) {
         if (active_y >= grid_h)
             active_y = grid_h - 1;
     }
+    shell_set_active(active_y * grid_w + active_x);
     pane_draw();
 }
 
 void pane_move_left(void) {
+    if (!pane_enabled)
+        return;
     if (active_x > 0)
         active_x--;
+    shell_set_active(active_y * grid_w + active_x);
     pane_draw();
 }
 
 void pane_move_right(void) {
+    if (!pane_enabled)
+        return;
     if (active_x + 1 < grid_w)
         active_x++;
+    shell_set_active(active_y * grid_w + active_x);
     pane_draw();
 }
 
 void pane_move_up(void) {
+    if (!pane_enabled)
+        return;
     if (active_y > 0)
         active_y--;
+    shell_set_active(active_y * grid_w + active_x);
     pane_draw();
 }
 
 void pane_move_down(void) {
+    if (!pane_enabled)
+        return;
     if (active_y + 1 < grid_h)
         active_y++;
+    shell_set_active(active_y * grid_w + active_x);
     pane_draw();
 }
 
@@ -155,3 +177,23 @@ void pane_draw(void) {
 void pane_draw_no_prompt(void) {
     pane_draw_internal(0);
 }
+
+void pane_exit(void) {
+    if (!pane_enabled)
+        return;
+    pane_enabled = 0;
+    console_clear();
+    shell_set_active(0);
+    shell_show_prompt();
+}
+
+int pane_is_active(void) {
+    return pane_enabled;
+}
+
+unsigned int pane_get_active_index(void) {
+    return active_y * grid_w + active_x;
+}
+
+unsigned int pane_get_grid_w(void) { return grid_w; }
+unsigned int pane_get_grid_h(void) { return grid_h; }
