@@ -43,11 +43,12 @@ void sched_add_task(struct task *t) {
 
 /* Yield control to the next task */
 void sched_yield(void) {
+    struct task *next;
     if (!current_task || !current_task->next)
-        current_task = task_list_head;
+        next = task_list_head;
     else
-        current_task = current_task->next;
-    context_switch(current_task);
+        next = current_task->next;
+    context_switch(next);
 }
 
 /* Begin round-robin task execution */
@@ -55,5 +56,5 @@ void sched_start(void) {
     if (!task_list_head)
         return;
     current_task = task_list_head;
-    context_switch(current_task);
+    context_switch(task_list_head);
 }
