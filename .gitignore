@@ -5,3 +5,4 @@ tests/fs_test
 tests/fs_list_test
 tests/fs_delete_test
 tests/acpi_xsdt_test
+tests/fs_rename_test

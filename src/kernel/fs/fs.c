@@ -80,3 +80,21 @@ int fs_delete(const char *name) {
     }
     return -1;
 }
+
+int fs_rename(const char *oldname, const char *newname) {
+    struct file *src = 0;
+    for (int i = 0; i < MAX_FILES; i++) {
+        if (files[i].used && strcmp(files[i].name, oldname) == 0) {
+            src = &files[i];
+        }
+        if (files[i].used && strcmp(files[i].name, newname) == 0) {
+            /* destination already exists */
+            return -1;
+        }
+    }
+    if (!src)
+        return -1;
+
+    copy_name(src->name, newname);
+    return 0;
+}

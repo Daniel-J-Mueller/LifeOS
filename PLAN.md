@@ -1,4 +1,4 @@
-- [ ] Add file renaming support to file system
+- [ ] Implement shell command for renaming files
 - [ ] Implement shell command for listing files
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
@@ -26,4 +26,3 @@
 - [ ] Persist command input when panes are redrawn
 - [ ] Add unit test for shell history navigation
 - [ ] Add unit test verifying console text persists after initialization
-- [ ] Document file renaming usage once implemented
