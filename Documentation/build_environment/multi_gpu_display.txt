@@ -35,3 +35,9 @@ graphics card with connected monitors. For example:
 
 Properly directing QEMU's GUI resolves most graphics issues when the
 host contains multiple GPUs.
+
+Verify GPU Enumeration
+---------------------
+Run the `info` command after booting LifeOS to confirm all display
+controllers are detected. Each GPU should appear in the PCI device list
+with the `Display` class name.

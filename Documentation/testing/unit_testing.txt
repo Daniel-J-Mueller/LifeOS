@@ -20,6 +20,14 @@ $ ./tests/inventory_test
 
 Successful execution prints no output and returns zero.
 
+A companion test, `tests/multi_gpu_inventory_test.c`, stubs two display controllers to ensure the inventory code handles hosts with multiple GPUs:
+``` 
+$ gcc -I src -DINVENTORY_TEST tests/multi_gpu_inventory_test.c \
+      src/kernel/inventory/inventory.c src/kernel/inventory/pci_classes.c -o tests/multi_gpu_inventory_test
+$ ./tests/multi_gpu_inventory_test
+```
+A zero exit status again indicates success.
+
 To verify the in-memory file system:
 
 ```
