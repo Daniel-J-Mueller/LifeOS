@@ -23,7 +23,7 @@
 - [ ] Add unit test verifying multiple GPU enumeration
 - [ ] Add unit test for ACPI table lookup
 - [x] Document ACPI table discovery improvements
-- [ ] Investigate boot-time blank screen when ACPI mapping expanded
+- [x] Investigate boot-time blank screen when ACPI mapping expanded
 - [ ] Validate ACPI table checksums for integrity
 - [ ] Map vendor IDs to names in info output
 - [ ] Document dynamic pane manager and key bindings
