@@ -16,7 +16,8 @@ QEMU.  It assumes the cross compiler and emulator have been installed with
 2. **Run in QEMU**
    Launch the image with:
    ```
-   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin -serial stdio
+   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
+     -serial mon:stdio
    ```
    QEMU will start the virtual machine and display console output in the
    terminal window. Use `Ctrl+A X` to exit when running in `-nographic` mode.
