@@ -37,7 +37,7 @@ start:
     mov eax, cr0
     or eax, 0x1
     mov cr0, eax
-    jmp CODE32_SEL:protected_mode + 0x7C00
+    jmp CODE32_SEL:protected_mode
 
 [BITS 32]
 protected_mode:
@@ -80,7 +80,7 @@ protected_mode:
     mov cr0, eax
 
     ; Jump to 64-bit mode
-    jmp CODE64_SEL:long_mode_start + 0x7C00
+    jmp CODE64_SEL:long_mode_start
 
 [BITS 64]
 long_mode_start:
@@ -153,18 +153,20 @@ load_msg  db 'Loading LifeOS kernel...', 0
 align 8
 gdt_start:
     dq 0x0000000000000000        ; null descriptor
+    dq 0x00CF9A000000FFFF        ; 32-bit code segment
+    dq 0x00CF92000000FFFF        ; 32-bit data segment
     dq 0x00AF9A000000FFFF        ; 64-bit code segment
     dq 0x00AF92000000FFFF        ; 64-bit data segment
 gdt_end:
 
 gdt_descriptor:
     dw gdt_end - gdt_start - 1
-    dd gdt_start + 0x7C00
+    dd gdt_start
 
 CODE32_SEL equ 0x08
 DATA32_SEL equ 0x10
-CODE64_SEL equ 0x08
-DATA64_SEL equ 0x10
+CODE64_SEL equ 0x18
+DATA64_SEL equ 0x20
 
 pml4   equ 0x8000
 pdpt   equ 0x9000

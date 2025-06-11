@@ -70,8 +70,11 @@ void acpi_init(void) {
 #ifdef ACPI_TEST
             (struct acpi_sdt_header *)(start + rsdp->rsdt_address);
 #else
-            (struct acpi_sdt_header *)(uintptr_t)rsdp->rsdt_address;
+            (rsdp->rsdt_address < 0x200000) ?
+                (struct acpi_sdt_header *)(uintptr_t)rsdp->rsdt_address : NULL;
 #endif
+        if (!rsdt)
+            break;
 
         if (rsdt->signature[0] != 'R' || rsdt->signature[1] != 'S' ||
             rsdt->signature[2] != 'D' || rsdt->signature[3] != 'T')
@@ -86,8 +89,11 @@ void acpi_init(void) {
 #ifdef ACPI_TEST
                 (struct acpi_sdt_header *)(start + addrs[i]);
 #else
-                (struct acpi_sdt_header *)(uintptr_t)addrs[i];
+                (addrs[i] < 0x200000) ?
+                    (struct acpi_sdt_header *)(uintptr_t)addrs[i] : NULL;
 #endif
+            if (!hdr)
+                continue;
             acpi_tables[acpi_table_count++] = hdr;
             if (hdr->signature[0]=='F' && hdr->signature[1]=='A' &&
                 hdr->signature[2]=='C' && hdr->signature[3]=='P') {
