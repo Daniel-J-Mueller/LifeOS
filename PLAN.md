@@ -7,6 +7,7 @@
 - [ ] Document enabling KVM acceleration for QEMU
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging
 - [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
+- [x] Initialize pane layout before other subsystems to keep boot messages visible
 - [ ] Expand physical allocator to support freeing pages
 - [ ] Introduce basic virtual memory paging
 - [ ] Expand scheduler to support task termination

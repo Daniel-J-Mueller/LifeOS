@@ -16,10 +16,10 @@
  */
 void kernel_init(void) {
     mm_init();
-    inventory_gather();
     console_init();
-    acpi_init();
     pane_init();
+    inventory_gather();
+    acpi_init();
     console_write("LifeOS initialized\n");
     shell_show_prompt();
     sched_init();
