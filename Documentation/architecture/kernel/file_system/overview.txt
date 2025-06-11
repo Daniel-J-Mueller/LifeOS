@@ -11,7 +11,7 @@ Design Goals
 - Provide a straightforward API so other subsystems can experiment with
   persistent objects before a real disk driver exists.
 - Avoid dynamic memory requirements by using static buffers.
-- Keep the interface small: create, open, read and write operations are
+- Keep the interface small: create, open, read, write and list operations are
   supported.
 
 Future work will extend this layer to handle directories, larger
