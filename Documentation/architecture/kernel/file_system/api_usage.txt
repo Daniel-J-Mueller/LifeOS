@@ -1,0 +1,37 @@
+File System API Usage
+=====================
+
+The in-memory file system exposes a straightforward interface defined in
+`src/kernel/fs/fs.h`. The routines allow other subsystems and unit tests
+to store small files without requiring a disk driver.
+
+Basic Workflow
+--------------
+
+* `fs_init()` prepares the static file table and should be called once at
+  boot.
+* `fs_create("name")` allocates a new file and returns a pointer to its
+  descriptor, or `0` if no slots remain.
+* `fs_write(file, data, len)` stores up to 4 KiB of content in the file
+  structure.
+* Existing files can be reopened with `fs_open("name")` which returns the
+  stored descriptor.
+* `fs_read(file, buf, len)` copies data out of a file.
+* `fs_list(array, max)` fills `array` with pointers to active files and
+  returns the number stored.
+* `fs_delete("name")` clears a file entry so its slot can be reused.
+
+Example
+-------
+
+```c
+fs_init();
+struct file *cfg = fs_create("config");
+fs_write(cfg, "hello", 5);
+
+struct file *opened = fs_open("config");
+char buf[6] = {0};
+fs_read(opened, buf, 5);
+```
+
+The programs under `tests/` demonstrate these calls in practice.
