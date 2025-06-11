@@ -38,6 +38,9 @@ the image under QEMU.
   -serial mon:stdio -enable-kvm
   ```
    Use `-enable-kvm` to leverage hardware virtualization for better performance.
+If QEMU does not display output when multiple GPUs are installed, see 
+`Documentation/build_environment/multi_gpu_display.txt` for troubleshooting.
+
 
 Implementation code lives under the `src` directory. The layout mirrors the OS
 components described in the architecture documentation:

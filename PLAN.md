@@ -2,8 +2,8 @@
 - [ ] Implement shell command for listing files
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
-- [ ] Document enabling KVM acceleration for QEMU
-- [ ] Document graphics setup for multi-GPU hosts running QEMU
+- [x] Document enabling KVM acceleration for QEMU
+- [x] Document graphics setup for multi-GPU hosts running QEMU
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging
 - [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
 - [ ] Expand physical allocator to support freeing pages
@@ -18,6 +18,7 @@
 - [ ] Add unit test for PCI class name mapping
 - [ ] Add unit test for info command PCI listing
 - [ ] Add unit test for PCI vendor and device ID capture
+- [ ] Add unit test verifying multiple GPU enumeration
 - [ ] Add unit test for ACPI table lookup
 - [ ] Document ACPI table discovery improvements
 - [ ] Map vendor IDs to names in info output
