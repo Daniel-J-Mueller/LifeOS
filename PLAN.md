@@ -1,4 +1,3 @@
-- [ ] Document file system API usage
 - [ ] Add file renaming support to file system
 - [ ] Implement shell command for listing files
 - [ ] Implement stub API for external intelligence hooks
@@ -26,3 +25,5 @@
 - [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn
 - [ ] Add unit test for shell history navigation
+- [ ] Investigate and fix VGA text mode blank screen after boot
+- [ ] Document file renaming usage once implemented
