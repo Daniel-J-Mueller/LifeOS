@@ -20,6 +20,22 @@ $ ./tests/inventory_test
 
 Successful execution prints no output and returns zero.
 
+To verify the in-memory file system:
+
+```
+$ gcc -I src tests/fs_test.c src/kernel/fs/fs.c src/lib/string.c -o tests/fs_test
+$ ./tests/fs_test
+
+$ gcc -I src tests/fs_list_test.c src/kernel/fs/fs.c src/lib/string.c -o tests/fs_list_test
+$ ./tests/fs_list_test
+
+$ gcc -I src tests/fs_delete_test.c src/kernel/fs/fs.c src/lib/string.c -o tests/fs_delete_test
+$ ./tests/fs_delete_test
+```
+
+Each command builds and runs a small program targeting a specific API. A zero
+exit status indicates success.
+
 To validate the ACPI parser stub and table discovery:
 
 ```
