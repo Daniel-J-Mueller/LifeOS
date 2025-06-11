@@ -6,6 +6,7 @@
 #include "syscall/syscall.h"
 #include "driver/driver.h"
 #include "../drivers/keyboard/keyboard.h"
+#include "console/shell.h"
 #include "hmi/pane.h"
 #include "acpi/acpi.h"
 
@@ -20,6 +21,7 @@ void kernel_init(void) {
     acpi_init();
     pane_init();
     console_write("LifeOS initialized\n");
+    shell_show_prompt();
     sched_init();
 
     /* Register built-in drivers */

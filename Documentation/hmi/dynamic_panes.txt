@@ -2,7 +2,9 @@ Dynamic Pane Manager
 ====================
 
 LifeOS is moving toward a more flexible text interface using a grid of
-"panes".  The screen initially starts as a single square.  Function keys
+"panes".  The screen initially starts as a single square with the shell
+prompt located at the bottom so output scrolls upward like a traditional
+terminal.  Function keys
 allow the operator to adjust the grid dimensions at run time:
 
 * **F2** – increase the number of pane columns.
