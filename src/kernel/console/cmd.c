@@ -3,7 +3,6 @@
 #include "../inventory/inventory.h"
 #include "../inventory/pci_classes.h"
 #include "../kernel.h"
-#include "../hmi/pane.h"
 
 static void show_help(void) {
     console_write("Available commands:\n");
@@ -50,22 +49,6 @@ void console_execute_command(const char *cmd) {
         kernel_shutdown();
     } else if (strcmp(cmd, "exit") == 0) {
         kernel_halt();
-    } else if (strcmp(cmd, "wider") == 0) {
-        pane_resize_width(1);
-    } else if (strcmp(cmd, "thinner") == 0) {
-        pane_resize_width(-1);
-    } else if (strcmp(cmd, "taller") == 0) {
-        pane_resize_height(1);
-    } else if (strcmp(cmd, "shorter") == 0) {
-        pane_resize_height(-1);
-    } else if (strcmp(cmd, "left") == 0) {
-        pane_move_left();
-    } else if (strcmp(cmd, "right") == 0) {
-        pane_move_right();
-    } else if (strcmp(cmd, "up") == 0) {
-        pane_move_up();
-    } else if (strcmp(cmd, "down") == 0) {
-        pane_move_down();
     } else if (cmd[0] != '\0') {
         console_write("Unknown command\n");
     }

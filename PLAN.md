@@ -24,9 +24,7 @@
 - [ ] Add unit test for ACPI table lookup
 - [ ] Document ACPI table discovery improvements
 - [ ] Map vendor IDs to names in info output
-- [x] Document dynamic pane manager and key bindings
-- [ ] Add F5-F8 key bindings and pane commands
-- [ ] Store console output separately for each pane
+- [ ] Document dynamic pane manager and key bindings
 - [ ] Start with a single pane showing the shell prompt
 - [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn

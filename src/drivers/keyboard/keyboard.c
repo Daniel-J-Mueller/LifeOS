@@ -50,10 +50,6 @@ char keyboard_read_char(void) {
     case 0x3C: return KEY_F2;
     case 0x3D: return KEY_F3;
     case 0x3E: return KEY_F4;
-    case 0x3F: return KEY_F5;
-    case 0x40: return KEY_F6;
-    case 0x41: return KEY_F7;
-    case 0x42: return KEY_F8;
     case 0x1D: return KEY_CTRL;
     case 0x38: return KEY_ALT_R; /* treat left alt same as right for now */
     default:
