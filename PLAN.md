@@ -25,6 +25,7 @@
 - [ ] Document ACPI table discovery improvements
 - [ ] Map vendor IDs to names in info output
 - [ ] Document dynamic pane manager and key bindings
+- [ ] Add 'gui' shell command for pane mode with 5x5 limit
 - [ ] Start with a single pane showing the shell prompt
 - [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn

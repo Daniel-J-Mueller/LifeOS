@@ -10,5 +10,10 @@ void pane_move_up(void);
 void pane_move_down(void);
 void pane_draw(void);
 void pane_draw_no_prompt(void);
+void pane_exit(void);
+int pane_is_active(void);
+unsigned int pane_get_active_index(void);
+unsigned int pane_get_grid_w(void);
+unsigned int pane_get_grid_h(void);
 
 #endif /* PANE_H */
