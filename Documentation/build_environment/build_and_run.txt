@@ -19,8 +19,15 @@ QEMU.  It assumes the cross compiler and emulator have been installed with
    qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
      -serial mon:stdio
    ```
-   QEMU will start the virtual machine and display console output in the
-   terminal window. Use `Ctrl+A X` to exit when running in `-nographic` mode.
+   By default QEMU opens a graphical window that mirrors the VGA text
+   buffer. If your environment lacks a display server, specify a
+   different output method:
+   ```
+   qemu-system-x86_64 -drive format=raw,file=build/os-image.bin \
+     -serial mon:stdio -display curses
+   ```
+   This keeps the console visible in the terminal. Use `Ctrl+A X` to exit
+   when running in `-nographic` or `-display curses` modes.
 
 These commands provide a simple workflow on Ubuntu for testing the current
 LifeOS prototype. A more sophisticated build system may replace the script in
