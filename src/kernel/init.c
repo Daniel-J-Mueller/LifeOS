@@ -16,6 +16,7 @@ void kernel_init(void) {
     mm_init();
     inventory_gather();
     console_init();
+    console_draw_quadrants();
     acpi_init();
     console_write("LifeOS initialized\n");
     sched_init();

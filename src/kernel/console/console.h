@@ -23,5 +23,6 @@ void console_execute_command(const char *cmd);
 /* Retrieve or set the cursor position */
 void console_get_cursor(uint8_t *x, uint8_t *y);
 void console_set_cursor(uint8_t x, uint8_t y);
+void console_draw_quadrants(void);
 
 #endif /* CONSOLE_H */
