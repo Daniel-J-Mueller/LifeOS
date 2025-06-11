@@ -13,5 +13,6 @@ with QEMU.  The `acpi_get_fadt()` accessor returns the parsed FADT while
 
 The bootloader now maps the first gigabyte of physical memory so ACPI
 tables located above the 2 MiB mark are accessible early in kernel
-startup.  When a table is discovered the parser prints its address and
-key fields for debugging over the serial console.
+startup.  The parser accepts any table address below 0x40000000 and
+prints the location and key fields for debugging over the serial
+console.
