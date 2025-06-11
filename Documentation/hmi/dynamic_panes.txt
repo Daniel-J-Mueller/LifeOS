@@ -20,6 +20,7 @@ down respectively.
 When a pane becomes active it expands to roughly half of the display
 area.  Remaining panes share the leftover space so the entire screen is
 always filled.  Earlier revisions used plain ASCII characters for the
-grid.  The layout now draws box line characters from code page 437 so the
-dividers appear as real lines.  After any resize or focus change the
-command prompt is redisplayed in the active pane.
+grid.  The layout now draws double-width box line characters from code
+page 437.  These render as two pixel thick white lines so the dividers
+stand out clearly.  After any resize or focus change the command prompt
+is redisplayed in the active pane.

@@ -18,6 +18,12 @@ static uint8_t cursor_x = 0;
 static uint8_t cursor_y = 0;
 static uint8_t vga_color = (COLOR_BLACK << 4) | COLOR_LIGHT_GREY;
 
+void console_set_color(uint8_t fg, uint8_t bg) {
+    vga_color = (bg << 4) | (fg & 0x0F);
+}
+
+uint8_t console_get_color(void) { return vga_color; }
+
 /* Simple ring buffer for keyboard input */
 #define INPUT_BUF_SIZE 128
 static char input_buf[INPUT_BUF_SIZE];
