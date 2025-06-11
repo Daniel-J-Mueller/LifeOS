@@ -180,19 +180,13 @@ void console_poll_input(void) {
         break;
     }
 
-    if (c == '\b') {
-        if (input_head != input_tail) {
-            if (input_head == 0)
-                input_head = INPUT_BUF_SIZE - 1;
-            else
-                input_head--;
-        }
-    } else {
-        unsigned int next_head = (input_head + 1) % INPUT_BUF_SIZE;
-        if (next_head != input_tail) {
-            input_buf[input_head] = c;
-            input_head = next_head;
-        }
+    if (c == '\b' || c == 0x7F)
+        c = '\b';
+
+    unsigned int next_head = (input_head + 1) % INPUT_BUF_SIZE;
+    if (next_head != input_tail) {
+        input_buf[input_head] = c;
+        input_head = next_head;
     }
 }
 

@@ -26,4 +26,5 @@
 - [ ] Remove demo task output loop
 - [ ] Persist command input when panes are redrawn
 - [ ] Add unit test for shell history navigation
+- [ ] Add unit test for backspace character handling in console input
 - [ ] Add unit test verifying console text persists after initialization
