@@ -1,4 +1,7 @@
-- [ ] Begin design of a simple file system layer
+- [x] Begin design of a simple file system layer
+- [ ] Add file listing support to file system
+- [ ] Integrate fs_init into kernel initialization
+- [ ] Document file system API usage
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging

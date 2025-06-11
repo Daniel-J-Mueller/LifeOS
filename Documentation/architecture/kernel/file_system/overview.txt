@@ -1,0 +1,18 @@
+Simple File System Layer
+=======================
+
+LifeOS now includes a minimal in-memory file system used for early
+development and testing. The implementation keeps a fixed array of
+files that are stored entirely in RAM. Each file is limited to 4 KiB of
+contents and identified by a short name.
+
+Design Goals
+------------
+- Provide a straightforward API so other subsystems can experiment with
+  persistent objects before a real disk driver exists.
+- Avoid dynamic memory requirements by using static buffers.
+- Keep the interface small: create, open, read and write operations are
+  supported.
+
+Future work will extend this layer to handle directories, larger
+storage and integration with the virtual memory system.
