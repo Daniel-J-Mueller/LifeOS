@@ -145,3 +145,18 @@ char console_getc(void) {
     input_tail = (input_tail + 1) % INPUT_BUF_SIZE;
     return c;
 }
+
+void console_get_cursor(uint8_t *x, uint8_t *y) {
+    if (x)
+        *x = cursor_x;
+    if (y)
+        *y = cursor_y;
+}
+
+void console_set_cursor(uint8_t x, uint8_t y) {
+    if (x < VGA_COLS)
+        cursor_x = x;
+    if (y < VGA_ROWS)
+        cursor_y = y;
+    update_cursor();
+}
