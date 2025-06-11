@@ -20,7 +20,8 @@ Each stage is executed in sequence with the goal of bringing the system to an op
    - Drivers report discovered devices so the OS knows what resources are present.
    - Results are stored for later use by higher level subsystems and logging.
 5. **Driver and service initialization**
-   - The ACPI parser scans memory for the RSDP and enumerates tables.
+   - The ACPI parser searches the EBDA and BIOS regions for the RSDP and
+     enumerates either the RSDT or XSDT depending on firmware revision.
    - Power management registers are recorded and defaults are provided when tables are missing.
    - Built-in drivers are registered and brought online.
 6. **Interface initialization**

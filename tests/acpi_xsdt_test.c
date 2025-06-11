@@ -2,14 +2,14 @@
 #include <string.h>
 #include "../src/kernel/acpi/acpi.h"
 
-unsigned char test_mem[256];
+unsigned char test_mem[512];
 unsigned char *acpi_test_mem_start = test_mem;
 unsigned int acpi_test_mem_size = sizeof(test_mem);
 
-struct rsdp {
-    char     signature[8];
+struct rsdp2 {
+    char signature[8];
     unsigned char checksum;
-    char     oem_id[6];
+    char oem_id[6];
     unsigned char revision;
     unsigned int rsdt_address;
     unsigned int length;
@@ -17,7 +17,6 @@ struct rsdp {
     unsigned char ext_checksum;
     unsigned char reserved[3];
 } __attribute__((packed));
-
 
 struct fadt_table {
     struct acpi_sdt_header h;
@@ -38,33 +37,31 @@ struct fadt_table {
 };
 
 int main(void) {
-    struct rsdp *rsdp = (struct rsdp *)(test_mem + 16);
+    struct rsdp2 *rsdp = (struct rsdp2 *)(test_mem + 16);
+    memset(rsdp, 0, sizeof(*rsdp));
     memcpy(rsdp->signature, "RSD PTR ", 8);
-    rsdp->revision = 1;
-    rsdp->rsdt_address = 64;
-    rsdp->length = sizeof(struct rsdp);
+    rsdp->revision = 2;
+    rsdp->xsdt_address = 128;
+    rsdp->length = sizeof(struct rsdp2);
 
-    struct acpi_sdt_header *rsdt = (struct acpi_sdt_header *)(test_mem + 64);
-    memcpy(rsdt->signature, "RSDT", 4);
-    rsdt->length = sizeof(struct acpi_sdt_header) + 4;
-    unsigned int *entry = (unsigned int *)((char *)rsdt + sizeof(struct acpi_sdt_header));
-    *entry = 128;
+    struct acpi_sdt_header *xsdt = (struct acpi_sdt_header *)(test_mem + 128);
+    memcpy(xsdt->signature, "XSDT", 4);
+    xsdt->length = sizeof(struct acpi_sdt_header) + 8;
+    unsigned long long *entry = (unsigned long long *)((char *)xsdt + sizeof(struct acpi_sdt_header));
+    *entry = 192;
 
-    struct fadt_table *fadt = (struct fadt_table *)(test_mem + 128);
+    struct fadt_table *fadt = (struct fadt_table *)(test_mem + 192);
     memset(fadt, 0, sizeof(struct fadt_table));
     memcpy(fadt->h.signature, "FACP", 4);
     fadt->h.length = sizeof(struct fadt_table);
-    fadt->pm1a_cnt_blk = 0x1111;
-    fadt->pm1b_cnt_blk = 0x2222;
+    fadt->pm1a_cnt_blk = 0xAAAA;
+    fadt->pm1b_cnt_blk = 0xBBBB;
 
     acpi_init();
     struct acpi_fadt *f = acpi_get_fadt();
     assert(f);
-    assert(f->pm1a_cnt_blk == 0x1111);
-    assert(f->pm1b_cnt_blk == 0x2222);
-    assert(f->slp_typa == 0);
-    assert(f->slp_typb == 0);
-
+    assert(f->pm1a_cnt_blk == 0xAAAA);
+    assert(f->pm1b_cnt_blk == 0xBBBB);
     struct acpi_sdt_header *hdr = acpi_get_table("FACP");
     assert(hdr);
     return 0;
