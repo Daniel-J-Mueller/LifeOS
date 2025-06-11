@@ -99,14 +99,14 @@ void acpi_init(void) {
             sdt = (struct acpi_sdt_header *)(start + rsdp->rsdt_address);
 #else
         /*
-         * The bootloader identity maps the first gigabyte so tables can
+ * The bootloader identity maps the first two gigabytes so tables can
          * reside above the traditional 1 MiB boundary.  Accept any address
-         * below 0x40000000 which keeps the parser simple while covering the
+ * below 0x80000000 which keeps the parser simple while covering the
          * mapped region.
          */
-        if (use_xsdt && rsdp->xsdt_address < 0x40000000)
+        if (use_xsdt && rsdp->xsdt_address < 0x80000000)
             sdt = (struct acpi_sdt_header *)(uintptr_t)rsdp->xsdt_address;
-        else if (!use_xsdt && rsdp->rsdt_address < 0x40000000)
+        else if (!use_xsdt && rsdp->rsdt_address < 0x80000000)
             sdt = (struct acpi_sdt_header *)(uintptr_t)rsdp->rsdt_address;
 #endif
         if (sdt) {
@@ -131,8 +131,8 @@ void acpi_init(void) {
 #ifdef ACPI_TEST
                 hdr = (struct acpi_sdt_header *)(start + addr);
 #else
-                /* Allow tables anywhere within the 1 GiB region mapped by the bootloader */
-                hdr = (addr < 0x40000000) ? (struct acpi_sdt_header *)addr : NULL;
+                /* Allow tables anywhere within the 2 GiB region mapped by the bootloader */
+                hdr = (addr < 0x80000000) ? (struct acpi_sdt_header *)addr : NULL;
 #endif
                 if (!hdr)
                     continue;
