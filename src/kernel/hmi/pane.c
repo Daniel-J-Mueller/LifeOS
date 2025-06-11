@@ -21,7 +21,7 @@ static unsigned int active_y = 0;
 void pane_init(void) {
     grid_w = grid_h = 1;
     active_x = active_y = 0;
-    pane_draw();
+    pane_draw_no_prompt();
 }
 
 void pane_resize_width(int delta) {
@@ -106,7 +106,7 @@ static void compute_layout(unsigned int widths[], unsigned int heights[]) {
     heights[grid_h - 1] += VGA_ROWS - sum;
 }
 
-void pane_draw(void) {
+static void pane_draw_internal(int show_prompt) {
     console_clear();
 
     unsigned int widths[MAX_GRID];
@@ -144,5 +144,14 @@ void pane_draw(void) {
         }
 
     console_set_cursor(xpos[active_x] + 1, ypos[active_y] + 1);
-    shell_show_prompt();
+    if (show_prompt)
+        shell_show_prompt();
+}
+
+void pane_draw(void) {
+    pane_draw_internal(1);
+}
+
+void pane_draw_no_prompt(void) {
+    pane_draw_internal(0);
 }
