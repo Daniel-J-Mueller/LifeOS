@@ -7,6 +7,7 @@
 - [x] Integrate ACPI shutdown using parsed FADT values
 - [x] Expand ACPI parser to locate the RSDP and FADT in memory
 - [x] Parse the RSDT to discover additional ACPI tables
+- [x] Fix scheduler initial context switch bug to enable tasks
 - [ ] Begin design of a simple file system layer
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration

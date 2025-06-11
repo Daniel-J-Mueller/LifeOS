@@ -7,6 +7,7 @@ extern void context_switch(struct task *next);
 static struct task *task_list_head = 0;
 static struct task *task_list_tail = 0;
 struct task *current_task = 0;
+static struct task bootstrap_task;
 
 /* Initialize scheduler structures */
 void sched_init(void) {
@@ -55,6 +56,15 @@ void sched_yield(void) {
 void sched_start(void) {
     if (!task_list_head)
         return;
-    current_task = task_list_head;
+
+    /*
+     * Treat the initial execution context as a temporary bootstrap
+     * task so the first context_switch correctly saves the stack
+     * pointer of this startup thread.
+     */
+    bootstrap_task.next = task_list_head;
+    bootstrap_task.sp   = 0; /* filled by context_switch */
+    current_task = &bootstrap_task;
+
     context_switch(task_list_head);
 }
