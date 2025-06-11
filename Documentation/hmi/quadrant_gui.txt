@@ -1,10 +1,10 @@
 Quadrant GUI Layout
 ===================
 
-LifeOS now divides the text screen into four quadrants. A vertical
-and a horizontal line intersect at the center to provide a simple
-grid using line drawing characters. The bottom left quadrant hosts the
-console interface. After
-initialisation the cursor is placed here and commands such as `help`,
-`info` and `clear` operate as before. Other quadrants are reserved
-for future status displays.
+After issuing the `gui start` command the text screen divides into
+four quadrants. A vertical and a horizontal line intersect at the
+center to provide a simple grid using line drawing characters. The
+bottom left quadrant hosts the console interface. After initialisation
+the cursor is placed here and commands such as `help`, `info` and
+`clear` operate as before. Other quadrants are reserved for future
+status displays.

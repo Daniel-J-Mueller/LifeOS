@@ -17,11 +17,31 @@ static unsigned int grid_w = 1;
 static unsigned int grid_h = 1;
 static unsigned int active_x = 0;
 static unsigned int active_y = 0;
+static int gui_active = 0;
 
 void pane_init(void) {
     grid_w = grid_h = 1;
     active_x = active_y = 0;
     pane_draw_no_prompt();
+}
+
+void pane_gui_start(void) {
+    if (gui_active)
+        return;
+    gui_active = 1;
+    grid_w = grid_h = 2;
+    active_x = 0;
+    active_y = 1;
+    pane_draw();
+}
+
+void pane_gui_stop(void) {
+    if (!gui_active)
+        return;
+    gui_active = 0;
+    grid_w = grid_h = 1;
+    active_x = active_y = 0;
+    pane_draw();
 }
 
 void pane_resize_width(int delta) {

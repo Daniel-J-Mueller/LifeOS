@@ -8,9 +8,9 @@ higher level components present information to human operators.
 Planned Design
 --------------
 
-After boot the screen is divided into four quadrants with simple
-text lines. The console occupies the lower left section and retains
-full command functionality. Other areas are currently unused but give
-a foundation for future status widgets. This lightweight layout
-avoids a traditional window manager while still providing room for
-graphical output.
+LifeOS boots directly to a full screen terminal. The operator can
+type `gui start` at the prompt to redraw the display into a four
+quadrant layout. The console remains in the lower left quadrant while
+the other sections provide space for future widgets. This lightweight
+interface avoids a traditional window manager yet still reserves room
+for graphical output.

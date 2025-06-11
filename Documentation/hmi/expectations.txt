@@ -11,6 +11,7 @@ capabilities:
 - Previous commands can be recalled using the up/down arrow keys.
 - The left and right arrow keys move the cursor for basic in-line editing.
 - Minimal visual clutter with focus on status information.
+- Typing `gui start` enters a quadrant layout for future widgets.
 
 As additional devices and graphical interfaces are introduced,
 this document will expand to cover their behavior and configuration.
