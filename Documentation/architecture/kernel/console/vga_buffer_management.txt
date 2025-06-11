@@ -1,0 +1,7 @@
+The VGA text buffer resides at physical address 0xB8000. Early revisions
+of the console used a normal pointer to access this memory. Under certain
+compiler optimizations the buffer contents were cached in registers which
+caused the visible screen to blank shortly after boot when the data was
+not immediately written back. The pointer is now declared `volatile` so
+all writes go directly to the emulated hardware. This keeps text stable
+when running under QEMU.
