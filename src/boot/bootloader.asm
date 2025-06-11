@@ -45,7 +45,7 @@ protected_mode:
     mov ss, ax
     mov esp, 0x7C00
 
-    ; Build identity mapped paging structures for first 2 MiB
+    ; Build identity mapped paging structures for first 1 GiB
     mov eax, pdpt
     or eax, 0x03
     mov [pml4], eax
@@ -54,8 +54,16 @@ protected_mode:
     or eax, 0x03
     mov [pdpt], eax
     mov dword [pdpt+4], 0
-    mov dword [pd], 0x00000083
-    mov dword [pd+4], 0
+    xor ecx, ecx
+setup_pd:
+    mov eax, ecx
+    shl eax, 21
+    or eax, 0x83
+    mov [pd + ecx*8], eax
+    mov dword [pd + ecx*8 + 4], 0
+    inc ecx
+    cmp ecx, 512
+    jne setup_pd
 
     ; Load paging structures
     mov eax, pml4

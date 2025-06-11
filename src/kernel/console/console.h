@@ -10,6 +10,8 @@ void console_write(const char *s);
 void console_write_dec(unsigned long value);
 void console_write_hex8(uint8_t value);
 void console_write_hex16(uint16_t value);
+void console_write_hex32(uint32_t value);
+void console_write_hex64(uint64_t value);
 
 /* Poll keyboard driver and queue any typed characters */
 void console_poll_input(void);
