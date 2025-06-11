@@ -1,11 +1,17 @@
 #include "pane.h"
 #include "../console/console.h"
+#include "../console/shell.h"
 #include <stdint.h>
 
 #define VGA_COLS 80
 #define VGA_ROWS 25
 
 #define MAX_GRID 4
+
+/* Box drawing characters from code page 437 */
+#define LINE_VERT  ((char)0xB3)
+#define LINE_HORZ  ((char)0xC4)
+#define LINE_CROSS ((char)0xC5)
 
 static unsigned int grid_w = 1;
 static unsigned int grid_h = 1;
@@ -120,7 +126,7 @@ void pane_draw(void) {
         unsigned int x = xpos[i];
         for (unsigned int y = 0; y < VGA_ROWS; ++y) {
             console_set_cursor(x, y);
-            console_putc('|');
+            console_putc(LINE_VERT);
         }
     }
 
@@ -128,14 +134,15 @@ void pane_draw(void) {
         unsigned int y = ypos[j];
         console_set_cursor(0, y);
         for (unsigned int x = 0; x < VGA_COLS; ++x)
-            console_putc('-');
+            console_putc(LINE_HORZ);
     }
 
     for (unsigned int i = 1; i < grid_w; ++i)
         for (unsigned int j = 1; j < grid_h; ++j) {
             console_set_cursor(xpos[i], ypos[j]);
-            console_putc('+');
+            console_putc(LINE_CROSS);
         }
 
     console_set_cursor(xpos[active_x] + 1, ypos[active_y] + 1);
+    shell_show_prompt();
 }
