@@ -11,7 +11,7 @@ apt-get update
 # Core build tools (gcc/g++)
 apt-get install -y --no-install-recommends build-essential
 
-# QEMU for running x86 binaries (optional)
-apt-get install -y --no-install-recommends qemu-system-x86
+# QEMU and KVM for running x86 binaries
+apt-get install -y --no-install-recommends qemu-system-x86 qemu-kvm
 
 echo "Toolchain installation complete."
