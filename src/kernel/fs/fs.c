@@ -69,3 +69,14 @@ int fs_list(struct file **list, unsigned int max) {
     }
     return (int)count;
 }
+
+int fs_delete(const char *name) {
+    for (int i = 0; i < MAX_FILES; i++) {
+        if (files[i].used && strcmp(files[i].name, name) == 0) {
+            files[i].used = 0;
+            files[i].size = 0;
+            return 0;
+        }
+    }
+    return -1;
+}

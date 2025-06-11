@@ -1,14 +1,11 @@
-- [x] Begin design of a simple file system layer
-- [x] Add file listing support to file system
-- [ ] Add file deletion support to file system
 - [ ] Integrate fs_init into kernel initialization
 - [ ] Document file system API usage
+- [ ] Add file renaming support to file system
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
 - [ ] Document enabling KVM acceleration for QEMU
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging
 - [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
-- [x] Initialize pane layout before other subsystems to keep boot messages visible
 - [ ] Expand physical allocator to support freeing pages
 - [ ] Introduce basic virtual memory paging
 - [ ] Expand scheduler to support task termination
@@ -22,7 +19,6 @@
 - [ ] Add unit test for info command PCI listing
 - [ ] Add unit test for PCI vendor and device ID capture
 - [ ] Add unit test for ACPI table lookup
-- [x] Enhance ACPI parser to use EBDA and XSDT when available
 - [ ] Document ACPI table discovery improvements
 - [ ] Map vendor IDs to names in info output
 - [ ] Document dynamic pane manager and key bindings
