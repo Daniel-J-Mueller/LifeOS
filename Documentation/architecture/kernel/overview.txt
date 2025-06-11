@@ -6,6 +6,7 @@ The kernel coordinates all core services of LifeOS. Subdirectories describe its 
 - `memory_management` — allocates and maps system memory.
 - `scheduler` — chooses which tasks execute and when.
 - `driver_model` — standard interface for hardware drivers.
+- `file_system` — simple in-memory file storage used during early development.
 - `compute_inventory` — records hardware capabilities discovered at boot.
 - `console` — minimal text interface used for diagnostics and user input.
 - `system_calls` — gateway for user tasks to request kernel services.

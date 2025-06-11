@@ -1,0 +1,10 @@
+File System Initialization
+=========================
+
+The kernel calls `fs_init` early in `kernel_init` to prepare the in-memory
+storage layer. The routine zeroes the static array of file descriptors so
+subsystems can safely create and open files once the console and other
+services are ready.
+
+Future revisions may expand this step to mount persistent storage devices
+and populate the file hierarchy.

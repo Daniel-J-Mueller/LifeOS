@@ -7,6 +7,7 @@
 #include "driver/driver.h"
 #include "../drivers/keyboard/keyboard.h"
 #include "console/shell.h"
+#include "fs/fs.h"
 #include "hmi/pane.h"
 #include "acpi/acpi.h"
 
@@ -18,6 +19,7 @@ void kernel_init(void) {
     mm_init();
     console_init();
     pane_init();
+    fs_init();
     inventory_gather();
     acpi_init();
     console_write("LifeOS initialized\n");

@@ -1,6 +1,6 @@
-- [ ] Integrate fs_init into kernel initialization
 - [ ] Document file system API usage
 - [ ] Add file renaming support to file system
+- [ ] Implement shell command for listing files
 - [ ] Implement stub API for external intelligence hooks
 - [ ] Provide example host tool for serial command integration
 - [ ] Document enabling KVM acceleration for QEMU
