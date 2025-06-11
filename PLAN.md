@@ -6,6 +6,8 @@
 - [x] Document graphics setup for multi-GPU hosts running QEMU
 - [ ] Mirror kernel and bootloader output to serial port for headless debugging
 - [ ] Eliminate bootloader filler messages and set VGA base to prevent blank screen
+- [x] Adjust bootloader to load entire kernel image
+- [ ] Automate bootloader sector count via build script
 - [ ] Expand physical allocator to support freeing pages
 - [ ] Introduce basic virtual memory paging
 - [ ] Expand scheduler to support task termination
