@@ -20,6 +20,8 @@ Basic Workflow
 * `fs_list(array, max)` fills `array` with pointers to active files and
   returns the number stored.
 * `fs_delete("name")` clears a file entry so its slot can be reused.
+* `fs_rename("old", "new")` changes the identifier of an existing file if
+  the new name is unused.
 
 Example
 -------
@@ -32,6 +34,7 @@ fs_write(cfg, "hello", 5);
 struct file *opened = fs_open("config");
 char buf[6] = {0};
 fs_read(opened, buf, 5);
+fs_rename("config", "cfg");
 ```
 
 The programs under `tests/` demonstrate these calls in practice.
