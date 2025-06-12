@@ -29,6 +29,8 @@ $GCC $CFLAGS -c src/kernel/driver/driver.c -o build/driver.o
 $GCC $CFLAGS -c src/kernel/syscall/syscall.c -o build/syscall.o
 $GCC $CFLAGS -c src/drivers/keyboard/keyboard.c -o build/keyboard.o
 $GCC $CFLAGS -c src/kernel/hmi/pane.c -o build/pane.o
+$GCC $CFLAGS -c src/gui/framebuffer.c -o build/framebuffer.o
+$GCC $CFLAGS -c src/gui/gui.c -o build/gui.o
 nasm -f elf64 src/kernel/sched/context_switch.asm -o build/context_switch.o
 
 # Link kernel binary
@@ -36,6 +38,7 @@ nasm -f elf64 src/kernel/sched/context_switch.asm -o build/context_switch.o
 $LD -m elf_x86_64 -nostdlib -T src/kernel/linker.ld \
     build/entry.o build/init.o build/main.o \
     build/mm.o build/fs.o build/console.o build/shell.o build/cmd.o build/power.o build/acpi.o build/string.o build/inventory.o build/pci_classes.o build/sched.o build/driver.o build/syscall.o build/keyboard.o build/pane.o build/context_switch.o \
+    build/framebuffer.o build/gui.o \
     -o build/kernel.bin
 
 # Determine number of sectors the bootloader must load

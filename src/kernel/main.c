@@ -4,10 +4,10 @@
 #include "sched/sched.h"
 #include "console/shell.h"
 #include "syscall/syscall.h"
+#include "../gui/gui.h"
 
 static void idle_task(void) {
     for (;;) {
-        console_poll_input();
         sched_yield();
     }
 }
@@ -22,9 +22,10 @@ void kmain(void) {
     kernel_init();
     struct task *idle = sched_create_task(idle_task);
     sched_add_task(idle);
-
     struct task *shell = sched_create_task(shell_task);
     sched_add_task(shell);
+    struct task *gui = sched_create_task(gui_task);
+    sched_add_task(gui);
 
     sched_start();
 }
