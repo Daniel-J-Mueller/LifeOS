@@ -9,6 +9,7 @@
 #include "console/shell.h"
 #include "fs/fs.h"
 #include "hmi/pane.h"
+#include "../gui/gui.h"
 #include "acpi/acpi.h"
 
 /*
@@ -19,6 +20,7 @@ void kernel_init(void) {
     mm_init();
     console_init();
     pane_init();
+    gui_init();
     fs_init();
     inventory_gather();
     acpi_init();
